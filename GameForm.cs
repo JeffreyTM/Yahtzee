@@ -13,43 +13,45 @@ using System.IO;
 namespace Yahtzee
 {
 
-    public partial class GameWindow : Form
+    //  Maybe make another class -
+    //  GameData(string ID, string dateTime, Dict<int,int> timesRolled, Dict<int,int> turnsHeld, Scoring[] scorecard
+
+    public partial class GameForm : Form
     {
 
-        public GameWindow()
+        public GameForm()
         {
             InitializeComponent();
         }
 
-        Dictionary<string, bool> scorecard = new Dictionary<string, bool>();
+        /*
+         * GLOBAL VARIABLES
+         */
+
+        //  allDice: Array that stores 5 DiceBlock objects: One for each rollable dice block in Yahtzee
+        //  turn: Used to determine which turn the user is currently on. Yahtzee allows three turns (rolls) per round
+        //  totalScore: Total of all of the scores that the user receives
         DiceBlock[] allDice = new DiceBlock[5];
+        Scoring[] scorecard = new Scoring[14];
+        string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
+                                "Three of a Kind" , "Four of a Kind", "Full House",
+                                "Small Straight", "Large Straight", "Yahtzee", "Chance", "Total"};
+
+        int turn = 1;
+
+        /*
+         * These global variables will be specifically used to store data to files that can be accessed in StatsWindow
+         *      
+         * turnsHeld: Stores each possible dice value as a key, value is the amount of turns the user has held the keyed dice roll
+         * timesRolled: Stores each possible roll as a key, value is the amount of times the user has rolled the keyed dice roll
+         *  - Note: timesRolled doesn't store the same roll multiple times if the user holds the dice block 
+         * logTime: Gets the date and time of the start of the each game
+         */
         Dictionary<int, int> turnsHeld = new Dictionary<int, int>();
         Dictionary<int, int> timesRolled = new Dictionary<int, int>();
-        int turn = 1;
-        int totalScore = 0;
-        string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
-                                "Three of a kind" , "Four of a Kind", "Full House",
-                                "Small Straight", "Large Straight", "Yahtzee"};
+        string logTime = DateTime.Now.ToString();
 
-        private void GameWindow_Load(object sender, EventArgs e)
-        {
-            for (int i = 0; i < 5; i++)
-                allDice[i] = new DiceBlock(0, false);
-
-            foreach (string score in scoreTypes)
-                scorecard.Add(score, false);
-
-            for (int i = 1; i <= 6; i++)
-            {
-                turnsHeld.Add(i, 0);
-                timesRolled.Add(i, 0);
-            }
-
-            
-
-        }
-
-        public class DiceBlock //Constructor: DiceBlock(int faceValue, bool isHeld)
+        public class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
         {
             private int diceValue;
             private bool isHeld;
@@ -71,9 +73,57 @@ namespace Yahtzee
                 get { return this.isHeld; }
                 set { this.isHeld = value; }
             }
-
         }
 
+        public class Scoring
+        {
+            private string scoreName;
+            private bool isScored;
+            private int scoreValue;
+
+            public Scoring(string scoreName, bool isScored, int scoreValue)
+            {
+                this.scoreName = scoreName;
+                this.isScored = isScored;
+                this.scoreValue = scoreValue;
+            }
+
+            public string ScoreName
+            {
+                get { return this.scoreName; }
+                set { this.scoreName = value; }
+            }
+
+            public bool IsScored
+            {
+                get { return this.isScored; }
+                set { this.isScored = value; }
+            }
+
+            public int ScoreValue
+            {
+                get { return this.scoreValue; }
+                set { this.scoreValue = value; }
+            }
+        }
+
+        private void GameWindow_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < allDice.Length; i++)
+                allDice[i] = new DiceBlock(0, false);
+
+            for (int i = 0; i < scorecard.Length; i++)
+                scorecard[i] = new Scoring(scoreTypes[i], false, 0);
+
+            // Set the isScored value of the last value in scorecard (the total) to true
+            scorecard[scorecard.Length - 1].IsScored = true;
+
+            for (int i = 1; i <= 6; i++)
+            {
+                turnsHeld.Add(i, 0);
+                timesRolled.Add(i, 0);
+            }
+        }
 
         private void rollButton_Click(object sender, EventArgs e)
         {
@@ -84,16 +134,16 @@ namespace Yahtzee
                                      Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            Random rand = new Random();
-            listBox1.Items.Clear();
+            
             if (turn < 3)
-                roundLabel.Text = "Turn " + turn + " of 3. Choose a category to score or " +
-                    "choose which blocks you would like to hold and roll again.";
+                roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
+                                                    "or choose a category to score.";
             else
                 roundLabel.Text = "Turn " + turn + " of 3. Choose which category you would like to score.";
-            
 
+            
+            Random rand = new Random();
+            listBox1.Items.Clear();
 
             for (int i = 0; i < allDice.Length; i++)
             {
@@ -124,6 +174,7 @@ namespace Yahtzee
 
             }
             SetDiceImage(allDice);
+            DisplayAllScores();
             turn++;
 
 
@@ -144,10 +195,7 @@ namespace Yahtzee
         }
 
 
-        
-
-        //Use method to display all roll values, inside method, check to see if value is already scored
-
+       
         public void SetDiceImage(DiceBlock[] allDice)
         {
             PictureBox[] dicePics = { dicePictureBox1, dicePictureBox2, dicePictureBox3, dicePictureBox4, dicePictureBox5 };
@@ -222,6 +270,7 @@ namespace Yahtzee
             }
 
             SetDiceImage(allDice);
+            ResetScoreLabels();
 
             turn = 1;
             roundLabel.Text = "Click \"Roll\" to Begin the Next Round";
@@ -229,15 +278,106 @@ namespace Yahtzee
         }
 
 
+        public void EndGame()
+        {
+            //Store all game data
+            // Structure: Game ID, DateTime, then output all of the data in scorecard on line at a time
+            //Save
+            //Output file that shows lifetime score of each value, total score all time
+            //Collect all stats, logtime, store them in files, set an id to each game
+
+
+            // Ask the user if they would like to play again
+            DialogResult dialog = MessageBox.Show("Game over. Your total score was " + scorecard[scorecard.Length - 1].ScoreValue + "."
+                                            + " Would you like to play again?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialog == DialogResult.Yes)
+            {
+                RestartGame();
+            }
+            else
+            {
+                DialogResult dialog2 = MessageBox.Show("Would you like to return to main menu?",
+                                     Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialog2 == DialogResult.Yes)
+                {
+                    //Output all data to file before closing the form
+                    Close();
+                }
+            }
+        }
+
+        public void RestartGame()
+        {
+            //  reset all information
+            foreach (DiceBlock singleDice in allDice)
+            {
+                singleDice.DiceValue = 0;
+                singleDice.IsHeld = false;
+            }
+
+            foreach (Scoring score in scorecard)
+            {
+                score.ScoreValue = 0;
+                score.IsScored = false;
+            }
+
+            roundLabel.Text = "Click \"Roll\" to Begin.";
+            turn = 1;
+            SetDiceImage(allDice);
+            ResetScoreLabels();
+
+        }
+
         private void exitGameButton_Click(object sender, EventArgs e)
         {
+            //Might have to output data to a file here too
+            // ** IF USER HITS THE X, CODE MIGHT NOT RUN
+
             Close();
         }
 
 
-       
+        public void DisplayAllScores()
+        {
+            Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
+                                           threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
+                                           largeStraightLabel, yahtzeeLabel, chanceLabel};
 
-        
+            int[] scores = new int[] { ScoreAces(), ScoreTwos(), ScoreThrees(), ScoreFours(), ScoreFives(), ScoreSixes(),
+                                     ScoreThreeOfAKind(), ScoreFourOfAKind(), ScoreFullHouse(), ScoreSmallStraight(),
+                                     ScoreLargeStraight(), ScoreYahtzee(), ScoreChance()};
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                if (scorecard[i].IsScored == false)
+                {
+                    labels[i].Text = scores[i].ToString();
+                    labels[i].BackColor = Color.White;
+                }    
+            }
+        }
+
+        public void ResetScoreLabels()
+        {
+            Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
+                                           threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
+                                           largeStraightLabel, yahtzeeLabel, chanceLabel};
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                if (scorecard[i].IsScored == false)
+                {
+                    labels[i].Text = "---";
+                    labels[i].BackColor = Color.Gainsboro;
+                }
+            }
+
+        }
+
+
+
         /*
          * 
          * ALL LABEL CLICK EVENT HANDLERS
@@ -247,16 +387,30 @@ namespace Yahtzee
         private void acesBGLabel_Click(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Aces");
 
-            if (acesLabel.Text == "---" && turn > 1)
+            if (scorecard[index].IsScored == false && turn > 1)
             {
-                int acesTotal = scoreAces();
+                int acesTotal = ScoreAces();
                 acesLabel.Text = acesTotal.ToString();
 
-                totalScore += acesTotal;
-                totalLabel.Text = totalScore.ToString();
+                scorecard[scorecard.Length - 1].ScoreValue += acesTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
 
-                ResetTurn();
+
+                scorecard[index].ScoreValue = acesTotal;
+                scorecard[index].IsScored = true;
+
+                //Reset Textboxes method
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
             }
 
 
@@ -267,94 +421,346 @@ namespace Yahtzee
         private void twosBGLabel_Click(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Twos");
 
-            if (twosLabel.Text == "---" && turn > 1)
+            if (scorecard[index].IsScored == false && turn > 1)
             {
-                int twosTotal = scoreTwos();
+                int twosTotal = ScoreTwos();
                 twosLabel.Text = twosTotal.ToString();
 
-                totalScore += twosTotal;
-                totalLabel.Text = totalScore.ToString();
+                scorecard[scorecard.Length - 1].ScoreValue += twosTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
 
-                ResetTurn();
+                scorecard[index].ScoreValue = twosTotal;
+                scorecard[index].IsScored = true;
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
             }
         }
 
         private void threesBGLabel_Click(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Threes");
 
-            if (threesLabel.Text == "---" && turn > 1)
+            if (scorecard[index].IsScored == false && turn > 1)
             {
-                int threesTotal = scoreThrees();
+                int threesTotal = ScoreThrees();
                 threesLabel.Text = threesTotal.ToString();
 
-                totalScore += threesTotal;
-                totalLabel.Text = totalScore.ToString();
+                scorecard[scorecard.Length - 1].ScoreValue += threesTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
 
-                ResetTurn();
+                scorecard[index].ScoreValue = threesTotal;
+                scorecard[index].IsScored = true;
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
             }
+
         }
 
         private void foursBGLabel_Click(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Fours");
 
-            if (foursLabel.Text == "---" && turn > 1)
+            if (scorecard[index].IsScored == false && turn > 1)
             {
-                int foursTotal = scoreFours();
+                int foursTotal = ScoreFours();
                 foursLabel.Text = foursTotal.ToString();
 
-                totalScore += foursTotal;
-                totalLabel.Text = totalScore.ToString();
+                scorecard[scorecard.Length - 1].ScoreValue += foursTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
 
-                ResetTurn();
+                scorecard[index].ScoreValue = foursTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
             }
         }
 
         private void fivesBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Fives");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int fivesTotal = ScoreFives();
+                fivesLabel.Text = fivesTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += fivesTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = fivesTotal;
+                scorecard[index].IsScored = true;
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void sixesBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Sixes");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int sixesTotal = ScoreSixes();
+                sixesLabel.Text = sixesTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += sixesTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = sixesTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void threeKindBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Three of a Kind");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int threeOfAKindTotal = ScoreThreeOfAKind();
+                threeOfAKindLabel.Text = threeOfAKindTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += threeOfAKindTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = threeOfAKindTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void fourKindBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Four of a Kind");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int fourOfAKindTotal = ScoreFourOfAKind();
+                fourOfAKindLabel.Text = fourOfAKindTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += fourOfAKindTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = fourOfAKindTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void fullHouseBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Full House");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int fullHouseTotal = ScoreFullHouse();
+                fullHouseLabel.Text = fullHouseTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += fullHouseTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = fullHouseTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void smallStraightBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Small Straight");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int smallStraightTotal = ScoreSmallStraight();
+                smallStraightLabel.Text = smallStraightTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += smallStraightTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = smallStraightTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void largeStraightBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Large Straight");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int largeStraightTotal = ScoreLargeStraight();
+                largeStraightLabel.Text = largeStraightTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += largeStraightTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+
+                scorecard[index].ScoreValue = largeStraightTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void yahtzeeBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Yahtzee");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int yahtzeeTotal = ScoreYahtzee();
+                yahtzeeLabel.Text = yahtzeeTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += yahtzeeTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = yahtzeeTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
         private void chanceBGLabel_Click(object sender, EventArgs e)
         {
+            //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+            int index = Array.IndexOf(scoreTypes, "Chance");
 
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                int chanceTotal = ScoreChance();
+                chanceLabel.Text = chanceTotal.ToString();
+
+                scorecard[scorecard.Length - 1].ScoreValue += chanceTotal;
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
+
+                scorecard[index].ScoreValue = chanceTotal;
+                scorecard[index].IsScored = true;
+
+
+
+                if (IsLastScore())
+                {
+                    EndGame();
+                }
+                else
+                {
+                    ResetTurn();
+                }
+            }
         }
 
 
@@ -364,20 +770,20 @@ namespace Yahtzee
          * 
          */
 
-        public bool isLastScore()
+        public bool IsLastScore()
         {
             //Use to determine if the scorecard is completely full
 
-            foreach (string scoreType in scorecard.Keys)
+            foreach (Scoring score in scorecard)
             {
-                if (scorecard[scoreType] == false)
+                if (score.IsScored == false)
                     return false;
             }
 
             return true;
         }
 
-        public int scoreAces()
+        public int ScoreAces()
         {
             int score = 0;
 
@@ -391,7 +797,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreTwos()
+        public int ScoreTwos()
         {
             int score = 0;
 
@@ -404,7 +810,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreThrees()
+        public int ScoreThrees()
         {
             int score = 0;
 
@@ -417,7 +823,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreFours()
+        public int ScoreFours()
         {
             int score = 0;
 
@@ -430,7 +836,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreFives()
+        public int ScoreFives()
         {
             int score = 0;
 
@@ -443,7 +849,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreSixes()
+        public int ScoreSixes()
         {
             int score = 0;
 
@@ -456,7 +862,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreThreeOfAKind()
+        public int ScoreThreeOfAKind()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -489,7 +895,7 @@ namespace Yahtzee
 
         }
 
-        public int scoreFourOfAKind()
+        public int ScoreFourOfAKind()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -522,7 +928,7 @@ namespace Yahtzee
 
         }
 
-        public int scoreFullHouse()
+        public int ScoreFullHouse()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -564,7 +970,7 @@ namespace Yahtzee
 
         }
 
-        public int scoreSmallStraight()
+        public int ScoreSmallStraight()
         {
             int score = 0;
             int[] tempValues = new int[allDice.Length];
@@ -590,7 +996,7 @@ namespace Yahtzee
 
         }
 
-        public int scoreLargeStraight()
+        public int ScoreLargeStraight()
         {
             int score = 0;
             int[] tempValues = new int[allDice.Length];
@@ -615,7 +1021,7 @@ namespace Yahtzee
 
         }
 
-        public int scoreYahtzee()
+        public int ScoreYahtzee()
         {
             int score = 50;
 
@@ -631,7 +1037,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int scoreChance()
+        public int ScoreChance()
         {
             int score = 0;
 
@@ -739,34 +1145,41 @@ namespace Yahtzee
         private void acesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (acesLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Aces");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 acesBGLabel.BackColor = Color.White;
                 acesLabel.BackColor = Color.White;
             }
-
         }
 
         private void acesBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             acesBGLabel.BackColor = Color.Gainsboro;
 
-            if (acesLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Aces");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                acesLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 acesLabel.BackColor = Color.Gainsboro;
             }
             else
             {
                 acesLabel.BackColor = Color.Gold;
-            } 
-            
+            }
         }
 
         private void twosBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (twosLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Twos");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 twosBGLabel.BackColor = Color.White;
                 twosLabel.BackColor = Color.White;
@@ -775,10 +1188,15 @@ namespace Yahtzee
 
         private void twosBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             twosBGLabel.BackColor = Color.Gainsboro;
 
-            if (twosLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Twos");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                twosLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 twosLabel.BackColor = Color.Gainsboro;
             }
@@ -786,13 +1204,14 @@ namespace Yahtzee
             {
                 twosLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void threesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (threesLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Threes");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 threesBGLabel.BackColor = Color.White;
                 threesLabel.BackColor = Color.White;
@@ -801,10 +1220,15 @@ namespace Yahtzee
 
         private void threesBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             threesBGLabel.BackColor = Color.Gainsboro;
 
-            if (threesLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Threes");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                threesLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 threesLabel.BackColor = Color.Gainsboro;
             }
@@ -812,13 +1236,14 @@ namespace Yahtzee
             {
                 threesLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void foursBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (foursLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Fours");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 foursBGLabel.BackColor = Color.White;
                 foursLabel.BackColor = Color.White;
@@ -827,10 +1252,15 @@ namespace Yahtzee
 
         private void foursBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             foursBGLabel.BackColor = Color.Gainsboro;
 
-            if (foursLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Fours");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                foursLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 foursLabel.BackColor = Color.Gainsboro;
             }
@@ -838,13 +1268,14 @@ namespace Yahtzee
             {
                 foursLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void fivesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (fivesLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Fives");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 fivesBGLabel.BackColor = Color.White;
                 fivesLabel.BackColor = Color.White;
@@ -853,10 +1284,15 @@ namespace Yahtzee
 
         private void fivesBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             fivesBGLabel.BackColor = Color.Gainsboro;
 
-            if (fivesLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Fives");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                fivesLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 fivesLabel.BackColor = Color.Gainsboro;
             }
@@ -864,13 +1300,14 @@ namespace Yahtzee
             {
                 fivesLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void sixesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (sixesLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Sixes");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 sixesBGLabel.BackColor = Color.White;
                 sixesLabel.BackColor = Color.White;
@@ -879,10 +1316,15 @@ namespace Yahtzee
 
         private void sixesBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             sixesBGLabel.BackColor = Color.Gainsboro;
 
-            if (sixesLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Sixes");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                sixesLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 sixesLabel.BackColor = Color.Gainsboro;
             }
@@ -890,13 +1332,14 @@ namespace Yahtzee
             {
                 sixesLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void threeKindBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (threeOfAKindLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Three of a Kind");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 threeKindBGLabel.BackColor = Color.White;
                 threeOfAKindLabel.BackColor = Color.White;
@@ -905,10 +1348,15 @@ namespace Yahtzee
 
         private void threeKindBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             threeKindBGLabel.BackColor = Color.Gainsboro;
 
-            if (threeOfAKindLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Three of a Kind");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                threeOfAKindLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 threeOfAKindLabel.BackColor = Color.Gainsboro;
             }
@@ -916,13 +1364,14 @@ namespace Yahtzee
             {
                 threeOfAKindLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void fourKindBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (fourOfAKindLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Four of a Kind");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 fourKindBGLabel.BackColor = Color.White;
                 fourOfAKindLabel.BackColor = Color.White;
@@ -931,10 +1380,15 @@ namespace Yahtzee
 
         private void fourKindBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             fourKindBGLabel.BackColor = Color.Gainsboro;
 
-            if (fourOfAKindLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Four of a Kind");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                fourOfAKindLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 fourOfAKindLabel.BackColor = Color.Gainsboro;
             }
@@ -942,13 +1396,14 @@ namespace Yahtzee
             {
                 fourOfAKindLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void fullHouseBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (fullHouseLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Full House");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 fullHouseBGLabel.BackColor = Color.White;
                 fullHouseLabel.BackColor = Color.White;
@@ -957,10 +1412,15 @@ namespace Yahtzee
 
         private void fullHouseBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             fullHouseBGLabel.BackColor = Color.Gainsboro;
 
-            if (fullHouseLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Full House");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                fullHouseLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 fullHouseLabel.BackColor = Color.Gainsboro;
             }
@@ -968,13 +1428,14 @@ namespace Yahtzee
             {
                 fullHouseLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void smallStraightBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (smallStraightLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Small Straight");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 smallStraightBGLabel.BackColor = Color.White;
                 smallStraightLabel.BackColor = Color.White;
@@ -983,10 +1444,15 @@ namespace Yahtzee
 
         private void smallStraightBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             smallStraightBGLabel.BackColor = Color.Gainsboro;
 
-            if (smallStraightLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Small Straight");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                smallStraightLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 smallStraightLabel.BackColor = Color.Gainsboro;
             }
@@ -994,13 +1460,14 @@ namespace Yahtzee
             {
                 smallStraightLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void largeStraightBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (largeStraightLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Large Straight");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 largeStraightBGLabel.BackColor = Color.White;
                 largeStraightLabel.BackColor = Color.White;
@@ -1009,10 +1476,15 @@ namespace Yahtzee
 
         private void largeStraightBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             largeStraightBGLabel.BackColor = Color.Gainsboro;
 
-            if (largeStraightLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Large Straight");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                largeStraightLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 largeStraightLabel.BackColor = Color.Gainsboro;
             }
@@ -1020,13 +1492,14 @@ namespace Yahtzee
             {
                 largeStraightLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void yahtzeeBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (yahtzeeLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Yahtzee");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 yahtzeeBGLabel.BackColor = Color.White;
                 yahtzeeLabel.BackColor = Color.White;
@@ -1035,10 +1508,15 @@ namespace Yahtzee
 
         private void yahtzeeBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             yahtzeeBGLabel.BackColor = Color.Gainsboro;
 
-            if (yahtzeeLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Yahtzee");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                yahtzeeLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 yahtzeeLabel.BackColor = Color.Gainsboro;
             }
@@ -1046,13 +1524,14 @@ namespace Yahtzee
             {
                 yahtzeeLabel.BackColor = Color.Gold;
             }
-
         }
 
         private void chanceBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
-            if (chanceLabel.Text == "---" && turn > 1)
+            int index = Array.IndexOf(scoreTypes, "Chance");
+
+            if (scorecard[index].IsScored == false && turn > 1)
             {
                 chanceBGLabel.BackColor = Color.White;
                 chanceLabel.BackColor = Color.White;
@@ -1061,10 +1540,15 @@ namespace Yahtzee
 
         private void chanceBGLabel_MouseLeave(object sender, EventArgs e)
         {
-
             chanceBGLabel.BackColor = Color.Gainsboro;
 
-            if (chanceLabel.Text == "---")
+            int index = Array.IndexOf(scoreTypes, "Chance");
+
+            if (scorecard[index].IsScored == false && turn > 1)
+            {
+                chanceLabel.BackColor = Color.White;
+            }
+            else if (scorecard[index].IsScored == false)
             {
                 chanceLabel.BackColor = Color.Gainsboro;
             }
@@ -1072,7 +1556,6 @@ namespace Yahtzee
             {
                 chanceLabel.BackColor = Color.Gold;
             }
-
         }
 
     }

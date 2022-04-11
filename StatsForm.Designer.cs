@@ -1,6 +1,6 @@
 ﻿namespace Yahtzee
 {
-    partial class StatsWindow
+    partial class StatsForm
     {
         /// <summary>
         /// Required designer variable.

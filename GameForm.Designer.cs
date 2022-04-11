@@ -1,6 +1,6 @@
 ﻿namespace Yahtzee
 {
-    partial class GameWindow
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.rollButton = new System.Windows.Forms.Button();
             this.exitGameButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -70,6 +71,7 @@
             this.dicePictureBox5 = new System.Windows.Forms.PictureBox();
             this.roundLabel = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox3)).BeginInit();
@@ -86,26 +88,30 @@
             this.rollButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rollButton.Name = "rollButton";
             this.rollButton.Size = new System.Drawing.Size(188, 121);
-            this.rollButton.TabIndex = 0;
+            this.rollButton.TabIndex = 2;
             this.rollButton.Text = "Roll";
+            this.toolTip1.SetToolTip(this.rollButton, "Roll the dice");
             this.rollButton.UseVisualStyleBackColor = true;
             this.rollButton.Click += new System.EventHandler(this.rollButton_Click);
             // 
             // exitGameButton
             // 
+            this.exitGameButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.exitGameButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitGameButton.Location = new System.Drawing.Point(551, 687);
             this.exitGameButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.exitGameButton.Name = "exitGameButton";
             this.exitGameButton.Size = new System.Drawing.Size(188, 121);
-            this.exitGameButton.TabIndex = 1;
+            this.exitGameButton.TabIndex = 4;
             this.exitGameButton.Text = "Main Menu";
+            this.toolTip1.SetToolTip(this.exitGameButton, "Return to the main menu");
             this.exitGameButton.UseVisualStyleBackColor = true;
             this.exitGameButton.Click += new System.EventHandler(this.exitGameButton_Click);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -113,14 +119,14 @@
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(357, 575);
-            this.panel2.TabIndex = 11;
+            this.panel2.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(349, 41);
+            this.label1.Size = new System.Drawing.Size(351, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Scorecard";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -161,14 +167,14 @@
             this.panel1.Location = new System.Drawing.Point(76, 59);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(203, 494);
-            this.panel1.TabIndex = 35;
+            this.panel1.TabIndex = 1;
             // 
             // largeStraightLabel
             // 
             this.largeStraightLabel.Location = new System.Drawing.Point(151, 354);
             this.largeStraightLabel.Name = "largeStraightLabel";
             this.largeStraightLabel.Size = new System.Drawing.Size(45, 27);
-            this.largeStraightLabel.TabIndex = 47;
+            this.largeStraightLabel.TabIndex = 21;
             this.largeStraightLabel.Text = "---";
             this.largeStraightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.largeStraightLabel.Click += new System.EventHandler(this.largeStraightBGLabel_Click);
@@ -180,7 +186,7 @@
             this.yahtzeeLabel.Location = new System.Drawing.Point(151, 389);
             this.yahtzeeLabel.Name = "yahtzeeLabel";
             this.yahtzeeLabel.Size = new System.Drawing.Size(45, 27);
-            this.yahtzeeLabel.TabIndex = 38;
+            this.yahtzeeLabel.TabIndex = 23;
             this.yahtzeeLabel.Text = "---";
             this.yahtzeeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.yahtzeeLabel.Click += new System.EventHandler(this.yahtzeeBGLabel_Click);
@@ -192,7 +198,7 @@
             this.chanceLabel.Location = new System.Drawing.Point(151, 424);
             this.chanceLabel.Name = "chanceLabel";
             this.chanceLabel.Size = new System.Drawing.Size(45, 27);
-            this.chanceLabel.TabIndex = 41;
+            this.chanceLabel.TabIndex = 25;
             this.chanceLabel.Text = "---";
             this.chanceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chanceLabel.Click += new System.EventHandler(this.chanceBGLabel_Click);
@@ -206,7 +212,7 @@
             this.largeStraightBGLabel.Location = new System.Drawing.Point(4, 354);
             this.largeStraightBGLabel.Name = "largeStraightBGLabel";
             this.largeStraightBGLabel.Size = new System.Drawing.Size(191, 28);
-            this.largeStraightBGLabel.TabIndex = 50;
+            this.largeStraightBGLabel.TabIndex = 20;
             this.largeStraightBGLabel.Text = "Large Straight:";
             this.largeStraightBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.largeStraightBGLabel.Click += new System.EventHandler(this.largeStraightBGLabel_Click);
@@ -220,7 +226,7 @@
             this.yahtzeeBGLabel.Location = new System.Drawing.Point(4, 389);
             this.yahtzeeBGLabel.Name = "yahtzeeBGLabel";
             this.yahtzeeBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.yahtzeeBGLabel.TabIndex = 49;
+            this.yahtzeeBGLabel.TabIndex = 22;
             this.yahtzeeBGLabel.Text = "Yahtzee:";
             this.yahtzeeBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yahtzeeBGLabel.Click += new System.EventHandler(this.yahtzeeBGLabel_Click);
@@ -234,7 +240,7 @@
             this.chanceBGLabel.Location = new System.Drawing.Point(4, 424);
             this.chanceBGLabel.Name = "chanceBGLabel";
             this.chanceBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.chanceBGLabel.TabIndex = 48;
+            this.chanceBGLabel.TabIndex = 24;
             this.chanceBGLabel.Text = "Chance:";
             this.chanceBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chanceBGLabel.Click += new System.EventHandler(this.chanceBGLabel_Click);
@@ -247,7 +253,7 @@
             this.acesLabel.Location = new System.Drawing.Point(151, 4);
             this.acesLabel.Name = "acesLabel";
             this.acesLabel.Size = new System.Drawing.Size(45, 27);
-            this.acesLabel.TabIndex = 43;
+            this.acesLabel.TabIndex = 1;
             this.acesLabel.Text = "---";
             this.acesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.acesLabel.Click += new System.EventHandler(this.acesBGLabel_Click);
@@ -261,7 +267,7 @@
             this.totalLabel.Location = new System.Drawing.Point(151, 460);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(45, 27);
-            this.totalLabel.TabIndex = 45;
+            this.totalLabel.TabIndex = 27;
             this.totalLabel.Text = "---";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -270,7 +276,7 @@
             this.twosLabel.Location = new System.Drawing.Point(151, 39);
             this.twosLabel.Name = "twosLabel";
             this.twosLabel.Size = new System.Drawing.Size(45, 27);
-            this.twosLabel.TabIndex = 42;
+            this.twosLabel.TabIndex = 3;
             this.twosLabel.Text = "---";
             this.twosLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.twosLabel.Click += new System.EventHandler(this.twosBGLabel_Click);
@@ -284,7 +290,7 @@
             this.totalBGLabel.Location = new System.Drawing.Point(4, 460);
             this.totalBGLabel.Name = "totalBGLabel";
             this.totalBGLabel.Size = new System.Drawing.Size(191, 28);
-            this.totalBGLabel.TabIndex = 44;
+            this.totalBGLabel.TabIndex = 26;
             this.totalBGLabel.Text = "Total:";
             this.totalBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -293,7 +299,7 @@
             this.fullHouseLabel.Location = new System.Drawing.Point(151, 284);
             this.fullHouseLabel.Name = "fullHouseLabel";
             this.fullHouseLabel.Size = new System.Drawing.Size(45, 27);
-            this.fullHouseLabel.TabIndex = 40;
+            this.fullHouseLabel.TabIndex = 17;
             this.fullHouseLabel.Text = "---";
             this.fullHouseLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fullHouseLabel.Click += new System.EventHandler(this.fullHouseBGLabel_Click);
@@ -305,7 +311,7 @@
             this.smallStraightLabel.Location = new System.Drawing.Point(151, 319);
             this.smallStraightLabel.Name = "smallStraightLabel";
             this.smallStraightLabel.Size = new System.Drawing.Size(45, 27);
-            this.smallStraightLabel.TabIndex = 39;
+            this.smallStraightLabel.TabIndex = 19;
             this.smallStraightLabel.Text = "---";
             this.smallStraightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.smallStraightLabel.Click += new System.EventHandler(this.smallStraightBGLabel_Click);
@@ -317,7 +323,7 @@
             this.sixesLabel.Location = new System.Drawing.Point(151, 179);
             this.sixesLabel.Name = "sixesLabel";
             this.sixesLabel.Size = new System.Drawing.Size(45, 27);
-            this.sixesLabel.TabIndex = 37;
+            this.sixesLabel.TabIndex = 11;
             this.sixesLabel.Text = "---";
             this.sixesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.sixesLabel.Click += new System.EventHandler(this.sixesBGLabel_Click);
@@ -329,7 +335,7 @@
             this.threeOfAKindLabel.Location = new System.Drawing.Point(151, 214);
             this.threeOfAKindLabel.Name = "threeOfAKindLabel";
             this.threeOfAKindLabel.Size = new System.Drawing.Size(45, 27);
-            this.threeOfAKindLabel.TabIndex = 36;
+            this.threeOfAKindLabel.TabIndex = 13;
             this.threeOfAKindLabel.Text = "---";
             this.threeOfAKindLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.threeOfAKindLabel.Click += new System.EventHandler(this.threeKindBGLabel_Click);
@@ -341,7 +347,7 @@
             this.fourOfAKindLabel.Location = new System.Drawing.Point(151, 249);
             this.fourOfAKindLabel.Name = "fourOfAKindLabel";
             this.fourOfAKindLabel.Size = new System.Drawing.Size(45, 27);
-            this.fourOfAKindLabel.TabIndex = 35;
+            this.fourOfAKindLabel.TabIndex = 15;
             this.fourOfAKindLabel.Text = "---";
             this.fourOfAKindLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fourOfAKindLabel.Click += new System.EventHandler(this.fourKindBGLabel_Click);
@@ -353,7 +359,7 @@
             this.threesLabel.Location = new System.Drawing.Point(151, 74);
             this.threesLabel.Name = "threesLabel";
             this.threesLabel.Size = new System.Drawing.Size(45, 27);
-            this.threesLabel.TabIndex = 34;
+            this.threesLabel.TabIndex = 5;
             this.threesLabel.Text = "---";
             this.threesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.threesLabel.Click += new System.EventHandler(this.threesBGLabel_Click);
@@ -365,7 +371,7 @@
             this.foursLabel.Location = new System.Drawing.Point(151, 109);
             this.foursLabel.Name = "foursLabel";
             this.foursLabel.Size = new System.Drawing.Size(45, 27);
-            this.foursLabel.TabIndex = 33;
+            this.foursLabel.TabIndex = 7;
             this.foursLabel.Text = "---";
             this.foursLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.foursLabel.Click += new System.EventHandler(this.foursBGLabel_Click);
@@ -377,7 +383,7 @@
             this.fivesLabel.Location = new System.Drawing.Point(151, 144);
             this.fivesLabel.Name = "fivesLabel";
             this.fivesLabel.Size = new System.Drawing.Size(45, 27);
-            this.fivesLabel.TabIndex = 32;
+            this.fivesLabel.TabIndex = 9;
             this.fivesLabel.Text = "---";
             this.fivesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fivesLabel.Click += new System.EventHandler(this.fivesBGLabel_Click);
@@ -391,7 +397,7 @@
             this.acesBGLabel.Location = new System.Drawing.Point(4, 4);
             this.acesBGLabel.Name = "acesBGLabel";
             this.acesBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.acesBGLabel.TabIndex = 2;
+            this.acesBGLabel.TabIndex = 0;
             this.acesBGLabel.Text = "Aces:";
             this.acesBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.acesBGLabel.Click += new System.EventHandler(this.acesBGLabel_Click);
@@ -405,7 +411,7 @@
             this.fourKindBGLabel.Location = new System.Drawing.Point(4, 249);
             this.fourKindBGLabel.Name = "fourKindBGLabel";
             this.fourKindBGLabel.Size = new System.Drawing.Size(191, 28);
-            this.fourKindBGLabel.TabIndex = 31;
+            this.fourKindBGLabel.TabIndex = 14;
             this.fourKindBGLabel.Text = "Four of a Kind:";
             this.fourKindBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fourKindBGLabel.Click += new System.EventHandler(this.fourKindBGLabel_Click);
@@ -419,7 +425,7 @@
             this.sixesBGLabel.Location = new System.Drawing.Point(4, 179);
             this.sixesBGLabel.Name = "sixesBGLabel";
             this.sixesBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.sixesBGLabel.TabIndex = 21;
+            this.sixesBGLabel.TabIndex = 10;
             this.sixesBGLabel.Text = "Sixes:";
             this.sixesBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.sixesBGLabel.Click += new System.EventHandler(this.sixesBGLabel_Click);
@@ -433,7 +439,7 @@
             this.fullHouseBGLabel.Location = new System.Drawing.Point(4, 284);
             this.fullHouseBGLabel.Name = "fullHouseBGLabel";
             this.fullHouseBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.fullHouseBGLabel.TabIndex = 30;
+            this.fullHouseBGLabel.TabIndex = 16;
             this.fullHouseBGLabel.Text = "Full House:";
             this.fullHouseBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fullHouseBGLabel.Click += new System.EventHandler(this.fullHouseBGLabel_Click);
@@ -447,7 +453,7 @@
             this.fivesBGLabel.Location = new System.Drawing.Point(4, 144);
             this.fivesBGLabel.Name = "fivesBGLabel";
             this.fivesBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.fivesBGLabel.TabIndex = 22;
+            this.fivesBGLabel.TabIndex = 8;
             this.fivesBGLabel.Text = "Fives:";
             this.fivesBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fivesBGLabel.Click += new System.EventHandler(this.fivesBGLabel_Click);
@@ -461,7 +467,7 @@
             this.smallStraightBGLabel.Location = new System.Drawing.Point(4, 319);
             this.smallStraightBGLabel.Name = "smallStraightBGLabel";
             this.smallStraightBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.smallStraightBGLabel.TabIndex = 29;
+            this.smallStraightBGLabel.TabIndex = 18;
             this.smallStraightBGLabel.Text = "Small Straight:";
             this.smallStraightBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.smallStraightBGLabel.Click += new System.EventHandler(this.smallStraightBGLabel_Click);
@@ -475,7 +481,7 @@
             this.foursBGLabel.Location = new System.Drawing.Point(4, 109);
             this.foursBGLabel.Name = "foursBGLabel";
             this.foursBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.foursBGLabel.TabIndex = 23;
+            this.foursBGLabel.TabIndex = 6;
             this.foursBGLabel.Text = "Fours:";
             this.foursBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.foursBGLabel.Click += new System.EventHandler(this.foursBGLabel_Click);
@@ -489,7 +495,7 @@
             this.threesBGLabel.Location = new System.Drawing.Point(4, 74);
             this.threesBGLabel.Name = "threesBGLabel";
             this.threesBGLabel.Size = new System.Drawing.Size(190, 30);
-            this.threesBGLabel.TabIndex = 24;
+            this.threesBGLabel.TabIndex = 4;
             this.threesBGLabel.Text = "Threes:";
             this.threesBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.threesBGLabel.Click += new System.EventHandler(this.threesBGLabel_Click);
@@ -503,7 +509,7 @@
             this.threeKindBGLabel.Location = new System.Drawing.Point(4, 214);
             this.threeKindBGLabel.Name = "threeKindBGLabel";
             this.threeKindBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.threeKindBGLabel.TabIndex = 26;
+            this.threeKindBGLabel.TabIndex = 12;
             this.threeKindBGLabel.Text = "Three of a Kind:";
             this.threeKindBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.threeKindBGLabel.Click += new System.EventHandler(this.threeKindBGLabel_Click);
@@ -517,7 +523,7 @@
             this.twosBGLabel.Location = new System.Drawing.Point(4, 39);
             this.twosBGLabel.Name = "twosBGLabel";
             this.twosBGLabel.Size = new System.Drawing.Size(190, 28);
-            this.twosBGLabel.TabIndex = 25;
+            this.twosBGLabel.TabIndex = 2;
             this.twosBGLabel.Text = "Twos:";
             this.twosBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.twosBGLabel.Click += new System.EventHandler(this.twosBGLabel_Click);
@@ -531,8 +537,9 @@
             this.instructionsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.instructionsButton.Name = "instructionsButton";
             this.instructionsButton.Size = new System.Drawing.Size(188, 121);
-            this.instructionsButton.TabIndex = 13;
+            this.instructionsButton.TabIndex = 3;
             this.instructionsButton.Text = "How to Play";
+            this.toolTip1.SetToolTip(this.instructionsButton, "Instructions for how to play Yahtzee");
             this.instructionsButton.UseVisualStyleBackColor = true;
             // 
             // dicePictureBox3
@@ -609,7 +616,7 @@
             this.roundLabel.Location = new System.Drawing.Point(37, 22);
             this.roundLabel.Name = "roundLabel";
             this.roundLabel.Size = new System.Drawing.Size(764, 41);
-            this.roundLabel.TabIndex = 12;
+            this.roundLabel.TabIndex = 0;
             this.roundLabel.Text = "Click \"Roll\" to Begin";
             this.roundLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -617,16 +624,18 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(47, 84);
+            this.listBox1.Location = new System.Drawing.Point(12, 98);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(89, 104);
-            this.listBox1.TabIndex = 14;
+            this.listBox1.Size = new System.Drawing.Size(159, 544);
+            this.listBox1.TabIndex = 1;
             // 
-            // GameWindow
+            // GameForm
             // 
+            this.AcceptButton = this.rollButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
+            this.CancelButton = this.exitGameButton;
             this.ClientSize = new System.Drawing.Size(838, 831);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.dicePictureBox1);
@@ -644,7 +653,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "GameWindow";
+            this.Name = "GameForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Yahtzee Game";
             this.Load += new System.EventHandler(this.GameWindow_Load);
@@ -702,5 +711,6 @@
         private System.Windows.Forms.Label yahtzeeBGLabel;
         private System.Windows.Forms.Label chanceBGLabel;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -28,30 +28,32 @@ namespace Yahtzee
 
         private void launchGameButton_Click(object sender, EventArgs e)
         {
-            if (FormIsOpen(Application.OpenForms, typeof(StatsWindow))
-                || FormIsOpen(Application.OpenForms, typeof(GameWindow)))
+            if (FormIsOpen(Application.OpenForms, typeof(StatsForm))
+                || FormIsOpen(Application.OpenForms, typeof(GameForm)))
             {
-                MessageBox.Show("Error: Another form is already opened. " +
-                                "Please close that form and try again.");
-                return;
+                DialogResult dialog = MessageBox.Show("Error: Another form is already opened. " +
+                    "Please close that form and try again.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            GameWindow game = new GameWindow();
-            game.Show();
-             
+            else
+            {
+                GameForm game = new GameForm();
+                game.Show();
+            }
         }
 
         private void launchStatsButton_Click(object sender, EventArgs e)
         {
-            if (FormIsOpen(Application.OpenForms, typeof(StatsWindow)) 
-                || FormIsOpen(Application.OpenForms, typeof(GameWindow)))
+            if (FormIsOpen(Application.OpenForms, typeof(StatsForm)) 
+                || FormIsOpen(Application.OpenForms, typeof(GameForm)))
             {
-                MessageBox.Show("Error: Another form is already opened. " +
-                                "Please close that form and try again.");
-                return;
+                DialogResult dialog = MessageBox.Show("Error: Another form is already opened. " +
+                    "Please close that form and try again.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            StatsWindow stats = new StatsWindow();
-            stats.Show();
-
+            else
+            {
+                StatsForm stats = new StatsForm();
+                stats.Show();
+            }   
         }
 
         /***************************************
@@ -66,8 +68,7 @@ namespace Yahtzee
 
         private void quitGameButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            
+            Close();
         }
     }
 }
