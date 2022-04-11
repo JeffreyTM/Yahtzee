@@ -29,10 +29,11 @@ namespace Yahtzee
          */
 
         //  allDice: Array that stores 5 DiceBlock objects: One for each rollable dice block in Yahtzee
-        //  turn: Used to determine which turn the user is currently on. Yahtzee allows three turns (rolls) per round
-        //  totalScore: Total of all of the scores that the user receives
+        //  scorecard: Array that stores all 14 Scoring objects: One for each value on a Yahtzee scorecard
         DiceBlock[] allDice = new DiceBlock[5];
         Scoring[] scorecard = new Scoring[14];
+
+        //  scoreTypes: Array that stores all 14 scores on a Yahtzee scorecard
         string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
                                 "Three of a Kind" , "Four of a Kind", "Full House",
                                 "Small Straight", "Large Straight", "Yahtzee", "Chance", "Total"};
@@ -75,7 +76,7 @@ namespace Yahtzee
             }
         }
 
-        public class Scoring
+        public class Scoring //Constructor: Scoring(string scoreName, bool isScore, int scoreValue)
         {
             private string scoreName;
             private bool isScored;
@@ -173,7 +174,7 @@ namespace Yahtzee
                 }
 
             }
-            SetDiceImage(allDice);
+            SetDiceImage();
             DisplayAllScores();
             turn++;
 
@@ -193,10 +194,8 @@ namespace Yahtzee
             }
 
         }
-
-
-       
-        public void SetDiceImage(DiceBlock[] allDice)
+     
+        public void SetDiceImage()
         {
             PictureBox[] dicePics = { dicePictureBox1, dicePictureBox2, dicePictureBox3, dicePictureBox4, dicePictureBox5 };
 
@@ -260,7 +259,6 @@ namespace Yahtzee
 
         }
 
-
         public void ResetTurn()
         {
             foreach (DiceBlock singleDice in allDice)
@@ -269,14 +267,13 @@ namespace Yahtzee
                 singleDice.IsHeld = false;
             }
 
-            SetDiceImage(allDice);
+            SetDiceImage();
             ResetScoreLabels();
 
             turn = 1;
             roundLabel.Text = "Click \"Roll\" to Begin the Next Round";
 
         }
-
 
         public void EndGame()
         {
@@ -323,9 +320,10 @@ namespace Yahtzee
                 score.IsScored = false;
             }
 
+            totalLabel.Text = "---";
             roundLabel.Text = "Click \"Roll\" to Begin.";
             turn = 1;
-            SetDiceImage(allDice);
+            SetDiceImage();
             ResetScoreLabels();
 
         }
@@ -337,7 +335,6 @@ namespace Yahtzee
 
             Close();
         }
-
 
         public void DisplayAllScores()
         {
@@ -377,7 +374,6 @@ namespace Yahtzee
         }
 
 
-
         /*
          * 
          * ALL LABEL CLICK EVENT HANDLERS
@@ -391,6 +387,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                acesBGLabel.BackColor = Color.Gainsboro;
+                acesLabel.BackColor = Color.Gold;
+
                 int acesTotal = ScoreAces();
                 acesLabel.Text = acesTotal.ToString();
 
@@ -425,6 +425,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                twosBGLabel.BackColor = Color.Gainsboro;
+                twosLabel.BackColor = Color.Gold;
+
                 int twosTotal = ScoreTwos();
                 twosLabel.Text = twosTotal.ToString();
 
@@ -452,6 +456,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                threesBGLabel.BackColor = Color.Gainsboro;
+                threesLabel.BackColor = Color.Gold;
+
                 int threesTotal = ScoreThrees();
                 threesLabel.Text = threesTotal.ToString();
 
@@ -480,6 +488,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                foursBGLabel.BackColor = Color.Gainsboro;
+                foursLabel.BackColor = Color.Gold;
+
                 int foursTotal = ScoreFours();
                 foursLabel.Text = foursTotal.ToString();
 
@@ -509,6 +521,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                fivesBGLabel.BackColor = Color.Gainsboro;
+                fivesLabel.BackColor = Color.Gold;
+
                 int fivesTotal = ScoreFives();
                 fivesLabel.Text = fivesTotal.ToString();
 
@@ -537,6 +553,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                sixesBGLabel.BackColor = Color.Gainsboro;
+                sixesLabel.BackColor = Color.Gold;
+
                 int sixesTotal = ScoreSixes();
                 sixesLabel.Text = sixesTotal.ToString();
 
@@ -566,6 +586,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                threeKindBGLabel.BackColor = Color.Gainsboro;
+                threeOfAKindLabel.BackColor = Color.Gold;
+
                 int threeOfAKindTotal = ScoreThreeOfAKind();
                 threeOfAKindLabel.Text = threeOfAKindTotal.ToString();
 
@@ -595,6 +619,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                fourKindBGLabel.BackColor = Color.Gainsboro;
+                fourOfAKindLabel.BackColor = Color.Gold;
+
                 int fourOfAKindTotal = ScoreFourOfAKind();
                 fourOfAKindLabel.Text = fourOfAKindTotal.ToString();
 
@@ -624,6 +652,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                fullHouseBGLabel.BackColor = Color.Gainsboro;
+                fullHouseLabel.BackColor = Color.Gold;
+
                 int fullHouseTotal = ScoreFullHouse();
                 fullHouseLabel.Text = fullHouseTotal.ToString();
 
@@ -653,6 +685,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                smallStraightBGLabel.BackColor = Color.Gainsboro;
+                smallStraightLabel.BackColor = Color.Gold;
+
                 int smallStraightTotal = ScoreSmallStraight();
                 smallStraightLabel.Text = smallStraightTotal.ToString();
 
@@ -682,6 +718,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                largeStraightBGLabel.BackColor = Color.Gainsboro;
+                largeStraightLabel.BackColor = Color.Gold;
+
                 int largeStraightTotal = ScoreLargeStraight();
                 largeStraightLabel.Text = largeStraightTotal.ToString();
 
@@ -712,6 +752,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                yahtzeeBGLabel.BackColor = Color.Gainsboro;
+                yahtzeeLabel.BackColor = Color.Gold;
+
                 int yahtzeeTotal = ScoreYahtzee();
                 yahtzeeLabel.Text = yahtzeeTotal.ToString();
 
@@ -741,6 +785,10 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Default;
+                chanceBGLabel.BackColor = Color.Gainsboro;
+                chanceLabel.BackColor = Color.Gold;
+
                 int chanceTotal = ScoreChance();
                 chanceLabel.Text = chanceTotal.ToString();
 
@@ -1062,12 +1110,12 @@ namespace Yahtzee
             if (allDice[0].IsHeld == false)
             {
                 allDice[0].IsHeld = true;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
             else
             {
                 allDice[0].IsHeld = false;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
         }
 
@@ -1078,12 +1126,12 @@ namespace Yahtzee
             if (allDice[1].IsHeld == false)
             {
                 allDice[1].IsHeld = true;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
             else
             {
                 allDice[1].IsHeld = false;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
         }
 
@@ -1094,12 +1142,12 @@ namespace Yahtzee
             if (allDice[2].IsHeld == false)
             {
                 allDice[2].IsHeld = true;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
             else
             {
                 allDice[2].IsHeld = false;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
         }
 
@@ -1110,12 +1158,12 @@ namespace Yahtzee
             if (allDice[3].IsHeld == false)
             {
                 allDice[3].IsHeld = true;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
             else
             {
                 allDice[3].IsHeld = false;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
         }
 
@@ -1126,29 +1174,31 @@ namespace Yahtzee
             if (allDice[4].IsHeld == false)
             {
                 allDice[4].IsHeld = true;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
             else
             {
                 allDice[4].IsHeld = false;
-                SetDiceImage(allDice);
+                SetDiceImage();
             }
         }
 
 
         /*
          * 
-         * ALL MOUSE ENTER / MOUSE LEAVE EVENT HANDLERS
+         * ALL LABEL MOUSE ENTER / MOUSE LEAVE EVENT HANDLERS
          * 
          */
 
         private void acesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
+
             int index = Array.IndexOf(scoreTypes, "Aces");
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 acesBGLabel.BackColor = Color.White;
                 acesLabel.BackColor = Color.White;
             }
@@ -1181,6 +1231,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 twosBGLabel.BackColor = Color.White;
                 twosLabel.BackColor = Color.White;
             }
@@ -1188,7 +1239,7 @@ namespace Yahtzee
 
         private void twosBGLabel_MouseLeave(object sender, EventArgs e)
         {
-            twosBGLabel.BackColor = Color.Gainsboro;
+            twosBGLabel.BackColor= Color.Gainsboro;
 
             int index = Array.IndexOf(scoreTypes, "Twos");
 
@@ -1213,6 +1264,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 threesBGLabel.BackColor = Color.White;
                 threesLabel.BackColor = Color.White;
             }
@@ -1245,6 +1297,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 foursBGLabel.BackColor = Color.White;
                 foursLabel.BackColor = Color.White;
             }
@@ -1277,6 +1330,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 fivesBGLabel.BackColor = Color.White;
                 fivesLabel.BackColor = Color.White;
             }
@@ -1309,6 +1363,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 sixesBGLabel.BackColor = Color.White;
                 sixesLabel.BackColor = Color.White;
             }
@@ -1341,6 +1396,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 threeKindBGLabel.BackColor = Color.White;
                 threeOfAKindLabel.BackColor = Color.White;
             }
@@ -1373,6 +1429,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 fourKindBGLabel.BackColor = Color.White;
                 fourOfAKindLabel.BackColor = Color.White;
             }
@@ -1405,6 +1462,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 fullHouseBGLabel.BackColor = Color.White;
                 fullHouseLabel.BackColor = Color.White;
             }
@@ -1437,6 +1495,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 smallStraightBGLabel.BackColor = Color.White;
                 smallStraightLabel.BackColor = Color.White;
             }
@@ -1469,6 +1528,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 largeStraightBGLabel.BackColor = Color.White;
                 largeStraightLabel.BackColor = Color.White;
             }
@@ -1501,6 +1561,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 yahtzeeBGLabel.BackColor = Color.White;
                 yahtzeeLabel.BackColor = Color.White;
             }
@@ -1533,6 +1594,7 @@ namespace Yahtzee
 
             if (scorecard[index].IsScored == false && turn > 1)
             {
+                Cursor = Cursors.Hand;
                 chanceBGLabel.BackColor = Color.White;
                 chanceLabel.BackColor = Color.White;
             }
@@ -1558,5 +1620,180 @@ namespace Yahtzee
             }
         }
 
+
+
+        /*
+         * 
+         * ALL PICTUREBOX MOUSE ENTER / MOUSE LEAVE EVENT HANDLERS
+         * 
+         */
+
+        public void HoverImage(PictureBox pictureBox, int currentDiceValue)
+        {
+            switch (currentDiceValue)
+            {
+                case 1:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1gold;
+                    break;
+                case 2:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2gold;
+                    break;
+                case 3:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3gold;
+                    break;
+                case 4:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4gold;
+                    break;
+                case 5:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5gold;
+                    break;
+                case 6:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6gold;
+                    break;
+                default:
+                    DialogResult dialog = MessageBox.Show("Error: Cannot set dice image.",
+                                     Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        public void LeaveImage(PictureBox pictureBox, int currentDiceValue)
+        {
+            switch (currentDiceValue)
+            {
+                case 1:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+                    break;
+                case 2:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2cropped;
+                    break;
+                case 3:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3cropped;
+                    break;
+                case 4:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4cropped;
+                    break;
+                case 5:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5cropped;
+                    break;
+                case 6:
+                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6cropped;
+                    break;
+                default:
+                    DialogResult dialog = MessageBox.Show("Error: Cannot set dice image.",
+                                     Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
+
+        private void dicePictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Hand;
+
+            if (allDice[0].IsHeld == false && turn > 1)
+            {
+                HoverImage(dicePictureBox1, allDice[0].DiceValue);
+            }
+        }
+
+        private void dicePictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Default;
+
+            if (allDice[0].IsHeld == false && turn > 1)
+            {
+                LeaveImage(dicePictureBox1, allDice[0].DiceValue);
+            }
+        }
+
+        private void dicePictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Hand;
+
+            if (allDice[1].IsHeld == false && turn > 1)
+            {
+                HoverImage(dicePictureBox2, allDice[1].DiceValue);
+            }
+        }
+
+        private void dicePictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Default;
+
+            if (allDice[1].IsHeld == false && turn > 1)
+            {
+                LeaveImage(dicePictureBox2, allDice[1].DiceValue);
+            }
+        }
+
+        private void dicePictureBox3_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Hand;
+
+            if (allDice[2].IsHeld == false && turn > 1)
+            {
+                HoverImage(dicePictureBox3, allDice[2].DiceValue);
+            }
+        }
+
+        private void dicePictureBox3_MouseLeave(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Default;
+
+            if (allDice[2].IsHeld == false && turn > 1)
+            {
+                LeaveImage(dicePictureBox3, allDice[2].DiceValue);
+            }
+        }
+
+        private void dicePictureBox4_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Hand;
+
+            if (allDice[3].IsHeld == false && turn > 1)
+            {
+                HoverImage(dicePictureBox4, allDice[3].DiceValue);
+            }
+        }
+
+        private void dicePictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Default;
+
+            if (allDice[3].IsHeld == false && turn > 1)
+            {
+                LeaveImage(dicePictureBox4, allDice[3].DiceValue);
+            }
+        }
+
+        private void dicePictureBox5_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Hand;
+
+            if (allDice[4].IsHeld == false && turn > 1)
+            {
+                HoverImage(dicePictureBox5, allDice[4].DiceValue);
+            }
+        }
+
+        private void dicePictureBox5_MouseLeave(object sender, EventArgs e)
+        {
+            if (turn > 1)
+                Cursor = Cursors.Default;
+
+            if (allDice[4].IsHeld == false && turn > 1)
+            {
+                LeaveImage(dicePictureBox5, allDice[4].DiceValue);
+            }
+        }
     }
 }

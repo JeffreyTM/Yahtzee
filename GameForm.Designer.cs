@@ -64,25 +64,26 @@
             this.threeKindBGLabel = new System.Windows.Forms.Label();
             this.twosBGLabel = new System.Windows.Forms.Label();
             this.instructionsButton = new System.Windows.Forms.Button();
-            this.dicePictureBox3 = new System.Windows.Forms.PictureBox();
-            this.dicePictureBox2 = new System.Windows.Forms.PictureBox();
-            this.dicePictureBox4 = new System.Windows.Forms.PictureBox();
-            this.dicePictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dicePictureBox5 = new System.Windows.Forms.PictureBox();
             this.roundLabel = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dicePictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dicePictureBox5 = new System.Windows.Forms.PictureBox();
+            this.dicePictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dicePictureBox4 = new System.Windows.Forms.PictureBox();
+            this.dicePictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // rollButton
             // 
+            this.rollButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rollButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rollButton.Location = new System.Drawing.Point(95, 687);
             this.rollButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -96,6 +97,7 @@
             // 
             // exitGameButton
             // 
+            this.exitGameButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.exitGameButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.exitGameButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exitGameButton.Location = new System.Drawing.Point(551, 687);
@@ -532,6 +534,7 @@
             // 
             // instructionsButton
             // 
+            this.instructionsButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.instructionsButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.instructionsButton.Location = new System.Drawing.Point(321, 687);
             this.instructionsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -541,71 +544,6 @@
             this.instructionsButton.Text = "How to Play";
             this.toolTip1.SetToolTip(this.instructionsButton, "Instructions for how to play Yahtzee");
             this.instructionsButton.UseVisualStyleBackColor = true;
-            // 
-            // dicePictureBox3
-            // 
-            this.dicePictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
-            this.dicePictureBox3.Location = new System.Drawing.Point(182, 326);
-            this.dicePictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dicePictureBox3.Name = "dicePictureBox3";
-            this.dicePictureBox3.Size = new System.Drawing.Size(102, 102);
-            this.dicePictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dicePictureBox3.TabIndex = 6;
-            this.dicePictureBox3.TabStop = false;
-            this.dicePictureBox3.Click += new System.EventHandler(this.dicePictureBox3_Click);
-            // 
-            // dicePictureBox2
-            // 
-            this.dicePictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
-            this.dicePictureBox2.Location = new System.Drawing.Point(182, 210);
-            this.dicePictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dicePictureBox2.Name = "dicePictureBox2";
-            this.dicePictureBox2.Size = new System.Drawing.Size(101, 102);
-            this.dicePictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dicePictureBox2.TabIndex = 5;
-            this.dicePictureBox2.TabStop = false;
-            this.dicePictureBox2.Click += new System.EventHandler(this.dicePictureBox2_Click);
-            // 
-            // dicePictureBox4
-            // 
-            this.dicePictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
-            this.dicePictureBox4.Location = new System.Drawing.Point(182, 438);
-            this.dicePictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dicePictureBox4.Name = "dicePictureBox4";
-            this.dicePictureBox4.Size = new System.Drawing.Size(102, 102);
-            this.dicePictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dicePictureBox4.TabIndex = 7;
-            this.dicePictureBox4.TabStop = false;
-            this.dicePictureBox4.Click += new System.EventHandler(this.dicePictureBox4_Click);
-            // 
-            // dicePictureBox1
-            // 
-            this.dicePictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox1.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
-            this.dicePictureBox1.Location = new System.Drawing.Point(182, 100);
-            this.dicePictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dicePictureBox1.Name = "dicePictureBox1";
-            this.dicePictureBox1.Size = new System.Drawing.Size(102, 102);
-            this.dicePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dicePictureBox1.TabIndex = 4;
-            this.dicePictureBox1.TabStop = false;
-            this.dicePictureBox1.Click += new System.EventHandler(this.dicePictureBox1_Click);
-            // 
-            // dicePictureBox5
-            // 
-            this.dicePictureBox5.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
-            this.dicePictureBox5.Location = new System.Drawing.Point(182, 548);
-            this.dicePictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.dicePictureBox5.Name = "dicePictureBox5";
-            this.dicePictureBox5.Size = new System.Drawing.Size(102, 104);
-            this.dicePictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.dicePictureBox5.TabIndex = 8;
-            this.dicePictureBox5.TabStop = false;
-            this.dicePictureBox5.Click += new System.EventHandler(this.dicePictureBox5_Click);
             // 
             // roundLabel
             // 
@@ -629,6 +567,81 @@
             this.listBox1.Size = new System.Drawing.Size(159, 544);
             this.listBox1.TabIndex = 1;
             // 
+            // dicePictureBox1
+            // 
+            this.dicePictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.dicePictureBox1.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox1.Location = new System.Drawing.Point(182, 100);
+            this.dicePictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dicePictureBox1.Name = "dicePictureBox1";
+            this.dicePictureBox1.Size = new System.Drawing.Size(102, 102);
+            this.dicePictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dicePictureBox1.TabIndex = 4;
+            this.dicePictureBox1.TabStop = false;
+            this.dicePictureBox1.Click += new System.EventHandler(this.dicePictureBox1_Click);
+            this.dicePictureBox1.MouseEnter += new System.EventHandler(this.dicePictureBox1_MouseEnter);
+            this.dicePictureBox1.MouseLeave += new System.EventHandler(this.dicePictureBox1_MouseLeave);
+            // 
+            // dicePictureBox5
+            // 
+            this.dicePictureBox5.BackColor = System.Drawing.Color.Transparent;
+            this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox5.Location = new System.Drawing.Point(182, 548);
+            this.dicePictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dicePictureBox5.Name = "dicePictureBox5";
+            this.dicePictureBox5.Size = new System.Drawing.Size(102, 104);
+            this.dicePictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dicePictureBox5.TabIndex = 8;
+            this.dicePictureBox5.TabStop = false;
+            this.dicePictureBox5.Click += new System.EventHandler(this.dicePictureBox5_Click);
+            this.dicePictureBox5.MouseEnter += new System.EventHandler(this.dicePictureBox5_MouseEnter);
+            this.dicePictureBox5.MouseLeave += new System.EventHandler(this.dicePictureBox5_MouseLeave);
+            // 
+            // dicePictureBox2
+            // 
+            this.dicePictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox2.Location = new System.Drawing.Point(182, 210);
+            this.dicePictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dicePictureBox2.Name = "dicePictureBox2";
+            this.dicePictureBox2.Size = new System.Drawing.Size(101, 102);
+            this.dicePictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dicePictureBox2.TabIndex = 5;
+            this.dicePictureBox2.TabStop = false;
+            this.dicePictureBox2.Click += new System.EventHandler(this.dicePictureBox2_Click);
+            this.dicePictureBox2.MouseEnter += new System.EventHandler(this.dicePictureBox2_MouseEnter);
+            this.dicePictureBox2.MouseLeave += new System.EventHandler(this.dicePictureBox2_MouseLeave);
+            // 
+            // dicePictureBox4
+            // 
+            this.dicePictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox4.Location = new System.Drawing.Point(182, 438);
+            this.dicePictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dicePictureBox4.Name = "dicePictureBox4";
+            this.dicePictureBox4.Size = new System.Drawing.Size(102, 102);
+            this.dicePictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dicePictureBox4.TabIndex = 7;
+            this.dicePictureBox4.TabStop = false;
+            this.dicePictureBox4.Click += new System.EventHandler(this.dicePictureBox4_Click);
+            this.dicePictureBox4.MouseEnter += new System.EventHandler(this.dicePictureBox4_MouseEnter);
+            this.dicePictureBox4.MouseLeave += new System.EventHandler(this.dicePictureBox4_MouseLeave);
+            // 
+            // dicePictureBox3
+            // 
+            this.dicePictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox3.Location = new System.Drawing.Point(182, 326);
+            this.dicePictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dicePictureBox3.Name = "dicePictureBox3";
+            this.dicePictureBox3.Size = new System.Drawing.Size(102, 102);
+            this.dicePictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.dicePictureBox3.TabIndex = 6;
+            this.dicePictureBox3.TabStop = false;
+            this.dicePictureBox3.Click += new System.EventHandler(this.dicePictureBox3_Click);
+            this.dicePictureBox3.MouseEnter += new System.EventHandler(this.dicePictureBox3_MouseEnter);
+            this.dicePictureBox3.MouseLeave += new System.EventHandler(this.dicePictureBox3_MouseLeave);
+            // 
             // GameForm
             // 
             this.AcceptButton = this.rollButton;
@@ -637,6 +650,7 @@
             this.BackColor = System.Drawing.Color.Maroon;
             this.CancelButton = this.exitGameButton;
             this.ClientSize = new System.Drawing.Size(838, 831);
+            this.ControlBox = false;
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.dicePictureBox1);
             this.Controls.Add(this.dicePictureBox5);
@@ -648,6 +662,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.exitGameButton);
             this.Controls.Add(this.rollButton);
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Font = new System.Drawing.Font("Yu Gothic UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -659,11 +674,11 @@
             this.Load += new System.EventHandler(this.GameWindow_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dicePictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }

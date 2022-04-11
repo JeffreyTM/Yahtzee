@@ -137,5 +137,23 @@
   <ItemGroup>
     <None Include="bin\images\diceblock6gray.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock2gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock1gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock3gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock4gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock5gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\images\diceblock6gold.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
