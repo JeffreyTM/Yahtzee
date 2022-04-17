@@ -28,6 +28,7 @@ namespace Yahtzee
          * GLOBAL VARIABLES
          */
 
+        //  Constructors
         //  allDice: Array that stores 5 DiceBlock objects: One for each rollable dice block in Yahtzee
         //  scorecard: Array that stores all 14 Scoring objects: One for each value on a Yahtzee scorecard
         DiceBlock[] allDice = new DiceBlock[5];
@@ -40,18 +41,14 @@ namespace Yahtzee
 
         int turn = 1;
 
-        /*
-         * These global variables will be specifically used to store data to files that can be accessed in StatsWindow
-         *      
+        /*    
          * turnsHeld: Stores each possible dice value as a key, value is the amount of turns the user has held the keyed dice roll
          * timesRolled: Stores each possible roll as a key, value is the amount of times the user has rolled the keyed dice roll
          *  - Note: timesRolled doesn't store the same roll multiple times if the user holds the dice block 
-         * logTime: Gets the date and time of the start of the each game
          */
         Dictionary<int, int> turnsHeld = new Dictionary<int, int>();
         Dictionary<int, int> timesRolled = new Dictionary<int, int>();
-        string logTime = DateTime.Now.ToString();
-
+        
         public class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
         {
             private int diceValue;
@@ -128,7 +125,7 @@ namespace Yahtzee
 
         private void rollButton_Click(object sender, EventArgs e)
         {
-
+            EndGame();
             if (turn > 3)
             {
                 DialogResult dialog = MessageBox.Show("Round over. Please select an area that you would like to score.",
@@ -178,14 +175,6 @@ namespace Yahtzee
             DisplayAllScores();
             turn++;
 
-
-            //Displays all of the dice rolls and how many times they've been held in a turn. Stream to file
-            foreach (int diceBlock in turnsHeld.Keys)
-            {
-                string value = scoreTypes[diceBlock - 1];
-                listBox1.Items.Add(value + ": " + turnsHeld[diceBlock] + " times held in a turn.");
-            }
-
             //Displays all the dice rolls and how many times each block has been rolled
             foreach (int diceBlock in timesRolled.Keys)
             {
@@ -193,9 +182,15 @@ namespace Yahtzee
                 listBox1.Items.Add(value + ": " + timesRolled[diceBlock] + " times rolled.");
             }
 
+            //Displays all of the dice rolls and how many times they've been held in a turn. Stream to file
+            foreach (int diceBlock in turnsHeld.Keys)
+            {
+                string value = scoreTypes[diceBlock - 1];
+                listBox1.Items.Add(value + ": " + turnsHeld[diceBlock] + " times held in a turn.");
+            }
         }
-     
-        public void SetDiceImage()
+
+        private void SetDiceImage()
         {
             PictureBox[] dicePics = { dicePictureBox1, dicePictureBox2, dicePictureBox3, dicePictureBox4, dicePictureBox5 };
 
@@ -259,7 +254,7 @@ namespace Yahtzee
 
         }
 
-        public void ResetTurn()
+        private void ResetTurn()
         {
             foreach (DiceBlock singleDice in allDice)
             {
@@ -275,14 +270,112 @@ namespace Yahtzee
 
         }
 
-        public void EndGame()
+        private void SetGameData()
         {
-            //Store all game data
-            // Structure: Game ID, DateTime, then output all of the data in scorecard on line at a time
-            //Save
-            //Output file that shows lifetime score of each value, total score all time
-            //Collect all stats, logtime, store them in files, set an id to each game
+            StreamReader readGameData = new StreamReader("GameData.txt");
+            int ID = 0;
 
+            while (!readGameData.EndOfStream)
+            {
+                string currentLine = readGameData.ReadLine();
+                string[] fields = currentLine.Split(',');
+
+                if (fields.Length > 1)
+                {
+                    ID = int.Parse(fields[0]);
+                }   
+            }
+            readGameData.Close();
+
+            
+            ID++;
+
+            StreamWriter writeGameData = new StreamWriter("GameData.txt", true);
+            writeGameData.Write(ID + "," + DateTime.Now.ToString("MM/dd/yyyy") + "," + DateTime.Now.ToString("h:mm tt") + ","
+                                + scorecard[scorecard.Length - 1].ScoreValue);
+
+            for (int i = 0; i < scoreTypes.Length - 1; i++)
+            {
+                writeGameData.Write("," + /*scorecard[i].ScoreName + "," + */scorecard[i].ScoreValue);
+            }
+            writeGameData.WriteLine();
+            writeGameData.Close();
+        }
+
+        private void SetRollData()
+        {
+            StreamReader readRollData = new StreamReader("RollData.txt");
+
+            int count = 1;
+            List<string> valuesList = new List<string>();
+            List<int> rolledList = new List<int>();
+            List<int> heldList = new List<int>();
+
+            while (!readRollData.EndOfStream)
+            {
+                string currentLine = readRollData.ReadLine();
+
+                String[] fields = currentLine.Split(',');
+                if (fields.Length > 1)
+                {
+                    valuesList.Add(fields[0]);
+                    rolledList.Add(int.Parse(fields[1]) + timesRolled[count]);
+                    heldList.Add(int.Parse(fields[2]) + turnsHeld[count]);
+
+                    count++;
+                }      
+            }
+            readRollData.Close();
+
+            StreamWriter writeRollData = new StreamWriter("RollData.txt", false);
+
+            for (int i = 0; i < rolledList.Count; i++)
+            {
+                writeRollData.WriteLine(valuesList[i] + "," + rolledList[i] + "," + heldList[i]);
+
+            }
+            writeRollData.Close();
+        }
+
+        private void SetScoreData()
+        {
+            StreamReader readScoreData = new StreamReader("ScoreData.txt");
+
+            int count = 0;
+            List<string> valuesList = new List<string>();
+            List<int> scoresList = new List<int>();
+
+            while (!readScoreData.EndOfStream)
+            {
+                string currentLine = readScoreData.ReadLine();
+
+                string[] fields = currentLine.Split(',');
+                if (fields.Length > 1)
+                {
+                    
+
+                    valuesList.Add(fields[0]);
+                    scoresList.Add(int.Parse(fields[1]) + scorecard[count].ScoreValue);
+
+                    count++;
+                } 
+            }
+            readScoreData.Close();
+
+            StreamWriter writeScoreData = new StreamWriter("ScoreData.txt", false);
+
+            for (int i = 0; i < scoresList.Count; i++)
+            {
+                writeScoreData.WriteLine(valuesList[i] + "," + scoresList[i]);
+            }
+            writeScoreData.Close();
+        }
+
+        private void EndGame()
+        {            
+            SetGameData();
+            SetScoreData();
+            SetRollData();
 
             // Ask the user if they would like to play again
             DialogResult dialog = MessageBox.Show("Game over. Your total score was " + scorecard[scorecard.Length - 1].ScoreValue + "."
@@ -305,7 +398,7 @@ namespace Yahtzee
             }
         }
 
-        public void RestartGame()
+        private void RestartGame()
         {
             //  reset all information
             foreach (DiceBlock singleDice in allDice)
@@ -320,11 +413,18 @@ namespace Yahtzee
                 score.IsScored = false;
             }
 
+            for (int i = 1; i <= 6; i++)
+            {
+                timesRolled[i] = 0;
+                turnsHeld[i] = 0;
+            }
+
             totalLabel.Text = "---";
             roundLabel.Text = "Click \"Roll\" to Begin.";
             turn = 1;
             SetDiceImage();
             ResetScoreLabels();
+            scorecard[scorecard.Length - 1].IsScored = true;
 
         }
 
@@ -336,7 +436,7 @@ namespace Yahtzee
             Close();
         }
 
-        public void DisplayAllScores()
+        private void DisplayAllScores()
         {
             Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
                                            threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
@@ -356,7 +456,7 @@ namespace Yahtzee
             }
         }
 
-        public void ResetScoreLabels()
+        private void ResetScoreLabels()
         {
             Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
                                            threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
@@ -818,7 +918,7 @@ namespace Yahtzee
          * 
          */
 
-        public bool IsLastScore()
+        private bool IsLastScore()
         {
             //Use to determine if the scorecard is completely full
 
@@ -831,7 +931,7 @@ namespace Yahtzee
             return true;
         }
 
-        public int ScoreAces()
+        private int ScoreAces()
         {
             int score = 0;
 
@@ -845,7 +945,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreTwos()
+        private int ScoreTwos()
         {
             int score = 0;
 
@@ -858,7 +958,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreThrees()
+        private int ScoreThrees()
         {
             int score = 0;
 
@@ -871,7 +971,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreFours()
+        private int ScoreFours()
         {
             int score = 0;
 
@@ -884,7 +984,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreFives()
+        private int ScoreFives()
         {
             int score = 0;
 
@@ -897,7 +997,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreSixes()
+        private int ScoreSixes()
         {
             int score = 0;
 
@@ -910,7 +1010,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreThreeOfAKind()
+        private int ScoreThreeOfAKind()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -943,7 +1043,7 @@ namespace Yahtzee
 
         }
 
-        public int ScoreFourOfAKind()
+        private int ScoreFourOfAKind()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -976,7 +1076,7 @@ namespace Yahtzee
 
         }
 
-        public int ScoreFullHouse()
+        private int ScoreFullHouse()
         {
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
@@ -1018,7 +1118,7 @@ namespace Yahtzee
 
         }
 
-        public int ScoreSmallStraight()
+        private int ScoreSmallStraight()
         {
             int score = 0;
             int[] tempValues = new int[allDice.Length];
@@ -1044,7 +1144,7 @@ namespace Yahtzee
 
         }
 
-        public int ScoreLargeStraight()
+        private int ScoreLargeStraight()
         {
             int score = 0;
             int[] tempValues = new int[allDice.Length];
@@ -1069,7 +1169,7 @@ namespace Yahtzee
 
         }
 
-        public int ScoreYahtzee()
+        private int ScoreYahtzee()
         {
             int score = 50;
 
@@ -1085,7 +1185,7 @@ namespace Yahtzee
             return score;
         }
 
-        public int ScoreChance()
+        private int ScoreChance()
         {
             int score = 0;
 
@@ -1628,7 +1728,7 @@ namespace Yahtzee
          * 
          */
 
-        public void HoverImage(PictureBox pictureBox, int currentDiceValue)
+        private void HoverImage(PictureBox pictureBox, int currentDiceValue)
         {
             switch (currentDiceValue)
             {
@@ -1657,7 +1757,7 @@ namespace Yahtzee
             }
         }
 
-        public void LeaveImage(PictureBox pictureBox, int currentDiceValue)
+        private void LeaveImage(PictureBox pictureBox, int currentDiceValue)
         {
             switch (currentDiceValue)
             {
