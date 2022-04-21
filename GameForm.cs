@@ -48,33 +48,6 @@ namespace Yahtzee
          */
         Dictionary<int, int> turnsHeld = new Dictionary<int, int>();
         Dictionary<int, int> timesRolled = new Dictionary<int, int>();
-        
-        public class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
-        {
-            public DiceBlock(int diceValue, bool isHeld)
-            {
-                this.DiceValue = diceValue;
-                this.IsHeld = isHeld;
-            }
-
-            public int DiceValue { get; set; }
-
-            public bool IsHeld { get; set; }
-        }
-
-        public class Scoring //Constructor: Scoring(string scoreName, bool isScore, int scoreValue)
-        {
-            public Scoring(string scoreName, bool isScored, int scoreValue)
-            {
-                this.ScoreName = scoreName;
-                this.IsScored = isScored;
-                this.ScoreValue = scoreValue;
-            }
-
-            public string ScoreName { get; set; }
-            public bool IsScored { get; set; }
-            public int ScoreValue { get; set; }
-        }
 
         private void GameWindow_Load(object sender, EventArgs e)
         {
