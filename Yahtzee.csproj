@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="StatsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,14 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="StatsForm.resx">
       <DependentUpon>StatsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,61 +99,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\images\diceblock1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock1cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock2cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock3cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock4cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock5cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock6cropped.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock1gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock2gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock3gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock4gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock5gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock6gray.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock2gold.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock1gold.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock3gold.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock4gold.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock5gold.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\images\diceblock6gold.png" />
+    <Folder Include="bin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

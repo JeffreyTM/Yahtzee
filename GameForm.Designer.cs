@@ -570,7 +570,7 @@
             // dicePictureBox1
             // 
             this.dicePictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox1.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox1.Image = global::Yahtzee.Properties.Resources.diceblock1;
             this.dicePictureBox1.Location = new System.Drawing.Point(182, 100);
             this.dicePictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox1.Name = "dicePictureBox1";
@@ -585,7 +585,7 @@
             // dicePictureBox5
             // 
             this.dicePictureBox5.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1;
             this.dicePictureBox5.Location = new System.Drawing.Point(182, 548);
             this.dicePictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox5.Name = "dicePictureBox5";
@@ -600,7 +600,7 @@
             // dicePictureBox2
             // 
             this.dicePictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1;
             this.dicePictureBox2.Location = new System.Drawing.Point(182, 210);
             this.dicePictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox2.Name = "dicePictureBox2";
@@ -615,7 +615,7 @@
             // dicePictureBox4
             // 
             this.dicePictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1;
             this.dicePictureBox4.Location = new System.Drawing.Point(182, 438);
             this.dicePictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox4.Name = "dicePictureBox4";
@@ -630,7 +630,7 @@
             // dicePictureBox3
             // 
             this.dicePictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+            this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1;
             this.dicePictureBox3.Location = new System.Drawing.Point(182, 326);
             this.dicePictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox3.Name = "dicePictureBox3";

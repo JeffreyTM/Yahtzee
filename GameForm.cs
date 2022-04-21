@@ -51,58 +51,29 @@ namespace Yahtzee
         
         public class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
         {
-            private int diceValue;
-            private bool isHeld;
-
             public DiceBlock(int diceValue, bool isHeld)
             {
-                this.diceValue = diceValue;
-                this.isHeld = isHeld;
+                this.DiceValue = diceValue;
+                this.IsHeld = isHeld;
             }
 
-            public int DiceValue
-            {
-                get { return this.diceValue; }
-                set { this.diceValue = value; }
-            }
+            public int DiceValue { get; set; }
 
-            public bool IsHeld
-            {
-                get { return this.isHeld; }
-                set { this.isHeld = value; }
-            }
+            public bool IsHeld { get; set; }
         }
 
         public class Scoring //Constructor: Scoring(string scoreName, bool isScore, int scoreValue)
         {
-            private string scoreName;
-            private bool isScored;
-            private int scoreValue;
-
             public Scoring(string scoreName, bool isScored, int scoreValue)
             {
-                this.scoreName = scoreName;
-                this.isScored = isScored;
-                this.scoreValue = scoreValue;
+                this.ScoreName = scoreName;
+                this.IsScored = isScored;
+                this.ScoreValue = scoreValue;
             }
 
-            public string ScoreName
-            {
-                get { return this.scoreName; }
-                set { this.scoreName = value; }
-            }
-
-            public bool IsScored
-            {
-                get { return this.isScored; }
-                set { this.isScored = value; }
-            }
-
-            public int ScoreValue
-            {
-                get { return this.scoreValue; }
-                set { this.scoreValue = value; }
-            }
+            public string ScoreName { get; set; }
+            public bool IsScored { get; set; }
+            public int ScoreValue { get; set; }
         }
 
         private void GameWindow_Load(object sender, EventArgs e)
@@ -125,7 +96,7 @@ namespace Yahtzee
 
         private void rollButton_Click(object sender, EventArgs e)
         {
-            EndGame();
+            //EndGame();
             if (turn > 3)
             {
                 DialogResult dialog = MessageBox.Show("Round over. Please select an area that you would like to score.",
@@ -171,7 +142,7 @@ namespace Yahtzee
                 }
 
             }
-            SetDiceImage();
+            SetAllDiceImages();
             DisplayAllScores();
             turn++;
 
@@ -190,7 +161,7 @@ namespace Yahtzee
             }
         }
 
-        private void SetDiceImage()
+        private void SetAllDiceImages()
         {
             PictureBox[] dicePics = { dicePictureBox1, dicePictureBox2, dicePictureBox3, dicePictureBox4, dicePictureBox5 };
 
@@ -203,46 +174,46 @@ namespace Yahtzee
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1;
                         break;
 
                     case 2:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock2gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock2cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock2;
                         break;
 
                     case 3:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock3gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock3cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock3;
                         break;
 
                     case 4:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock4gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock4cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock4;
                         break;
 
                     case 5:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock5gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock5cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock5;
                         break;
 
                     case 6:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock6gray;
                         else
-                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock6cropped;
+                            dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock6;
                         break;
 
                     case 0:
-                        dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+                        dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1;
                         break;
 
                     default:
@@ -262,7 +233,7 @@ namespace Yahtzee
                 singleDice.IsHeld = false;
             }
 
-            SetDiceImage();
+            SetAllDiceImages();
             ResetScoreLabels();
 
             turn = 1;
@@ -305,9 +276,14 @@ namespace Yahtzee
         private void SetRollData()
         {
             StreamReader readRollData = new StreamReader("RollData.txt");
+            //  RollData format: scoreType,TimesRolled,turnsHeld,maxTimesRolled1Game,minTimesRolled1Game
 
             int count = 1;
             List<string> valuesList = new List<string>();
+
+            //  scoreType,timesRolled,turnsHeld,maxRolled,minRolled
+            List<Tuple<string,int,int,int,int>> valuesTotalList = new List<Tuple<string,int,int,int,int>>();
+
             List<int> rolledList = new List<int>();
             List<int> heldList = new List<int>();
 
@@ -318,9 +294,21 @@ namespace Yahtzee
                 String[] fields = currentLine.Split(',');
                 if (fields.Length > 1)
                 {
-                    valuesList.Add(fields[0]);
-                    rolledList.Add(int.Parse(fields[1]) + timesRolled[count]);
-                    heldList.Add(int.Parse(fields[2]) + turnsHeld[count]);
+                    string currentScoreType = fields[0];
+                    int currentRolledValue = int.Parse(fields[1]) + timesRolled[count];
+                    int currentHeldValue = int.Parse(fields[2]) + turnsHeld[count];
+                    int maxRolled = int.Parse(fields[3]);
+                    int minRolled = int.Parse(fields[4]);
+
+                    if (timesRolled[count] > maxRolled)
+                        maxRolled = timesRolled[count];
+
+                    if (timesRolled[count] < minRolled || minRolled == 0)
+                        minRolled = timesRolled[count];
+
+
+                    valuesTotalList.Add(new Tuple<string,int,int,int,int>(currentScoreType, currentRolledValue, 
+                                                                          currentHeldValue,maxRolled, minRolled));
 
                     count++;
                 }      
@@ -329,10 +317,10 @@ namespace Yahtzee
 
             StreamWriter writeRollData = new StreamWriter("RollData.txt", false);
 
-            for (int i = 0; i < rolledList.Count; i++)
+            for (int i = 0; i < valuesTotalList.Count; i++)
             {
-                writeRollData.WriteLine(valuesList[i] + "," + rolledList[i] + "," + heldList[i]);
-
+                writeRollData.WriteLine(valuesTotalList[i].Item1 + "," + valuesTotalList[i].Item2 + "," + 
+                                        valuesTotalList[i].Item3 + "," + valuesTotalList[i].Item4 + "," + valuesTotalList[i].Item5);
             }
             writeRollData.Close();
         }
@@ -340,10 +328,12 @@ namespace Yahtzee
         private void SetScoreData()
         {
             StreamReader readScoreData = new StreamReader("ScoreData.txt");
+            //  ScoreData format: scoreType,totalScore,timesScored
 
             int count = 0;
             List<string> valuesList = new List<string>();
             List<int> scoresList = new List<int>();
+            List<int> timesScoredList = new List<int>();
 
             while (!readScoreData.EndOfStream)
             {
@@ -356,6 +346,16 @@ namespace Yahtzee
 
                     valuesList.Add(fields[0]);
                     scoresList.Add(int.Parse(fields[1]) + scorecard[count].ScoreValue);
+                    
+                    // If the current score value was counted in this game, increment the timesScored total in the file
+                    if (scorecard[count].ScoreValue > 0)
+                    {
+                        timesScoredList.Add(int.Parse(fields[2]) + 1);
+                    }
+                    else
+                    {
+                        timesScoredList.Add(int.Parse(fields[2]));
+                    }
 
                     count++;
                 } 
@@ -366,7 +366,7 @@ namespace Yahtzee
 
             for (int i = 0; i < scoresList.Count; i++)
             {
-                writeScoreData.WriteLine(valuesList[i] + "," + scoresList[i]);
+                writeScoreData.WriteLine(valuesList[i] + "," + scoresList[i] + "," + timesScoredList[i]);
             }
             writeScoreData.Close();
         }
@@ -422,7 +422,7 @@ namespace Yahtzee
             totalLabel.Text = "---";
             roundLabel.Text = "Click \"Roll\" to Begin.";
             turn = 1;
-            SetDiceImage();
+            SetAllDiceImages();
             ResetScoreLabels();
             scorecard[scorecard.Length - 1].IsScored = true;
 
@@ -1204,83 +1204,87 @@ namespace Yahtzee
 
         private void dicePictureBox1_Click(object sender, EventArgs e)
         {
-            if (turn == 1)
-                return;
-
-            if (allDice[0].IsHeld == false)
+            if (turn > 1)
             {
-                allDice[0].IsHeld = true;
-                SetDiceImage();
-            }
-            else
-            {
-                allDice[0].IsHeld = false;
-                SetDiceImage();
+                if (allDice[0].IsHeld == false)
+                {
+                    allDice[0].IsHeld = true;
+                    SetCurrentDiceImage(dicePictureBox1, 0);
+                }
+                else
+                {
+                    allDice[0].IsHeld = false;
+                    SetCurrentDiceImage(dicePictureBox1, 0);
+                }
             }
         }
 
         private void dicePictureBox2_Click(object sender, EventArgs e)
         {
-            if (turn == 1)
-                return;
-            if (allDice[1].IsHeld == false)
+            if (turn > 1)
             {
-                allDice[1].IsHeld = true;
-                SetDiceImage();
-            }
-            else
-            {
-                allDice[1].IsHeld = false;
-                SetDiceImage();
+                if (allDice[1].IsHeld == false)
+                {
+                    allDice[1].IsHeld = true;
+                    SetCurrentDiceImage(dicePictureBox2, 1);
+                }
+                else
+                {
+                    allDice[1].IsHeld = false;
+                    SetCurrentDiceImage(dicePictureBox2, 1);
+                }
             }
         }
 
         private void dicePictureBox3_Click(object sender, EventArgs e)
         {
-            if (turn == 1)
-                return;
-            if (allDice[2].IsHeld == false)
+            if (turn > 1)
             {
-                allDice[2].IsHeld = true;
-                SetDiceImage();
-            }
-            else
-            {
-                allDice[2].IsHeld = false;
-                SetDiceImage();
+                if (allDice[2].IsHeld == false)
+                {
+                    allDice[2].IsHeld = true;
+                    SetCurrentDiceImage(dicePictureBox3, 2);
+                }
+                else
+                {
+                    allDice[2].IsHeld = false;
+                    SetCurrentDiceImage(dicePictureBox3, 2);
+                }
             }
         }
 
         private void dicePictureBox4_Click(object sender, EventArgs e)
         {
-            if (turn == 1)
-                return;
-            if (allDice[3].IsHeld == false)
+            if (turn > 1)
             {
-                allDice[3].IsHeld = true;
-                SetDiceImage();
-            }
-            else
-            {
-                allDice[3].IsHeld = false;
-                SetDiceImage();
+                if (allDice[3].IsHeld == false)
+                {
+                    allDice[3].IsHeld = true;
+                    SetCurrentDiceImage(dicePictureBox4, 3);
+                }
+                else
+                {
+                    allDice[3].IsHeld = false;
+                    SetCurrentDiceImage(dicePictureBox4, 3);
+                }
             }
         }
 
         private void dicePictureBox5_Click(object sender, EventArgs e)
         {
-            if (turn == 1)
-                return;
-            if (allDice[4].IsHeld == false)
+            if (turn > 1)
             {
-                allDice[4].IsHeld = true;
-                SetDiceImage();
-            }
-            else
-            {
-                allDice[4].IsHeld = false;
-                SetDiceImage();
-            }
+                if (allDice[4].IsHeld == false)
+                {
+                    allDice[4].IsHeld = true;
+                    SetCurrentDiceImage(dicePictureBox5, 4);
+                }
+                else
+                {
+                    allDice[4].IsHeld = false;
+                    SetCurrentDiceImage(dicePictureBox5, 4);
+                }
+            }             
         }
 
 
@@ -1728,27 +1732,45 @@ namespace Yahtzee
          * 
          */
 
-        private void HoverImage(PictureBox pictureBox, int currentDiceValue)
+        private void SetCurrentDiceImage(PictureBox pictureBox, int index)
         {
-            switch (currentDiceValue)
+            switch (allDice[index].DiceValue)
             {
                 case 1:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1gold;
                     break;
                 case 2:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2gold; 
                     break;
                 case 3:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3gold; 
                     break;
                 case 4:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4gold; 
                     break;
                 case 5:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5gold; 
                     break;
                 case 6:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6gold;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6graygold;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6gold;
                     break;
                 default:
                     DialogResult dialog = MessageBox.Show("Error: Cannot set dice image.",
@@ -1757,27 +1779,45 @@ namespace Yahtzee
             }
         }
 
-        private void LeaveImage(PictureBox pictureBox, int currentDiceValue)
+        private void LeaveImage(PictureBox pictureBox, int index)
         {
-            switch (currentDiceValue)
+            switch (allDice[index].DiceValue)
             {
                 case 1:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock1;
                     break;
                 case 2:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock2;
                     break;
                 case 3:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock3;
                     break;
                 case 4:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock4;
                     break;
                 case 5:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock5;
                     break;
                 case 6:
-                    pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6cropped;
+                    if (allDice[index].IsHeld)
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6gray;
+                    else
+                        pictureBox.Image = global::Yahtzee.Properties.Resources.diceblock6;
                     break;
                 default:
                     DialogResult dialog = MessageBox.Show("Error: Cannot set dice image.",
@@ -1789,110 +1829,90 @@ namespace Yahtzee
         private void dicePictureBox1_MouseEnter(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Hand;
-
-            if (allDice[0].IsHeld == false && turn > 1)
             {
-                HoverImage(dicePictureBox1, allDice[0].DiceValue);
+                Cursor = Cursors.Hand;
+                SetCurrentDiceImage(dicePictureBox1, 0);
             }
         }
 
         private void dicePictureBox1_MouseLeave(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Default;
-
-            if (allDice[0].IsHeld == false && turn > 1)
             {
-                LeaveImage(dicePictureBox1, allDice[0].DiceValue);
+                Cursor = Cursors.Default;
+                LeaveImage(dicePictureBox1, 0);
             }
         }
 
         private void dicePictureBox2_MouseEnter(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Hand;
-
-            if (allDice[1].IsHeld == false && turn > 1)
             {
-                HoverImage(dicePictureBox2, allDice[1].DiceValue);
+                Cursor = Cursors.Hand;
+                SetCurrentDiceImage(dicePictureBox2, 1);
             }
         }
 
         private void dicePictureBox2_MouseLeave(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Default;
-
-            if (allDice[1].IsHeld == false && turn > 1)
             {
-                LeaveImage(dicePictureBox2, allDice[1].DiceValue);
+                Cursor = Cursors.Default;
+                LeaveImage(dicePictureBox2, 1);
             }
         }
 
         private void dicePictureBox3_MouseEnter(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Hand;
-
-            if (allDice[2].IsHeld == false && turn > 1)
             {
-                HoverImage(dicePictureBox3, allDice[2].DiceValue);
+                Cursor = Cursors.Hand;
+                SetCurrentDiceImage(dicePictureBox3, 2);
             }
         }
 
         private void dicePictureBox3_MouseLeave(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Default;
-
-            if (allDice[2].IsHeld == false && turn > 1)
             {
-                LeaveImage(dicePictureBox3, allDice[2].DiceValue);
+                Cursor = Cursors.Default;
+                LeaveImage(dicePictureBox3, 2);
             }
         }
 
         private void dicePictureBox4_MouseEnter(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Hand;
-
-            if (allDice[3].IsHeld == false && turn > 1)
             {
-                HoverImage(dicePictureBox4, allDice[3].DiceValue);
+                Cursor = Cursors.Hand;
+                SetCurrentDiceImage(dicePictureBox4, 3);
             }
         }
 
         private void dicePictureBox4_MouseLeave(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Default;
-
-            if (allDice[3].IsHeld == false && turn > 1)
             {
-                LeaveImage(dicePictureBox4, allDice[3].DiceValue);
+                Cursor = Cursors.Default;
+                LeaveImage(dicePictureBox4, 3);
             }
         }
 
         private void dicePictureBox5_MouseEnter(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Hand;
-
-            if (allDice[4].IsHeld == false && turn > 1)
             {
-                HoverImage(dicePictureBox5, allDice[4].DiceValue);
+                Cursor = Cursors.Hand;
+                SetCurrentDiceImage(dicePictureBox5, 4);
             }
         }
 
         private void dicePictureBox5_MouseLeave(object sender, EventArgs e)
         {
             if (turn > 1)
-                Cursor = Cursors.Default;
-
-            if (allDice[4].IsHeld == false && turn > 1)
             {
-                LeaveImage(dicePictureBox5, allDice[4].DiceValue);
+                Cursor = Cursors.Default;
+                LeaveImage(dicePictureBox5, 4);
             }
         }
     }

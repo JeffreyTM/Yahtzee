@@ -118,29 +118,32 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="diceblock6cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock6cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock3cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock3cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock4cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock4cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock4graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock4graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diceblock1graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock1graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock2gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock2gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock1cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock1cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock4gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock4gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock6gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock6gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock5gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock5gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock3graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock3graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock3gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock3gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,34 +151,46 @@
   <data name="diceblock3gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock3gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="diceblock6gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock6gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="diceblock4gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock4gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock2cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock2cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock6graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock6graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock5cropped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock5cropped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock2graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock2graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diceblock5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock1gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock1gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock2gray1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock2gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock5gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock5gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock2gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock2gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="diceblock5gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock5gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock2gray1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock2gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="diceblock1gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\images\diceblock1gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="diceblock6gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\images\diceblock6gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="diceblock6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diceblock2gold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock2gold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diceblock6gray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock6gray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="diceblock5graygold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\images\diceblock5graygold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

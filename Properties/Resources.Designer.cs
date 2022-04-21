@@ -73,16 +73,6 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock1cropped {
-            get {
-                object obj = ResourceManager.GetObject("diceblock1cropped", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap diceblock1gold {
             get {
                 object obj = ResourceManager.GetObject("diceblock1gold", resourceCulture);
@@ -103,9 +93,19 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock2cropped {
+        internal static System.Drawing.Bitmap diceblock1graygold {
             get {
-                object obj = ResourceManager.GetObject("diceblock2cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("diceblock1graygold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock2 {
+            get {
+                object obj = ResourceManager.GetObject("diceblock2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,19 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock3cropped {
+        internal static System.Drawing.Bitmap diceblock2graygold {
             get {
-                object obj = ResourceManager.GetObject("diceblock3cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("diceblock2graygold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock3 {
+            get {
+                object obj = ResourceManager.GetObject("diceblock3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +183,19 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock4cropped {
+        internal static System.Drawing.Bitmap diceblock3graygold {
             get {
-                object obj = ResourceManager.GetObject("diceblock4cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("diceblock3graygold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock4 {
+            get {
+                object obj = ResourceManager.GetObject("diceblock4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +223,19 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock5cropped {
+        internal static System.Drawing.Bitmap diceblock4graygold {
             get {
-                object obj = ResourceManager.GetObject("diceblock5cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("diceblock4graygold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock5 {
+            get {
+                object obj = ResourceManager.GetObject("diceblock5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,9 +263,19 @@ namespace Yahtzee.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap diceblock6cropped {
+        internal static System.Drawing.Bitmap diceblock5graygold {
             get {
-                object obj = ResourceManager.GetObject("diceblock6cropped", resourceCulture);
+                object obj = ResourceManager.GetObject("diceblock5graygold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock6 {
+            get {
+                object obj = ResourceManager.GetObject("diceblock6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -256,6 +296,16 @@ namespace Yahtzee.Properties {
         internal static System.Drawing.Bitmap diceblock6gray {
             get {
                 object obj = ResourceManager.GetObject("diceblock6gray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diceblock6graygold {
+            get {
+                object obj = ResourceManager.GetObject("diceblock6graygold", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
