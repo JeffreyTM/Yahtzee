@@ -88,8 +88,8 @@
             this.BackColor = System.Drawing.Color.Maroon;
             this.CancelButton = this.quitGameButton;
             this.ClientSize = new System.Drawing.Size(1081, 740);
-            this.Controls.Add(this.quitGameButton);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.quitGameButton);
             this.Controls.Add(this.launchStatsButton);
             this.Controls.Add(this.launchGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;

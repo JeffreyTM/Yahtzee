@@ -16,6 +16,8 @@ namespace Yahtzee
     //  Maybe make another class -
     //  GameData(string ID, string dateTime, Dict<int,int> timesRolled, Dict<int,int> turnsHeld, Scoring[] scorecard
 
+    //  Code bonus**
+
     public partial class GameForm : Form
     {
 
@@ -55,7 +57,7 @@ namespace Yahtzee
                 allDice[i] = new DiceBlock(0, false);
 
             for (int i = 0; i < scorecard.Length; i++)
-                scorecard[i] = new Scoring(scoreTypes[i], false, 0);
+                scorecard[i] = new Scoring(0, false);
 
             // Set the isScored value of the last value in scorecard (the total) to true
             scorecard[scorecard.Length - 1].IsScored = true;
@@ -76,14 +78,14 @@ namespace Yahtzee
                                      Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            
+
             if (turn < 3)
                 roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
                                                     "or choose a category to score.";
             else
                 roundLabel.Text = "Turn " + turn + " of 3. Choose which category you would like to score.";
 
-            
+
             Random rand = new Random();
             listBox1.Items.Clear();
 
@@ -111,7 +113,7 @@ namespace Yahtzee
                     turnsHeld[allDice[i].DiceValue]++;
 
                     listBox1.Items.Add(allDice[i].DiceValue);
-                
+
                 }
 
             }
@@ -227,20 +229,20 @@ namespace Yahtzee
                 if (fields.Length > 1)
                 {
                     ID = int.Parse(fields[0]);
-                }   
+                }
             }
             readGameData.Close();
 
-            
+
             ID++;
 
             StreamWriter writeGameData = new StreamWriter("GameData.txt", true);
             writeGameData.Write(ID + "," + DateTime.Now.ToString("MM/dd/yyyy") + "," + DateTime.Now.ToString("h:mm tt") + ","
                                 + scorecard[scorecard.Length - 1].ScoreValue);
 
-            for (int i = 0; i < scoreTypes.Length - 1; i++)
+            for (int i = 0; i < scorecard.Length - 1; i++)
             {
-                writeGameData.Write("," + /*scorecard[i].ScoreName + "," + */scorecard[i].ScoreValue);
+                writeGameData.Write("," + scorecard[i].ScoreValue);
             }
             writeGameData.WriteLine();
             writeGameData.Close();
@@ -317,17 +319,17 @@ namespace Yahtzee
                 {
                     
 
-                    valuesList.Add(fields[0]);
-                    scoresList.Add(int.Parse(fields[1]) + scorecard[count].ScoreValue);
-                    
+                    valuesList.Add(fields[0]); 
+                    scoresList.Add(int.Parse(fields[2]) + scorecard[count].ScoreValue);
+
                     // If the current score value was counted in this game, increment the timesScored total in the file
                     if (scorecard[count].ScoreValue > 0)
                     {
-                        timesScoredList.Add(int.Parse(fields[2]) + 1);
+                        timesScoredList.Add(int.Parse(fields[1]) + 1);
                     }
                     else
                     {
-                        timesScoredList.Add(int.Parse(fields[2]));
+                        timesScoredList.Add(int.Parse(fields[1]));
                     }
 
                     count++;
@@ -339,13 +341,13 @@ namespace Yahtzee
 
             for (int i = 0; i < scoresList.Count; i++)
             {
-                writeScoreData.WriteLine(valuesList[i] + "," + scoresList[i] + "," + timesScoredList[i]);
+                writeScoreData.WriteLine("{0},{1},{2}", valuesList[i], scoresList[i], timesScoredList[i]);
             }
             writeScoreData.Close();
         }
 
         private void EndGame()
-        {            
+        {
             SetGameData();
             SetScoreData();
             SetRollData();

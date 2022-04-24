@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yahtzee
+﻿namespace Yahtzee
 {
     internal class Scoring //Constructor: Scoring(string scoreName, bool isScore, int scoreValue)
     {
-        public Scoring(string scoreName, bool isScored, int scoreValue)
+        public Scoring(int scoreValue, bool isScored)
         {
-            this.ScoreName = scoreName;
-            this.IsScored = isScored;
             this.ScoreValue = scoreValue;
+            this.IsScored = isScored;
         }
 
-        public string ScoreName { get; set; }
-        public bool IsScored { get; set; }
         public int ScoreValue { get; set; }
+        public bool IsScored { get; set; }
+
     }
 }

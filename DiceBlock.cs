@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yahtzee
+﻿namespace Yahtzee
 {
-
     internal class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
     {
         public DiceBlock(int diceValue, bool isHeld)
@@ -16,7 +9,6 @@ namespace Yahtzee
         }
 
         public int DiceValue { get; set; }
-
         public bool IsHeld { get; set; }
     }
 

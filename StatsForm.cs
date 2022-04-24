@@ -13,7 +13,7 @@ namespace Yahtzee
 {
 
     // Learn how to get rid of border on tab control
-    public partial class StatsForm : Form 
+    public partial class StatsForm : Form
     {
         public StatsForm()
         {
@@ -24,7 +24,7 @@ namespace Yahtzee
         string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
                                 "Three of a Kind" , "Four of a Kind", "Full House",
                                 "Small Straight", "Large Straight", "Yahtzee", "Chance", "Total"};
-        
+
         // int is the game ID, int[] holds all scoreType values and mirrors scoreType order
         Dictionary<int, int[]> gameScoringData = new Dictionary<int, int[]>();
 
@@ -36,11 +36,12 @@ namespace Yahtzee
         {
             LoadGameData();
 
+            //  Add logic telling the user they have no games played
             if (gamesPlayed != 0)
             {
                 LoadScoreData();
                 LoadRollData();
-            } 
+            }
         }
 
         private void LoadGameData()
@@ -54,7 +55,7 @@ namespace Yahtzee
 
                 if (fields.Length > 1)
                 {
-                    string[] listViewData = new string[] { fields[0], fields[1], fields[2], fields[3] };
+                    string[] dataGridViewValues = new string[] { fields[0], fields[1], fields[2], fields[3] };
                     int[] scores = new int[14];
 
                     for (int i = 4; i < fields.Length; i++)
@@ -67,8 +68,7 @@ namespace Yahtzee
 
                     gameScoringData.Add(int.Parse(fields[0]), scores);
 
-                    ListViewItem gameDataLVI = new ListViewItem(listViewData);
-                    gameHistoryListView.Items.Add(gameDataLVI);
+                    gameDataGridView.Rows.Add(dataGridViewValues);
 
                     gamesPlayed++;
                 }
@@ -86,12 +86,10 @@ namespace Yahtzee
 
                 if (fields.Length > 1)
                 {
-                    double average = Math.Round((double.Parse(fields[1]) / gamesPlayed), 2);
+                    double average = Math.Round((double.Parse(fields[2]) / gamesPlayed), 2);
 
-                    string[] listViewData = { fields[0], fields[1], fields[2], average.ToString() };
-
-                    ListViewItem scoreDataLVI = new ListViewItem(listViewData);
-                    scoreTotalsListView.Items.Add(scoreDataLVI);
+                    string[] dataGridViewValues = { fields[0], fields[1], fields[2], average.ToString() };
+                    scoringDataGridView.Rows.Add(dataGridViewValues);
                 }
 
             }
@@ -100,23 +98,74 @@ namespace Yahtzee
 
         private void LoadRollData()
         {
+            //this.rollsDataGridView.Columns["Roll Type:"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             StreamReader srRollData = new StreamReader("RollData.txt");
+
+            string[] titles = { "Times Rolled:", "Turns Held:", "Average Rolls Per Game:",
+                                        "Most Times Rolled in One Game:", "Least Times Rolled in One Game:" };
+            int[] timesRolled = new int[6];
+            int[] turnsHeld = new int[6];
+            double[] average = new double[6];
+            int[] mostTimesRolled = new int[6];
+            int[] leastTimesRolled = new int[6];
+            int index = 0;
+
             while (!srRollData.EndOfStream)
             {
                 string currentLine = srRollData.ReadLine();
+
+                // scoreType, timesRolled, turnsHeld, mostRolls, leastRolls
                 string[] fields = currentLine.Split(',');
 
                 if (fields.Length > 1)
                 {
-                    double average = Math.Round((double.Parse(fields[2]) / gamesPlayed), 2);
+                    // Times Rolled, Turns Held, Average Rolls Per Game, Most times rolled in one game, Least times rolled in one game
+                    timesRolled[index] = int.Parse(fields[1]);
+                    turnsHeld[index] = int.Parse(fields[2]);
+                    average[index] = Math.Round((double)timesRolled[index] / gamesPlayed, 2);
+                    mostTimesRolled[index] = int.Parse(fields[3]);
+                    leastTimesRolled[index] = int.Parse(fields[4]);
 
-                    string[] listViewData = { fields[0], fields[1], fields[2], average.ToString(), fields[3], fields[4] };
-
-                    ListViewItem rollDataLVI = new ListViewItem(listViewData);
-                    rollTotalsListView.Items.Add(rollDataLVI);
+                    index++;
+                }
+                else
+                {
+                    return;
                 }
             }
             srRollData.Close();
+
+            // Append values to listView
+            for (int i = 0; i < titles.Length; i++)
+            {
+                string[] dataGridViewValues = new string[7];
+                dataGridViewValues[0] = titles[i].ToString();
+
+                switch (i)
+                {
+                    case 0:
+                        for (int j = 0; j < timesRolled.Length; j++)
+                            dataGridViewValues[j + 1] = timesRolled[j].ToString();
+                        break;
+                    case 1:
+                        for (int j = 0; j < turnsHeld.Length; j++)
+                            dataGridViewValues[j + 1] = turnsHeld[j].ToString();
+                        break;
+                    case 2:
+                        for (int j = 0; j < average.Length; j++)
+                            dataGridViewValues[j + 1] = average[j].ToString();
+                        break;
+                    case 3:
+                        for (int j = 0; j < mostTimesRolled.Length; j++)
+                            dataGridViewValues[j + 1] = mostTimesRolled[j].ToString();
+                        break;
+                    case 4:
+                        for (int j = 0; j < leastTimesRolled.Length; j++)
+                            dataGridViewValues[j + 1] = leastTimesRolled[j].ToString();
+                        break;
+                }
+                rollsDataGridView.Rows.Add(dataGridViewValues);
+            }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -126,7 +175,7 @@ namespace Yahtzee
             Close();
         }
 
-    private void resetStatsButton_Click(object sender, EventArgs e)
+        private void resetStatsButton_Click(object sender, EventArgs e)
         {
             //Require extra confirmation (maybe ask user to type "Agree" or something
 
@@ -151,7 +200,7 @@ namespace Yahtzee
 
             for (int i = 0; i < scoreTypes.Length; i++)
                 swScoreData.WriteLine(scoreTypes[i] + ",0,0");
-            
+
             swScoreData.Close();
         }
 
@@ -165,51 +214,28 @@ namespace Yahtzee
             swRollData.Close();
         }
 
-        private void gameHistoryListView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        private void gameDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            e.Cancel = true;
-            e.NewWidth = gameHistoryListView.Columns[e.ColumnIndex].Width;
-        }
-        private void scoreTotalsListView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
-        {
-            e.Cancel = true;
-            e.NewWidth = scoreTotalsListView.Columns[e.ColumnIndex].Width;
-        }
 
-        private void rollTotalsListView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
-        {
-            e.Cancel = true;
-            e.NewWidth = rollTotalsListView.Columns[e.ColumnIndex].Width;
-        }
-
-        private void gameHistoryListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(gameHistoryListView.SelectedItems.Count > 0)
+            if (gameDataGridView.Rows.Count > 0)
             {
                 scorecardListBox.Items.Clear();
+                int currentGameIndex = int.Parse(gameDataGridView.SelectedCells[0].Value.ToString());
 
-                
-                int currentGameIndex = int.Parse(gameHistoryListView.SelectedItems[0].Text);
                 scorecardListBox.Items.Add("Game " + currentGameIndex + " Scorecard");
 
                 for (int i = 0; i < gameScoringData[currentGameIndex].Length; i++)
                 {
                     scorecardListBox.Items.Add(scoreTypes[i] + ": " + gameScoringData[currentGameIndex][i]);
                 }
-
-                /*string[] selected = new string[] {  };
-
-                foreach (string item in selected)
-                    listBox1.Items.Add(item + ", ");*/
-
-                /*listBox1.Items.Add("Played on " + dateColumn. + " at "
-                    + dateColumn.ToString());*/
-                    
-                    // Add the logic for displaying scores here
             }
 
-        }
 
-        
+            /*listBox1.Items.Add("Played on " + dateColumn. + " at "
+                + dateColumn.ToString());*//*
+
+            // Add the logic for displaying scores here
+        }*/
+        }
     }
 }
