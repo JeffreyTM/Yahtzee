@@ -270,6 +270,9 @@ namespace Yahtzee
             turn = 1;
             SetAllDiceImages();
             ResetScoreLabels();
+            bonus = 0;
+            hasBonus = false;
+            scorecard[scorecard.Length - 2].IsScored = true;
             scorecard[scorecard.Length - 1].IsScored = true;
 
         }

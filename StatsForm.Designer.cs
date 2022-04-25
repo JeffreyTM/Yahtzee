@@ -314,7 +314,7 @@
             this.scoringDataGridView.DefaultCellStyle = dataGridViewCellStyle9;
             this.scoringDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.scoringDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.scoringDataGridView.Location = new System.Drawing.Point(12, 17);
+            this.scoringDataGridView.Location = new System.Drawing.Point(12, 3);
             this.scoringDataGridView.Name = "scoringDataGridView";
             this.scoringDataGridView.ReadOnly = true;
             this.scoringDataGridView.RowHeadersVisible = false;
@@ -333,7 +333,7 @@
             this.scoringDataGridView.ShowCellToolTips = false;
             this.scoringDataGridView.ShowEditingIcon = false;
             this.scoringDataGridView.ShowRowErrors = false;
-            this.scoringDataGridView.Size = new System.Drawing.Size(660, 369);
+            this.scoringDataGridView.Size = new System.Drawing.Size(660, 395);
             this.scoringDataGridView.TabIndex = 5;
             // 
             // dataGridViewTextBoxColumn1
@@ -421,7 +421,7 @@
             dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.rollsDataGridView.DefaultCellStyle = dataGridViewCellStyle13;
             this.rollsDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rollsDataGridView.Location = new System.Drawing.Point(12, 406);
+            this.rollsDataGridView.Location = new System.Drawing.Point(12, 423);
             this.rollsDataGridView.Name = "rollsDataGridView";
             this.rollsDataGridView.ReadOnly = true;
             this.rollsDataGridView.RowHeadersVisible = false;

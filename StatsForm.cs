@@ -13,6 +13,8 @@ namespace Yahtzee
 {
 
     // Learn how to get rid of border on tab control
+    // ***ERROR HANDLING FOR IF A FILE IS DELETED
+
     public partial class StatsForm : Form
     {
         public StatsForm()
