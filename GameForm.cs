@@ -555,10 +555,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 acesBGLabel.BackColor = Color.Gainsboro;
                 acesLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
+                
 
                 int acesTotal = ScoreAces();
                 ScoreBonus(acesTotal);
+                ResetBonusLabelDisplay();
 
                 acesLabel.Text = acesTotal.ToString();
 
@@ -591,10 +592,10 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 twosBGLabel.BackColor = Color.Gainsboro;
                 twosLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
 
                 int twosTotal = ScoreTwos();
                 ScoreBonus(twosTotal);
+                ResetBonusLabelDisplay();
 
                 twosLabel.Text = twosTotal.ToString();
 
@@ -625,10 +626,10 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 threesBGLabel.BackColor = Color.Gainsboro;
                 threesLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
 
                 int threesTotal = ScoreThrees();
                 ScoreBonus(threesTotal);
+                ResetBonusLabelDisplay();
 
                 threesLabel.Text = threesTotal.ToString();
 
@@ -660,10 +661,10 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 foursBGLabel.BackColor = Color.Gainsboro;
                 foursLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
 
                 int foursTotal = ScoreFours();
                 ScoreBonus(foursTotal);
+                ResetBonusLabelDisplay();
 
                 foursLabel.Text = foursTotal.ToString();
 
@@ -696,10 +697,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 fivesBGLabel.BackColor = Color.Gainsboro;
                 fivesLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
+
 
                 int fivesTotal = ScoreFives();
                 ScoreBonus(fivesTotal);
+                ResetBonusLabelDisplay();
 
                 fivesLabel.Text = fivesTotal.ToString();
 
@@ -731,11 +733,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 sixesBGLabel.BackColor = Color.Gainsboro;
                 sixesLabel.BackColor = Color.Gold;
-                ResetBonusLabelDisplay();
 
                 int sixesTotal = ScoreSixes();
                 ScoreBonus(sixesTotal);
-                
+                ResetBonusLabelDisplay();
+
                 sixesLabel.Text = sixesTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += sixesTotal;
