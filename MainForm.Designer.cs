@@ -32,7 +32,7 @@
             this.launchGameButton = new System.Windows.Forms.Button();
             this.launchStatsButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.quitGameButton = new System.Windows.Forms.Button();
+            this.exitGameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@
             this.launchGameButton.Name = "launchGameButton";
             this.launchGameButton.Size = new System.Drawing.Size(305, 148);
             this.launchGameButton.TabIndex = 1;
-            this.launchGameButton.Text = "Play Game";
+            this.launchGameButton.Text = "&Play Game";
             this.launchGameButton.UseVisualStyleBackColor = true;
             this.launchGameButton.Click += new System.EventHandler(this.launchGameButton_Click);
             // 
@@ -54,7 +54,7 @@
             this.launchStatsButton.Name = "launchStatsButton";
             this.launchStatsButton.Size = new System.Drawing.Size(305, 148);
             this.launchStatsButton.TabIndex = 2;
-            this.launchStatsButton.Text = "Stats";
+            this.launchStatsButton.Text = "&Stats";
             this.launchStatsButton.UseVisualStyleBackColor = true;
             this.launchStatsButton.Click += new System.EventHandler(this.launchStatsButton_Click);
             // 
@@ -69,27 +69,27 @@
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
-            // quitGameButton
+            // exitGameButton
             // 
-            this.quitGameButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quitGameButton.Font = new System.Drawing.Font("Yu Gothic UI", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quitGameButton.Location = new System.Drawing.Point(725, 563);
-            this.quitGameButton.Name = "quitGameButton";
-            this.quitGameButton.Size = new System.Drawing.Size(305, 148);
-            this.quitGameButton.TabIndex = 4;
-            this.quitGameButton.Text = "Quit Game";
-            this.quitGameButton.UseVisualStyleBackColor = true;
-            this.quitGameButton.Click += new System.EventHandler(this.quitGameButton_Click);
+            this.exitGameButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.exitGameButton.Font = new System.Drawing.Font("Yu Gothic UI", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitGameButton.Location = new System.Drawing.Point(725, 563);
+            this.exitGameButton.Name = "exitGameButton";
+            this.exitGameButton.Size = new System.Drawing.Size(305, 148);
+            this.exitGameButton.TabIndex = 4;
+            this.exitGameButton.Text = "E&xit Game";
+            this.exitGameButton.UseVisualStyleBackColor = true;
+            this.exitGameButton.Click += new System.EventHandler(this.quitGameButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.CancelButton = this.quitGameButton;
+            this.CancelButton = this.exitGameButton;
             this.ClientSize = new System.Drawing.Size(1081, 740);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.quitGameButton);
+            this.Controls.Add(this.exitGameButton);
             this.Controls.Add(this.launchStatsButton);
             this.Controls.Add(this.launchGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -109,7 +109,7 @@
         private System.Windows.Forms.Button launchGameButton;
         private System.Windows.Forms.Button launchStatsButton;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button quitGameButton;
+        private System.Windows.Forms.Button exitGameButton;
     }
 }
 

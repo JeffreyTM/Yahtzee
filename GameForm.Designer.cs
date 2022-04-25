@@ -35,6 +35,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bonusLabel = new System.Windows.Forms.Label();
+            this.bonusBGLabel = new System.Windows.Forms.Label();
             this.largeStraightLabel = new System.Windows.Forms.Label();
             this.yahtzeeLabel = new System.Windows.Forms.Label();
             this.chanceLabel = new System.Windows.Forms.Label();
@@ -63,9 +65,8 @@
             this.threesBGLabel = new System.Windows.Forms.Label();
             this.threeKindBGLabel = new System.Windows.Forms.Label();
             this.twosBGLabel = new System.Windows.Forms.Label();
-            this.instructionsButton = new System.Windows.Forms.Button();
+            this.statsButton = new System.Windows.Forms.Button();
             this.roundLabel = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.dicePictureBox1 = new System.Windows.Forms.PictureBox();
             this.dicePictureBox5 = new System.Windows.Forms.PictureBox();
@@ -90,7 +91,7 @@
             this.rollButton.Name = "rollButton";
             this.rollButton.Size = new System.Drawing.Size(188, 121);
             this.rollButton.TabIndex = 2;
-            this.rollButton.Text = "Roll";
+            this.rollButton.Text = "&Roll";
             this.toolTip1.SetToolTip(this.rollButton, "Roll the dice");
             this.rollButton.UseVisualStyleBackColor = true;
             this.rollButton.Click += new System.EventHandler(this.rollButton_Click);
@@ -105,7 +106,7 @@
             this.exitGameButton.Name = "exitGameButton";
             this.exitGameButton.Size = new System.Drawing.Size(188, 121);
             this.exitGameButton.TabIndex = 4;
-            this.exitGameButton.Text = "Main Menu";
+            this.exitGameButton.Text = "&Main Menu";
             this.toolTip1.SetToolTip(this.exitGameButton, "Return to the main menu");
             this.exitGameButton.UseVisualStyleBackColor = true;
             this.exitGameButton.Click += new System.EventHandler(this.exitGameButton_Click);
@@ -117,26 +118,28 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(382, 79);
+            this.panel2.Location = new System.Drawing.Point(353, 82);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(357, 575);
+            this.panel2.Size = new System.Drawing.Size(357, 585);
             this.panel2.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Yu Gothic UI", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(3, -10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(351, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Scorecard";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.bonusLabel);
+            this.panel1.Controls.Add(this.bonusBGLabel);
             this.panel1.Controls.Add(this.largeStraightLabel);
             this.panel1.Controls.Add(this.yahtzeeLabel);
             this.panel1.Controls.Add(this.chanceLabel);
@@ -166,10 +169,35 @@
             this.panel1.Controls.Add(this.threeKindBGLabel);
             this.panel1.Controls.Add(this.twosBGLabel);
             this.panel1.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(76, 59);
+            this.panel1.Location = new System.Drawing.Point(76, 43);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(203, 494);
+            this.panel1.Size = new System.Drawing.Size(203, 528);
             this.panel1.TabIndex = 1;
+            // 
+            // bonusLabel
+            // 
+            this.bonusLabel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bonusLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bonusLabel.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bonusLabel.ForeColor = System.Drawing.Color.Red;
+            this.bonusLabel.Location = new System.Drawing.Point(151, 460);
+            this.bonusLabel.Name = "bonusLabel";
+            this.bonusLabel.Size = new System.Drawing.Size(45, 28);
+            this.bonusLabel.TabIndex = 29;
+            this.bonusLabel.Text = "X";
+            this.bonusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // bonusBGLabel
+            // 
+            this.bonusBGLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bonusBGLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bonusBGLabel.Location = new System.Drawing.Point(4, 460);
+            this.bonusBGLabel.Name = "bonusBGLabel";
+            this.bonusBGLabel.Size = new System.Drawing.Size(191, 28);
+            this.bonusBGLabel.TabIndex = 28;
+            this.bonusBGLabel.Text = "Bonus (0/63):";
+            this.bonusBGLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip1.SetToolTip(this.bonusBGLabel, "Awards a bonus of 35 points if Aces-Sixes adds up to at least 63");
             // 
             // largeStraightLabel
             // 
@@ -266,9 +294,9 @@
             // 
             this.totalLabel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.totalLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.totalLabel.Location = new System.Drawing.Point(151, 460);
+            this.totalLabel.Location = new System.Drawing.Point(151, 493);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(45, 27);
+            this.totalLabel.Size = new System.Drawing.Size(45, 28);
             this.totalLabel.TabIndex = 27;
             this.totalLabel.Text = "---";
             this.totalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -289,7 +317,7 @@
             // 
             this.totalBGLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.totalBGLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.totalBGLabel.Location = new System.Drawing.Point(4, 460);
+            this.totalBGLabel.Location = new System.Drawing.Point(4, 493);
             this.totalBGLabel.Name = "totalBGLabel";
             this.totalBGLabel.Size = new System.Drawing.Size(191, 28);
             this.totalBGLabel.TabIndex = 26;
@@ -532,18 +560,19 @@
             this.twosBGLabel.MouseEnter += new System.EventHandler(this.twosBGLabel_MouseEnter);
             this.twosBGLabel.MouseLeave += new System.EventHandler(this.twosBGLabel_MouseLeave);
             // 
-            // instructionsButton
+            // statsButton
             // 
-            this.instructionsButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.instructionsButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.instructionsButton.Location = new System.Drawing.Point(321, 687);
-            this.instructionsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.instructionsButton.Name = "instructionsButton";
-            this.instructionsButton.Size = new System.Drawing.Size(188, 121);
-            this.instructionsButton.TabIndex = 3;
-            this.instructionsButton.Text = "How to Play";
-            this.toolTip1.SetToolTip(this.instructionsButton, "Instructions for how to play Yahtzee");
-            this.instructionsButton.UseVisualStyleBackColor = true;
+            this.statsButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.statsButton.Font = new System.Drawing.Font("Yu Gothic UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statsButton.Location = new System.Drawing.Point(321, 687);
+            this.statsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.statsButton.Name = "statsButton";
+            this.statsButton.Size = new System.Drawing.Size(188, 121);
+            this.statsButton.TabIndex = 3;
+            this.statsButton.Text = "View &Stats";
+            this.toolTip1.SetToolTip(this.statsButton, "Go to Stats");
+            this.statsButton.UseVisualStyleBackColor = true;
+            this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
             // 
             // roundLabel
             // 
@@ -558,20 +587,11 @@
             this.roundLabel.Text = "Click \"Roll\" to Begin";
             this.roundLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(12, 98);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(159, 544);
-            this.listBox1.TabIndex = 1;
-            // 
             // dicePictureBox1
             // 
             this.dicePictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.dicePictureBox1.Image = global::Yahtzee.Properties.Resources.diceblock1;
-            this.dicePictureBox1.Location = new System.Drawing.Point(182, 100);
+            this.dicePictureBox1.Location = new System.Drawing.Point(144, 101);
             this.dicePictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox1.Name = "dicePictureBox1";
             this.dicePictureBox1.Size = new System.Drawing.Size(102, 102);
@@ -586,7 +606,7 @@
             // 
             this.dicePictureBox5.BackColor = System.Drawing.Color.Transparent;
             this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1;
-            this.dicePictureBox5.Location = new System.Drawing.Point(182, 548);
+            this.dicePictureBox5.Location = new System.Drawing.Point(144, 549);
             this.dicePictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox5.Name = "dicePictureBox5";
             this.dicePictureBox5.Size = new System.Drawing.Size(102, 104);
@@ -601,7 +621,7 @@
             // 
             this.dicePictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1;
-            this.dicePictureBox2.Location = new System.Drawing.Point(182, 210);
+            this.dicePictureBox2.Location = new System.Drawing.Point(144, 211);
             this.dicePictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox2.Name = "dicePictureBox2";
             this.dicePictureBox2.Size = new System.Drawing.Size(101, 102);
@@ -616,7 +636,7 @@
             // 
             this.dicePictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1;
-            this.dicePictureBox4.Location = new System.Drawing.Point(182, 438);
+            this.dicePictureBox4.Location = new System.Drawing.Point(144, 439);
             this.dicePictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox4.Name = "dicePictureBox4";
             this.dicePictureBox4.Size = new System.Drawing.Size(102, 102);
@@ -631,7 +651,7 @@
             // 
             this.dicePictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1;
-            this.dicePictureBox3.Location = new System.Drawing.Point(182, 326);
+            this.dicePictureBox3.Location = new System.Drawing.Point(144, 327);
             this.dicePictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox3.Name = "dicePictureBox3";
             this.dicePictureBox3.Size = new System.Drawing.Size(102, 102);
@@ -651,14 +671,13 @@
             this.CancelButton = this.exitGameButton;
             this.ClientSize = new System.Drawing.Size(838, 831);
             this.ControlBox = false;
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.dicePictureBox1);
             this.Controls.Add(this.dicePictureBox5);
             this.Controls.Add(this.dicePictureBox2);
             this.Controls.Add(this.dicePictureBox4);
             this.Controls.Add(this.dicePictureBox3);
             this.Controls.Add(this.roundLabel);
-            this.Controls.Add(this.instructionsButton);
+            this.Controls.Add(this.statsButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.exitGameButton);
             this.Controls.Add(this.rollButton);
@@ -690,7 +709,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label acesBGLabel;
-        private System.Windows.Forms.Button instructionsButton;
+        private System.Windows.Forms.Button statsButton;
         private System.Windows.Forms.PictureBox dicePictureBox3;
         private System.Windows.Forms.PictureBox dicePictureBox2;
         private System.Windows.Forms.PictureBox dicePictureBox4;
@@ -725,7 +744,8 @@
         private System.Windows.Forms.Label largeStraightBGLabel;
         private System.Windows.Forms.Label yahtzeeBGLabel;
         private System.Windows.Forms.Label chanceBGLabel;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label bonusLabel;
+        private System.Windows.Forms.Label bonusBGLabel;
     }
 }

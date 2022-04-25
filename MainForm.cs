@@ -68,7 +68,11 @@ namespace Yahtzee
 
         private void quitGameButton_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult dialog = MessageBox.Show("Are you sure you want to exit?", 
+                                                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (DialogResult.Yes == dialog)
+                Close();
         }
     }
 }

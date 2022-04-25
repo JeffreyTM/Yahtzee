@@ -28,33 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statsTabControl = new System.Windows.Forms.TabControl();
             this.gameHistoryTab = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.gameDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.scorecardListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.scoreTotalsTab = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.rollsDataGridView = new System.Windows.Forms.DataGridView();
-            this.exitButton = new System.Windows.Forms.Button();
-            this.playButton = new System.Windows.Forms.Button();
-            this.resetStatsButton = new System.Windows.Forms.Button();
             this.scoringDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rollsDataGridView = new System.Windows.Forms.DataGridView();
             this.rollTypeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.twosColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,11 +64,9 @@
             this.foursColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fivesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sixesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gameDataGridView = new System.Windows.Forms.DataGridView();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.playButton = new System.Windows.Forms.Button();
+            this.resetStatsButton = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,12 +74,12 @@
             this.statsTabControl.SuspendLayout();
             this.gameHistoryTab.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gameDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.scoreTotalsTab.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rollsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scoringDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gameDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rollsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // statsTabControl
@@ -114,10 +114,64 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.LightGray;
             this.panel2.Controls.Add(this.gameDataGridView);
-            this.panel2.Location = new System.Drawing.Point(7, 7);
+            this.panel2.Location = new System.Drawing.Point(22, 7);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(387, 607);
+            this.panel2.Size = new System.Drawing.Size(423, 607);
             this.panel2.TabIndex = 4;
+            // 
+            // gameDataGridView
+            // 
+            this.gameDataGridView.AllowUserToAddRows = false;
+            this.gameDataGridView.AllowUserToDeleteRows = false;
+            this.gameDataGridView.AllowUserToResizeColumns = false;
+            this.gameDataGridView.AllowUserToResizeRows = false;
+            this.gameDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.gameDataGridView.BackgroundColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gameDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gameDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gameDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gameDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.gameDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.gameDataGridView.Location = new System.Drawing.Point(15, 12);
+            this.gameDataGridView.Name = "gameDataGridView";
+            this.gameDataGridView.ReadOnly = true;
+            this.gameDataGridView.RowHeadersVisible = false;
+            this.gameDataGridView.RowHeadersWidth = 40;
+            this.gameDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.Control;
+            this.gameDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.gameDataGridView.RowTemplate.Height = 24;
+            this.gameDataGridView.RowTemplate.ReadOnly = true;
+            this.gameDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.gameDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gameDataGridView.ShowCellErrors = false;
+            this.gameDataGridView.ShowCellToolTips = false;
+            this.gameDataGridView.ShowEditingIcon = false;
+            this.gameDataGridView.ShowRowErrors = false;
+            this.gameDataGridView.Size = new System.Drawing.Size(392, 581);
+            this.gameDataGridView.TabIndex = 5;
+            this.gameDataGridView.SelectionChanged += new System.EventHandler(this.gameDataGridView_SelectionChanged);
             // 
             // panel1
             // 
@@ -125,7 +179,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.scorecardListBox);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(449, 53);
+            this.panel1.Location = new System.Drawing.Point(476, 53);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(332, 519);
             this.panel1.TabIndex = 3;
@@ -175,97 +229,6 @@
             this.panel3.Size = new System.Drawing.Size(684, 581);
             this.panel3.TabIndex = 4;
             // 
-            // rollsDataGridView
-            // 
-            this.rollsDataGridView.AllowUserToAddRows = false;
-            this.rollsDataGridView.AllowUserToDeleteRows = false;
-            this.rollsDataGridView.AllowUserToResizeColumns = false;
-            this.rollsDataGridView.AllowUserToResizeRows = false;
-            this.rollsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.rollsDataGridView.BackgroundColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.rollsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            this.rollsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rollsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.rollTypeColumn,
-            this.acesColumn,
-            this.twosColumn,
-            this.threesColumn,
-            this.foursColumn,
-            this.fivesColumn,
-            this.sixesColumn});
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.rollsDataGridView.DefaultCellStyle = dataGridViewCellStyle17;
-            this.rollsDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rollsDataGridView.Location = new System.Drawing.Point(12, 406);
-            this.rollsDataGridView.Name = "rollsDataGridView";
-            this.rollsDataGridView.ReadOnly = true;
-            this.rollsDataGridView.RowHeadersVisible = false;
-            this.rollsDataGridView.RowHeadersWidth = 40;
-            this.rollsDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rollsDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle18;
-            this.rollsDataGridView.RowTemplate.Height = 24;
-            this.rollsDataGridView.RowTemplate.ReadOnly = true;
-            this.rollsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.rollsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.rollsDataGridView.ShowCellErrors = false;
-            this.rollsDataGridView.ShowCellToolTips = false;
-            this.rollsDataGridView.ShowEditingIcon = false;
-            this.rollsDataGridView.ShowRowErrors = false;
-            this.rollsDataGridView.Size = new System.Drawing.Size(660, 151);
-            this.rollsDataGridView.TabIndex = 4;
-            // 
-            // exitButton
-            // 
-            this.exitButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(568, 688);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(188, 121);
-            this.exitButton.TabIndex = 1;
-            this.exitButton.Text = "Main Menu";
-            this.exitButton.UseVisualStyleBackColor = true;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
-            // 
-            // playButton
-            // 
-            this.playButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playButton.Location = new System.Drawing.Point(72, 688);
-            this.playButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(188, 121);
-            this.playButton.TabIndex = 2;
-            this.playButton.Text = "Play Game";
-            this.playButton.UseVisualStyleBackColor = true;
-            // 
-            // resetStatsButton
-            // 
-            this.resetStatsButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetStatsButton.Location = new System.Drawing.Point(317, 688);
-            this.resetStatsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.resetStatsButton.Name = "resetStatsButton";
-            this.resetStatsButton.Size = new System.Drawing.Size(188, 121);
-            this.resetStatsButton.TabIndex = 3;
-            this.resetStatsButton.Text = "Reset All Stats";
-            this.resetStatsButton.UseVisualStyleBackColor = true;
-            this.resetStatsButton.Click += new System.EventHandler(this.resetStatsButton_Click);
-            // 
             // scoringDataGridView
             // 
             this.scoringDataGridView.AllowUserToAddRows = false;
@@ -274,28 +237,28 @@
             this.scoringDataGridView.AllowUserToResizeRows = false;
             this.scoringDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.scoringDataGridView.BackgroundColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.scoringDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.scoringDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.scoringDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.scoringDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.scoringDataGridView.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.scoringDataGridView.DefaultCellStyle = dataGridViewCellStyle9;
             this.scoringDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.scoringDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.scoringDataGridView.Location = new System.Drawing.Point(12, 17);
@@ -304,11 +267,11 @@
             this.scoringDataGridView.RowHeadersVisible = false;
             this.scoringDataGridView.RowHeadersWidth = 40;
             this.scoringDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.scoringDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.scoringDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.scoringDataGridView.RowTemplate.Height = 24;
             this.scoringDataGridView.RowTemplate.ReadOnly = true;
             this.scoringDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
@@ -317,96 +280,14 @@
             this.scoringDataGridView.ShowCellToolTips = false;
             this.scoringDataGridView.ShowEditingIcon = false;
             this.scoringDataGridView.ShowRowErrors = false;
-            this.scoringDataGridView.Size = new System.Drawing.Size(660, 367);
+            this.scoringDataGridView.Size = new System.Drawing.Size(660, 369);
             this.scoringDataGridView.TabIndex = 5;
-            // 
-            // rollTypeColumn
-            // 
-            this.rollTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.rollTypeColumn.DefaultCellStyle = dataGridViewCellStyle16;
-            this.rollTypeColumn.Frozen = true;
-            this.rollTypeColumn.HeaderText = "Roll Type:";
-            this.rollTypeColumn.MinimumWidth = 6;
-            this.rollTypeColumn.Name = "rollTypeColumn";
-            this.rollTypeColumn.ReadOnly = true;
-            this.rollTypeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.rollTypeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.rollTypeColumn.Width = 240;
-            // 
-            // acesColumn
-            // 
-            this.acesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.acesColumn.Frozen = true;
-            this.acesColumn.HeaderText = "Aces";
-            this.acesColumn.MinimumWidth = 6;
-            this.acesColumn.Name = "acesColumn";
-            this.acesColumn.ReadOnly = true;
-            this.acesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.acesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.acesColumn.Width = 65;
-            // 
-            // twosColumn
-            // 
-            this.twosColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.twosColumn.Frozen = true;
-            this.twosColumn.HeaderText = "Twos";
-            this.twosColumn.MinimumWidth = 6;
-            this.twosColumn.Name = "twosColumn";
-            this.twosColumn.ReadOnly = true;
-            this.twosColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.twosColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.twosColumn.Width = 65;
-            // 
-            // threesColumn
-            // 
-            this.threesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.threesColumn.HeaderText = "Threes";
-            this.threesColumn.MinimumWidth = 6;
-            this.threesColumn.Name = "threesColumn";
-            this.threesColumn.ReadOnly = true;
-            this.threesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.threesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.threesColumn.Width = 75;
-            // 
-            // foursColumn
-            // 
-            this.foursColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.foursColumn.HeaderText = "Fours";
-            this.foursColumn.MinimumWidth = 6;
-            this.foursColumn.Name = "foursColumn";
-            this.foursColumn.ReadOnly = true;
-            this.foursColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.foursColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.foursColumn.Width = 75;
-            // 
-            // fivesColumn
-            // 
-            this.fivesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.fivesColumn.HeaderText = "Fives";
-            this.fivesColumn.MinimumWidth = 6;
-            this.fivesColumn.Name = "fivesColumn";
-            this.fivesColumn.ReadOnly = true;
-            this.fivesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.fivesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.fivesColumn.Width = 70;
-            // 
-            // sixesColumn
-            // 
-            this.sixesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.sixesColumn.HeaderText = "Sixes";
-            this.sixesColumn.MinimumWidth = 6;
-            this.sixesColumn.Name = "sixesColumn";
-            this.sixesColumn.ReadOnly = true;
-            this.sixesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.sixesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.sixesColumn.Width = 70;
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn1.Frozen = true;
             this.dataGridViewTextBoxColumn1.HeaderText = "Score Type";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
@@ -414,7 +295,7 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn1.Width = 185;
+            this.dataGridViewTextBoxColumn1.Width = 160;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -443,77 +324,198 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle21;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Average Score per Game";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Average Score Per Game";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn4.Width = 210;
+            this.dataGridViewTextBoxColumn4.Width = 235;
             // 
-            // gameDataGridView
+            // rollsDataGridView
             // 
-            this.gameDataGridView.AllowUserToAddRows = false;
-            this.gameDataGridView.AllowUserToDeleteRows = false;
-            this.gameDataGridView.AllowUserToResizeColumns = false;
-            this.gameDataGridView.AllowUserToResizeRows = false;
-            this.gameDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.gameDataGridView.BackgroundColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Yu Gothic UI", 12F);
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gameDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle24;
-            this.gameDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gameDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8});
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gameDataGridView.DefaultCellStyle = dataGridViewCellStyle27;
-            this.gameDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.gameDataGridView.Location = new System.Drawing.Point(15, 12);
-            this.gameDataGridView.Name = "gameDataGridView";
-            this.gameDataGridView.ReadOnly = true;
-            this.gameDataGridView.RowHeadersVisible = false;
-            this.gameDataGridView.RowHeadersWidth = 40;
-            this.gameDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.Control;
-            this.gameDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle28;
-            this.gameDataGridView.RowTemplate.Height = 24;
-            this.gameDataGridView.RowTemplate.ReadOnly = true;
-            this.gameDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.gameDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gameDataGridView.ShowCellErrors = false;
-            this.gameDataGridView.ShowCellToolTips = false;
-            this.gameDataGridView.ShowEditingIcon = false;
-            this.gameDataGridView.ShowRowErrors = false;
-            this.gameDataGridView.Size = new System.Drawing.Size(358, 581);
-            this.gameDataGridView.TabIndex = 5;
-            this.gameDataGridView.SelectionChanged += new System.EventHandler(this.gameDataGridView_SelectionChanged);
+            this.rollsDataGridView.AllowUserToAddRows = false;
+            this.rollsDataGridView.AllowUserToDeleteRows = false;
+            this.rollsDataGridView.AllowUserToResizeColumns = false;
+            this.rollsDataGridView.AllowUserToResizeRows = false;
+            this.rollsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.rollsDataGridView.BackgroundColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.rollsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.rollsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.rollsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.rollTypeColumn,
+            this.acesColumn,
+            this.twosColumn,
+            this.threesColumn,
+            this.foursColumn,
+            this.fivesColumn,
+            this.sixesColumn});
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Yu Gothic UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.rollsDataGridView.DefaultCellStyle = dataGridViewCellStyle13;
+            this.rollsDataGridView.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rollsDataGridView.Location = new System.Drawing.Point(12, 406);
+            this.rollsDataGridView.Name = "rollsDataGridView";
+            this.rollsDataGridView.ReadOnly = true;
+            this.rollsDataGridView.RowHeadersVisible = false;
+            this.rollsDataGridView.RowHeadersWidth = 40;
+            this.rollsDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.rollsDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle14;
+            this.rollsDataGridView.RowTemplate.Height = 24;
+            this.rollsDataGridView.RowTemplate.ReadOnly = true;
+            this.rollsDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.rollsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.rollsDataGridView.ShowCellErrors = false;
+            this.rollsDataGridView.ShowCellToolTips = false;
+            this.rollsDataGridView.ShowEditingIcon = false;
+            this.rollsDataGridView.ShowRowErrors = false;
+            this.rollsDataGridView.Size = new System.Drawing.Size(660, 155);
+            this.rollsDataGridView.TabIndex = 4;
+            // 
+            // rollTypeColumn
+            // 
+            this.rollTypeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.rollTypeColumn.DefaultCellStyle = dataGridViewCellStyle12;
+            this.rollTypeColumn.Frozen = true;
+            this.rollTypeColumn.HeaderText = "Roll Type:";
+            this.rollTypeColumn.MinimumWidth = 6;
+            this.rollTypeColumn.Name = "rollTypeColumn";
+            this.rollTypeColumn.ReadOnly = true;
+            this.rollTypeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.rollTypeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.rollTypeColumn.Width = 287;
+            // 
+            // acesColumn
+            // 
+            this.acesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.acesColumn.Frozen = true;
+            this.acesColumn.HeaderText = "Aces";
+            this.acesColumn.MinimumWidth = 6;
+            this.acesColumn.Name = "acesColumn";
+            this.acesColumn.ReadOnly = true;
+            this.acesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.acesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.acesColumn.Width = 60;
+            // 
+            // twosColumn
+            // 
+            this.twosColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.twosColumn.Frozen = true;
+            this.twosColumn.HeaderText = "Twos";
+            this.twosColumn.MinimumWidth = 6;
+            this.twosColumn.Name = "twosColumn";
+            this.twosColumn.ReadOnly = true;
+            this.twosColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.twosColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.twosColumn.Width = 60;
+            // 
+            // threesColumn
+            // 
+            this.threesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.threesColumn.HeaderText = "Threes";
+            this.threesColumn.MinimumWidth = 6;
+            this.threesColumn.Name = "threesColumn";
+            this.threesColumn.ReadOnly = true;
+            this.threesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.threesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.threesColumn.Width = 70;
+            // 
+            // foursColumn
+            // 
+            this.foursColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.foursColumn.HeaderText = "Fours";
+            this.foursColumn.MinimumWidth = 6;
+            this.foursColumn.Name = "foursColumn";
+            this.foursColumn.ReadOnly = true;
+            this.foursColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.foursColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.foursColumn.Width = 58;
+            // 
+            // fivesColumn
+            // 
+            this.fivesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.fivesColumn.HeaderText = "Fives";
+            this.fivesColumn.MinimumWidth = 6;
+            this.fivesColumn.Name = "fivesColumn";
+            this.fivesColumn.ReadOnly = true;
+            this.fivesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.fivesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.fivesColumn.Width = 60;
+            // 
+            // sixesColumn
+            // 
+            this.sixesColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.sixesColumn.HeaderText = "Sixes";
+            this.sixesColumn.MinimumWidth = 6;
+            this.sixesColumn.Name = "sixesColumn";
+            this.sixesColumn.ReadOnly = true;
+            this.sixesColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.sixesColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.sixesColumn.Width = 70;
+            // 
+            // exitButton
+            // 
+            this.exitButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.exitButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(568, 688);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(188, 121);
+            this.exitButton.TabIndex = 1;
+            this.exitButton.Text = "&Main Menu";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // playButton
+            // 
+            this.playButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playButton.Location = new System.Drawing.Point(72, 688);
+            this.playButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(188, 121);
+            this.playButton.TabIndex = 2;
+            this.playButton.Text = "&Play Game";
+            this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
+            // resetStatsButton
+            // 
+            this.resetStatsButton.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetStatsButton.Location = new System.Drawing.Point(317, 688);
+            this.resetStatsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.resetStatsButton.Name = "resetStatsButton";
+            this.resetStatsButton.Size = new System.Drawing.Size(188, 121);
+            this.resetStatsButton.TabIndex = 3;
+            this.resetStatsButton.Text = "&Reset All Stats";
+            this.resetStatsButton.UseVisualStyleBackColor = true;
+            this.resetStatsButton.Click += new System.EventHandler(this.resetStatsButton_Click);
             // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn5.Frozen = true;
             this.dataGridViewTextBoxColumn5.HeaderText = "Game";
             this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
@@ -521,7 +523,7 @@
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn5.Width = 60;
+            this.dataGridViewTextBoxColumn5.Width = 70;
             // 
             // dataGridViewTextBoxColumn6
             // 
@@ -533,7 +535,7 @@
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn6.Width = 110;
+            this.dataGridViewTextBoxColumn6.Width = 115;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -545,26 +547,28 @@
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn7.Width = 80;
+            this.dataGridViewTextBoxColumn7.Width = 90;
             // 
             // dataGridViewTextBoxColumn8
             // 
             this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn8.HeaderText = "Total Score";
             this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             this.dataGridViewTextBoxColumn8.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.dataGridViewTextBoxColumn8.Width = 110;
+            this.dataGridViewTextBoxColumn8.Width = 135;
             // 
             // StatsForm
             // 
+            this.AcceptButton = this.playButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
+            this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(839, 831);
             this.ControlBox = false;
             this.Controls.Add(this.resetStatsButton);
@@ -581,12 +585,12 @@
             this.statsTabControl.ResumeLayout(false);
             this.gameHistoryTab.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gameDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.scoreTotalsTab.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rollsDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scoringDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gameDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rollsDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -606,6 +610,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView rollsDataGridView;
         private System.Windows.Forms.DataGridView scoringDataGridView;
+        private System.Windows.Forms.DataGridView gameDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -617,7 +622,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn foursColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fivesColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sixesColumn;
-        private System.Windows.Forms.DataGridView gameDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;

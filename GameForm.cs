@@ -13,11 +13,6 @@ using System.IO;
 namespace Yahtzee
 {
 
-    //  Maybe make another class -
-    //  GameData(string ID, string dateTime, Dict<int,int> timesRolled, Dict<int,int> turnsHeld, Scoring[] scorecard
-
-    //  Code bonus**
-
     public partial class GameForm : Form
     {
 
@@ -34,14 +29,17 @@ namespace Yahtzee
         //  allDice: Array that stores 5 DiceBlock objects: One for each rollable dice block in Yahtzee
         //  scorecard: Array that stores all 14 Scoring objects: One for each value on a Yahtzee scorecard
         DiceBlock[] allDice = new DiceBlock[5];
-        Scoring[] scorecard = new Scoring[14];
+        Scoring[] scorecard = new Scoring[15];
 
         //  scoreTypes: Array that stores all 14 scores on a Yahtzee scorecard
         string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
                                 "Three of a Kind" , "Four of a Kind", "Full House",
-                                "Small Straight", "Large Straight", "Yahtzee", "Chance", "Total"};
+                                "Small Straight", "Large Straight", "Yahtzee", "Chance", "Bonus", "Total"};
 
         int turn = 1;
+        bool isActive = false;
+        int bonus = 0;
+        bool hasBonus = false;
 
         /*    
          * turnsHeld: Stores each possible dice value as a key, value is the amount of turns the user has held the keyed dice roll
@@ -59,7 +57,8 @@ namespace Yahtzee
             for (int i = 0; i < scorecard.Length; i++)
                 scorecard[i] = new Scoring(0, false);
 
-            // Set the isScored value of the last value in scorecard (the total) to true
+            // Set the isScored value of the last two values in scorecard (the bonus and total) to true because they're always scored
+            scorecard[scorecard.Length - 2].IsScored = true;
             scorecard[scorecard.Length - 1].IsScored = true;
 
             for (int i = 1; i <= 6; i++)
@@ -71,7 +70,7 @@ namespace Yahtzee
 
         private void rollButton_Click(object sender, EventArgs e)
         {
-            //EndGame();
+            isActive = true;
             if (turn > 3)
             {
                 DialogResult dialog = MessageBox.Show("Round over. Please select an area that you would like to score.",
@@ -87,7 +86,6 @@ namespace Yahtzee
 
 
             Random rand = new Random();
-            listBox1.Items.Clear();
 
             for (int i = 0; i < allDice.Length; i++)
             {
@@ -95,25 +93,16 @@ namespace Yahtzee
                 {
                     allDice[i].DiceValue = rand.Next(1, 7);
                     timesRolled[allDice[i].DiceValue]++;
-
-                    listBox1.Items.Add(allDice[i].DiceValue);
-
                 }
 
                 else if (!allDice[i].IsHeld)
                 {
                     allDice[i].DiceValue = rand.Next(1, 7);
                     timesRolled[allDice[i].DiceValue]++;
-
-                    listBox1.Items.Add(allDice[i].DiceValue);
-
                 }
                 else
                 {
                     turnsHeld[allDice[i].DiceValue]++;
-
-                    listBox1.Items.Add(allDice[i].DiceValue);
-
                 }
 
             }
@@ -121,7 +110,8 @@ namespace Yahtzee
             DisplayAllScores();
             turn++;
 
-            //Displays all the dice rolls and how many times each block has been rolled
+            /*  Debugging:
+             * //Displays all the dice rolls and how many times each block has been rolled
             foreach (int diceBlock in timesRolled.Keys)
             {
                 string value = scoreTypes[diceBlock - 1];
@@ -133,6 +123,44 @@ namespace Yahtzee
             {
                 string value = scoreTypes[diceBlock - 1];
                 listBox1.Items.Add(value + ": " + turnsHeld[diceBlock] + " times held in a turn.");
+            }*/
+        }
+
+        private void statsButton_Click(object sender, EventArgs e)
+        {
+            if (isActive)
+            {
+                DialogResult dialog = MessageBox.Show("WARNING: Game in progress. The current game progress will be lost on exit."
+                                      + " Are you sure you want to continue?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (DialogResult.Yes == dialog)
+                {
+                    StatsForm statsForm = new StatsForm();
+                    statsForm.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                StatsForm statsForm = new StatsForm();
+                statsForm.Show();
+                this.Close();
+            }
+        }
+
+        private void exitGameButton_Click(object sender, EventArgs e)
+        {
+            if (isActive)
+            {
+                DialogResult dialog = MessageBox.Show("WARNING: Game in progress. The current game progress will be lost on exit."
+                                      + " Are you sure you want to continue?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (DialogResult.Yes == dialog)
+                    Close();
+            }
+            else
+            {
+                Close();
             }
         }
 
@@ -216,163 +244,6 @@ namespace Yahtzee
 
         }
 
-        private void SetGameData()
-        {
-            StreamReader readGameData = new StreamReader("GameData.txt");
-            int ID = 0;
-
-            while (!readGameData.EndOfStream)
-            {
-                string currentLine = readGameData.ReadLine();
-                string[] fields = currentLine.Split(',');
-
-                if (fields.Length > 1)
-                {
-                    ID = int.Parse(fields[0]);
-                }
-            }
-            readGameData.Close();
-
-
-            ID++;
-
-            StreamWriter writeGameData = new StreamWriter("GameData.txt", true);
-            writeGameData.Write(ID + "," + DateTime.Now.ToString("MM/dd/yyyy") + "," + DateTime.Now.ToString("h:mm tt") + ","
-                                + scorecard[scorecard.Length - 1].ScoreValue);
-
-            for (int i = 0; i < scorecard.Length - 1; i++)
-            {
-                writeGameData.Write("," + scorecard[i].ScoreValue);
-            }
-            writeGameData.WriteLine();
-            writeGameData.Close();
-        }
-
-        private void SetRollData()
-        {
-            StreamReader readRollData = new StreamReader("RollData.txt");
-            //  RollData format: scoreType,TimesRolled,turnsHeld,maxTimesRolled1Game,minTimesRolled1Game
-
-            int count = 1;
-            List<string> valuesList = new List<string>();
-
-            //  scoreType,timesRolled,turnsHeld,maxRolled,minRolled
-            List<Tuple<string,int,int,int,int>> valuesTotalList = new List<Tuple<string,int,int,int,int>>();
-
-            List<int> rolledList = new List<int>();
-            List<int> heldList = new List<int>();
-
-            while (!readRollData.EndOfStream)
-            {
-                string currentLine = readRollData.ReadLine();
-
-                String[] fields = currentLine.Split(',');
-                if (fields.Length > 1)
-                {
-                    string currentScoreType = fields[0];
-                    int currentRolledValue = int.Parse(fields[1]) + timesRolled[count];
-                    int currentHeldValue = int.Parse(fields[2]) + turnsHeld[count];
-                    int maxRolled = int.Parse(fields[3]);
-                    int minRolled = int.Parse(fields[4]);
-
-                    if (timesRolled[count] > maxRolled)
-                        maxRolled = timesRolled[count];
-
-                    if (timesRolled[count] < minRolled || minRolled == 0)
-                        minRolled = timesRolled[count];
-
-
-                    valuesTotalList.Add(new Tuple<string,int,int,int,int>(currentScoreType, currentRolledValue, 
-                                                                          currentHeldValue,maxRolled, minRolled));
-
-                    count++;
-                }      
-            }
-            readRollData.Close();
-
-            StreamWriter writeRollData = new StreamWriter("RollData.txt", false);
-
-            for (int i = 0; i < valuesTotalList.Count; i++)
-            {
-                writeRollData.WriteLine(valuesTotalList[i].Item1 + "," + valuesTotalList[i].Item2 + "," + 
-                                        valuesTotalList[i].Item3 + "," + valuesTotalList[i].Item4 + "," + valuesTotalList[i].Item5);
-            }
-            writeRollData.Close();
-        }
-
-        private void SetScoreData()
-        {
-            StreamReader readScoreData = new StreamReader("ScoreData.txt");
-            //  ScoreData format: scoreType,totalScore,timesScored
-
-            int count = 0;
-            List<string> valuesList = new List<string>();
-            List<int> scoresList = new List<int>();
-            List<int> timesScoredList = new List<int>();
-
-            while (!readScoreData.EndOfStream)
-            {
-                string currentLine = readScoreData.ReadLine();
-
-                string[] fields = currentLine.Split(',');
-                if (fields.Length > 1)
-                {
-                    
-
-                    valuesList.Add(fields[0]); 
-                    scoresList.Add(int.Parse(fields[2]) + scorecard[count].ScoreValue);
-
-                    // If the current score value was counted in this game, increment the timesScored total in the file
-                    if (scorecard[count].ScoreValue > 0)
-                    {
-                        timesScoredList.Add(int.Parse(fields[1]) + 1);
-                    }
-                    else
-                    {
-                        timesScoredList.Add(int.Parse(fields[1]));
-                    }
-
-                    count++;
-                } 
-            }
-            readScoreData.Close();
-
-            StreamWriter writeScoreData = new StreamWriter("ScoreData.txt", false);
-
-            for (int i = 0; i < scoresList.Count; i++)
-            {
-                writeScoreData.WriteLine("{0},{1},{2}", valuesList[i], scoresList[i], timesScoredList[i]);
-            }
-            writeScoreData.Close();
-        }
-
-        private void EndGame()
-        {
-            SetGameData();
-            SetScoreData();
-            SetRollData();
-
-            // Ask the user if they would like to play again
-            DialogResult dialog = MessageBox.Show("Game over. Your total score was " + scorecard[scorecard.Length - 1].ScoreValue + "."
-                                            + " Would you like to play again?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dialog == DialogResult.Yes)
-            {
-                RestartGame();
-            }
-            else
-            {
-                DialogResult dialog2 = MessageBox.Show("Would you like to return to main menu?",
-                                     Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (dialog2 == DialogResult.Yes)
-                {
-                    //Output all data to file before closing the form
-                    Close();
-                }
-            }
-        }
-
         private void RestartGame()
         {
             //  reset all information
@@ -402,13 +273,176 @@ namespace Yahtzee
             scorecard[scorecard.Length - 1].IsScored = true;
 
         }
-
-        private void exitGameButton_Click(object sender, EventArgs e)
+        
+        private void EndGame()
         {
-            //Might have to output data to a file here too
-            // ** IF USER HITS THE X, CODE MIGHT NOT RUN
+            SetGameData();
+            SetScoreData();
+            SetRollData();
+            isActive = false;
 
-            Close();
+            // Ask the user if they would like to play again
+            DialogResult dialog = MessageBox.Show("Game over. Your total score was " + scorecard[scorecard.Length - 1].ScoreValue + "."
+                                            + " Would you like to play again?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialog == DialogResult.Yes)
+            {
+                RestartGame();
+            }
+            else
+            {
+                DialogResult dialog2 = MessageBox.Show("Would you like to return to main menu?",
+                                     Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialog2 == DialogResult.Yes)
+                {
+                    //Output all data to file before closing the form
+                    Close();
+                }
+            }
+        }
+
+        private void SetGameData()
+        {
+            // Format: ID,Date,Time,scores
+            StreamReader readGameData = new StreamReader("GameData.txt");
+            int ID = 0;
+
+            while (!readGameData.EndOfStream)
+            {
+                string currentLine = readGameData.ReadLine();
+                string[] fields = currentLine.Split(',');
+
+                if (fields.Length > 1)
+                {
+                    ID = int.Parse(fields[0]);
+                }
+            }
+            readGameData.Close();
+
+
+            ID++;
+
+            StreamWriter writeGameData = new StreamWriter("GameData.txt", true);
+
+            // Append ID, Date, Time, and Total initially
+            writeGameData.Write(string.Format("{0},{1},{2},{3}",
+                                        ID, 
+                                        DateTime.Now.ToString("MM/dd/yyyy"), 
+                                        DateTime.Now.ToString("h:mm tt"), 
+                                        scorecard[scorecard.Length - 1].ScoreValue));
+
+            //  Append every score value in the loop. Out of the loop, append the bonus score
+            for (int i = 0; i < scorecard.Length - 1; i++)
+            {
+                writeGameData.Write("," + scorecard[i].ScoreValue);
+            }
+
+            // End the line and close the StreamWriter
+            writeGameData.WriteLine();
+            writeGameData.Close();
+        }
+
+        private void SetScoreData()
+        {
+            StreamReader readScoreData = new StreamReader("ScoreData.txt");
+            //  ScoreData format: scoreType,totalScore,timesScored
+
+            int count = 0;
+            List<string> valuesList = new List<string>();
+            List<int> scoresList = new List<int>();
+            List<int> timesScoredList = new List<int>();
+
+            while (!readScoreData.EndOfStream)
+            {
+                string currentLine = readScoreData.ReadLine();
+
+                string[] fields = currentLine.Split(',');
+                if (fields.Length > 1)
+                {
+
+
+                    valuesList.Add(fields[0]);
+                    scoresList.Add(int.Parse(fields[2]) + scorecard[count].ScoreValue);
+
+                    // If the current score value was counted in this game, increment the timesScored total in the file
+                    if (scorecard[count].ScoreValue > 0)
+                    {
+                        timesScoredList.Add(int.Parse(fields[1]) + 1);
+                    }
+                    else
+                    {
+                        timesScoredList.Add(int.Parse(fields[1]));
+                    }
+
+                    count++;
+                }
+            }
+            readScoreData.Close();
+
+            StreamWriter writeScoreData = new StreamWriter("ScoreData.txt", false);
+
+            for (int i = 0; i < scoresList.Count; i++)
+            {
+                writeScoreData.WriteLine("{0},{1},{2}", valuesList[i], timesScoredList[i], scoresList[i]);
+            }
+            writeScoreData.Close();
+        }
+
+        private void SetRollData()
+        {
+            StreamReader readRollData = new StreamReader("RollData.txt");
+            //  RollData format: scoreType,TimesRolled,turnsHeld,maxTimesRolled1Game,minTimesRolled1Game
+
+            int count = 1;
+            List<string> valuesList = new List<string>();
+
+            //  scoreType,timesRolled,turnsHeld,maxRolled,minRolled
+            List<Tuple<string, int, int, int, int>> valuesTotalList = new List<Tuple<string, int, int, int, int>>();
+
+            List<int> rolledList = new List<int>();
+            List<int> heldList = new List<int>();
+
+            while (!readRollData.EndOfStream)
+            {
+                string currentLine = readRollData.ReadLine();
+
+                String[] fields = currentLine.Split(',');
+                if (fields.Length > 1)
+                {
+                    string currentScoreType = fields[0];
+                    int currentRolledValue = int.Parse(fields[1]) + timesRolled[count];
+                    int currentHeldValue = int.Parse(fields[2]) + turnsHeld[count];
+                    int maxRolled = int.Parse(fields[3]);
+                    int minRolled = int.Parse(fields[4]);
+
+                    if (timesRolled[count] > maxRolled)
+                        maxRolled = timesRolled[count];
+
+                    if (timesRolled[count] < minRolled || minRolled == 0)
+                        minRolled = timesRolled[count];
+
+
+                    valuesTotalList.Add(new Tuple<string, int, int, int, int>(currentScoreType, currentRolledValue,
+                                                                          currentHeldValue, maxRolled, minRolled));
+
+                    count++;
+                }
+            }
+            readRollData.Close();
+
+            StreamWriter writeRollData = new StreamWriter("RollData.txt", false);
+
+            for (int i = 0; i < valuesTotalList.Count; i++)
+            {
+                writeRollData.WriteLine(string.Format("{0},{1},{2},{3},{4}",
+                                                 valuesTotalList[i].Item1,
+                                                 valuesTotalList[i].Item2,
+                                                 valuesTotalList[i].Item3,
+                                                 valuesTotalList[i].Item4,
+                                                 valuesTotalList[i].Item5));
+            }
+            writeRollData.Close();
         }
 
         private void DisplayAllScores()
@@ -429,8 +463,9 @@ namespace Yahtzee
                     labels[i].BackColor = Color.White;
                 }    
             }
-        }
 
+        }
+ 
         private void ResetScoreLabels()
         {
             Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
@@ -448,6 +483,61 @@ namespace Yahtzee
 
         }
 
+        private void DisplayBonus(int hoveredValue)
+        {
+            int tempBonus = bonus;
+            tempBonus += hoveredValue;
+
+            if (hasBonus == false)
+            {
+                bonusBGLabel.BackColor = Color.White;
+
+                if (tempBonus >= 63)
+                {
+                    bonusBGLabel.Text = "Bonus (63/63): ";
+                    bonusLabel.Text = "✓";
+                    bonusLabel.Font = new System.Drawing.Font("Yu Gothic UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    bonusLabel.ForeColor = Color.Green;
+                }
+                else
+                {
+                    bonusBGLabel.Text = string.Format("Bonus ({0}/63): ", tempBonus);
+                }
+            }
+        }
+
+        private void ResetBonusLabelDisplay()
+        {
+            bonusBGLabel.BackColor = Color.Gainsboro;
+            
+            if (hasBonus == false)
+            {
+                bonusBGLabel.Text = string.Format("Bonus ({0}/63): ", bonus);
+                bonusLabel.Text = "X";
+                bonusLabel.ForeColor = Color.Red;
+                bonusLabel.Font = bonusLabel.Font = new System.Drawing.Font("Yu Gothic UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+        }
+
+        private void ScoreBonus(int value)
+        {
+            bonus += value;
+
+            if (bonus >= 63)
+            {
+                hasBonus = true;
+                int index = Array.IndexOf(scoreTypes, "Bonus");
+
+                scorecard[index].ScoreValue = 35;
+                scorecard[scorecard.Length - 1].ScoreValue += 35;
+
+                bonusBGLabel.Text = "Bonus (63/63):";
+                bonusLabel.Text = "✓";
+                bonusLabel.Font = new System.Drawing.Font("Yu Gothic UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                bonusLabel.ForeColor = Color.Green;
+                bonusLabel.TextAlign = ContentAlignment.TopCenter;
+            }
+        }
 
         /*
          * 
@@ -465,8 +555,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 acesBGLabel.BackColor = Color.Gainsboro;
                 acesLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int acesTotal = ScoreAces();
+                ScoreBonus(acesTotal);
+
                 acesLabel.Text = acesTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += acesTotal;
@@ -476,7 +569,6 @@ namespace Yahtzee
                 scorecard[index].ScoreValue = acesTotal;
                 scorecard[index].IsScored = true;
 
-                //Reset Textboxes method
 
                 if (IsLastScore())
                 {
@@ -487,10 +579,6 @@ namespace Yahtzee
                     ResetTurn();
                 }
             }
-
-
-            //add stats stuff
-            
         }
 
         private void twosBGLabel_Click(object sender, EventArgs e)
@@ -503,8 +591,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 twosBGLabel.BackColor = Color.Gainsboro;
                 twosLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int twosTotal = ScoreTwos();
+                ScoreBonus(twosTotal);
+
                 twosLabel.Text = twosTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += twosTotal;
@@ -534,8 +625,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 threesBGLabel.BackColor = Color.Gainsboro;
                 threesLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int threesTotal = ScoreThrees();
+                ScoreBonus(threesTotal);
+
                 threesLabel.Text = threesTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += threesTotal;
@@ -566,8 +660,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 foursBGLabel.BackColor = Color.Gainsboro;
                 foursLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int foursTotal = ScoreFours();
+                ScoreBonus(foursTotal);
+
                 foursLabel.Text = foursTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += foursTotal;
@@ -599,8 +696,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 fivesBGLabel.BackColor = Color.Gainsboro;
                 fivesLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int fivesTotal = ScoreFives();
+                ScoreBonus(fivesTotal);
+
                 fivesLabel.Text = fivesTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += fivesTotal;
@@ -631,8 +731,11 @@ namespace Yahtzee
                 Cursor = Cursors.Default;
                 sixesBGLabel.BackColor = Color.Gainsboro;
                 sixesLabel.BackColor = Color.Gold;
+                ResetBonusLabelDisplay();
 
                 int sixesTotal = ScoreSixes();
+                ScoreBonus(sixesTotal);
+                
                 sixesLabel.Text = sixesTotal.ToString();
 
                 scorecard[scorecard.Length - 1].ScoreValue += sixesTotal;
@@ -732,15 +835,13 @@ namespace Yahtzee
                 fullHouseLabel.BackColor = Color.Gold;
 
                 int fullHouseTotal = ScoreFullHouse();
-                fullHouseLabel.Text = fullHouseTotal.ToString();
-
-                scorecard[scorecard.Length - 1].ScoreValue += fullHouseTotal;
-                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
-
                 scorecard[index].ScoreValue = fullHouseTotal;
+                scorecard[scorecard.Length - 1].ScoreValue += fullHouseTotal;
                 scorecard[index].IsScored = true;
 
 
+                fullHouseLabel.Text = fullHouseTotal.ToString();
+                totalLabel.Text = scorecard[scorecard.Length - 1].ScoreValue.ToString();
 
                 if (IsLastScore())
                 {
@@ -915,8 +1016,7 @@ namespace Yahtzee
                 if (dice.DiceValue == 1)
                     score += 1;
             }
-
-
+            
             return score;
         }
 
@@ -956,7 +1056,7 @@ namespace Yahtzee
                     score += 4;
             }
 
-            return score;
+           return score;
         }
 
         private int ScoreFives()
@@ -1070,23 +1170,24 @@ namespace Yahtzee
                 }
             }
 
-            int count = 0;
+            bool hasThree = false;
+            bool hasTwo = false;
 
             foreach (int key in counts.Keys)
             {
                 //If one of the key values has a count of 3
                 if (counts[key] == 3)
-                    count++;
+                    hasThree = true;
             }
 
             foreach (int key in counts.Keys)
             {
-                //If one of the key values has a count of 2 and we've already incremented count in previous foreach loop
-                if (counts[key] == 2 && count == 1)
-                    count++;
+                //If one of the key values has a count of 2
+                if (counts[key] == 2 && hasThree)
+                    hasTwo = true;
             }
 
-            if (count == 2)
+            if (hasThree && hasTwo)
                 score = 25;
 
             return score;
@@ -1269,6 +1370,8 @@ namespace Yahtzee
          * 
          */
 
+        
+
         private void acesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
@@ -1280,12 +1383,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 acesBGLabel.BackColor = Color.White;
                 acesLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreAces());
+                }
             }
         }
 
         private void acesBGLabel_MouseLeave(object sender, EventArgs e)
         {
             acesBGLabel.BackColor = Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Aces");
 
@@ -1313,12 +1422,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 twosBGLabel.BackColor = Color.White;
                 twosLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreTwos());
+                }
             }
         }
 
         private void twosBGLabel_MouseLeave(object sender, EventArgs e)
         {
             twosBGLabel.BackColor= Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Twos");
 
@@ -1346,12 +1461,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 threesBGLabel.BackColor = Color.White;
                 threesLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreThrees());
+                }
             }
         }
 
         private void threesBGLabel_MouseLeave(object sender, EventArgs e)
         {
             threesBGLabel.BackColor = Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Threes");
 
@@ -1379,12 +1500,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 foursBGLabel.BackColor = Color.White;
                 foursLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreFours());
+                }
             }
         }
 
         private void foursBGLabel_MouseLeave(object sender, EventArgs e)
         {
             foursBGLabel.BackColor = Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Fours");
 
@@ -1412,12 +1539,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 fivesBGLabel.BackColor = Color.White;
                 fivesLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreFives());
+                }
             }
         }
 
         private void fivesBGLabel_MouseLeave(object sender, EventArgs e)
         {
             fivesBGLabel.BackColor = Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Fives");
 
@@ -1445,12 +1578,18 @@ namespace Yahtzee
                 Cursor = Cursors.Hand;
                 sixesBGLabel.BackColor = Color.White;
                 sixesLabel.BackColor = Color.White;
+
+                if (hasBonus == false)
+                {
+                    DisplayBonus(ScoreSixes());
+                }
             }
         }
 
         private void sixesBGLabel_MouseLeave(object sender, EventArgs e)
         {
             sixesBGLabel.BackColor = Color.Gainsboro;
+            ResetBonusLabelDisplay();
 
             int index = Array.IndexOf(scoreTypes, "Sixes");
 

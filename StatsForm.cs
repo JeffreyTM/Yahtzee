@@ -23,14 +23,14 @@ namespace Yahtzee
         //  scoreTypes: Array that stores all 14 scores on a Yahtzee scorecard
         string[] scoreTypes = {"Aces", "Twos", "Threes", "Fours", "Fives", "Sixes",
                                 "Three of a Kind" , "Four of a Kind", "Full House",
-                                "Small Straight", "Large Straight", "Yahtzee", "Chance", "Total"};
+                                "Small Straight", "Large Straight", "Yahtzee", "Chance", "Bonus", "Total"};
 
         // int is the game ID, int[] holds all scoreType values and mirrors scoreType order
         Dictionary<int, int[]> gameScoringData = new Dictionary<int, int[]>();
 
 
         int gamesPlayed = 0;
-
+        bool isResetting = false;
 
         private void StatsForm_Load(object sender, EventArgs e)
         {
@@ -56,14 +56,14 @@ namespace Yahtzee
                 if (fields.Length > 1)
                 {
                     string[] dataGridViewValues = new string[] { fields[0], fields[1], fields[2], fields[3] };
-                    int[] scores = new int[14];
+                    int[] scores = new int[15];
 
                     for (int i = 4; i < fields.Length; i++)
                     {
                         scores[i - 4] = int.Parse(fields[i]);
                     }
 
-                    //Total
+                    // Append Total to the last value of scores[]
                     scores[scores.Length - 1] = int.Parse(fields[3]);
 
                     gameScoringData.Add(int.Parse(fields[0]), scores);
@@ -171,18 +171,35 @@ namespace Yahtzee
         private void exitButton_Click(object sender, EventArgs e)
         {
             //  Add confirmation
-
+           /* DialogResult dialog = MessageBox.Show("Are you sure you want to ",
+                                     Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);*/
             Close();
         }
 
         private void resetStatsButton_Click(object sender, EventArgs e)
         {
             //Require extra confirmation (maybe ask user to type "Agree" or something
+            DialogResult dialog = MessageBox.Show("WARNING: All stats will be lost. Are you sure you want to delete all stats?",
+                                     Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            ResetGameData();
-            ResetScoreData();
-            ResetRollData();
-            gamesPlayed = 0;
+            if (dialog == DialogResult.Yes)
+            {
+                isResetting = true;
+                ResetGameData();
+                ResetScoreData();
+                ResetRollData();
+                gamesPlayed = 0;
+
+                gameDataGridView.Rows.Clear();
+                scorecardListBox.Items.Clear();
+                scoringDataGridView.Rows.Clear();
+                rollsDataGridView.Rows.Clear();
+
+                isResetting = false;
+
+
+            }
+           
         }
 
         private void ResetGameData()
@@ -217,7 +234,7 @@ namespace Yahtzee
         private void gameDataGridView_SelectionChanged(object sender, EventArgs e)
         {
 
-            if (gameDataGridView.Rows.Count > 0)
+            if (gameDataGridView.Rows.Count > 0 && isResetting == false)
             {
                 scorecardListBox.Items.Clear();
                 int currentGameIndex = int.Parse(gameDataGridView.SelectedCells[0].Value.ToString());
@@ -236,6 +253,13 @@ namespace Yahtzee
 
             // Add the logic for displaying scores here
         }*/
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            GameForm gameForm = new GameForm();
+            gameForm.Show();
+            this.Close();
         }
     }
 }
