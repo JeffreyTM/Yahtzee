@@ -1,6 +1,6 @@
 ﻿/*
  * 
- * Yahtzee featuring a stats page
+ * Yahtzee game featuring a stats page
  * Coded by Jeffrey Michaels, 2022
  * https://github.com/JeffreyTM/Yahtzee
  * 
