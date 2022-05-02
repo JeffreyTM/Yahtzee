@@ -605,7 +605,7 @@
             // dicePictureBox5
             // 
             this.dicePictureBox5.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox5.Image = global::Yahtzee.Properties.Resources.diceblock1;
+            this.dicePictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("dicePictureBox5.Image")));
             this.dicePictureBox5.Location = new System.Drawing.Point(144, 549);
             this.dicePictureBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox5.Name = "dicePictureBox5";
@@ -620,7 +620,7 @@
             // dicePictureBox2
             // 
             this.dicePictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox2.Image = global::Yahtzee.Properties.Resources.diceblock1;
+            this.dicePictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("dicePictureBox2.Image")));
             this.dicePictureBox2.Location = new System.Drawing.Point(144, 211);
             this.dicePictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox2.Name = "dicePictureBox2";
@@ -635,7 +635,7 @@
             // dicePictureBox4
             // 
             this.dicePictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox4.Image = global::Yahtzee.Properties.Resources.diceblock1;
+            this.dicePictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("dicePictureBox4.Image")));
             this.dicePictureBox4.Location = new System.Drawing.Point(144, 439);
             this.dicePictureBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox4.Name = "dicePictureBox4";
@@ -650,7 +650,7 @@
             // dicePictureBox3
             // 
             this.dicePictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.dicePictureBox3.Image = global::Yahtzee.Properties.Resources.diceblock1;
+            this.dicePictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("dicePictureBox3.Image")));
             this.dicePictureBox3.Location = new System.Drawing.Point(144, 327);
             this.dicePictureBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dicePictureBox3.Name = "dicePictureBox3";

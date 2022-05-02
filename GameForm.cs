@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Threading;
 
 namespace Yahtzee
 {
@@ -78,12 +78,6 @@ namespace Yahtzee
                 return;
             }
 
-            if (turn < 3)
-                roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
-                                                    "or choose a category to score.";
-            else
-                roundLabel.Text = "Turn " + turn + " of 3. Choose which category you would like to score.";
-
 
             Random rand = new Random();
 
@@ -106,7 +100,16 @@ namespace Yahtzee
                 }
 
             }
+
             SetAllDiceImages();
+
+
+            if (turn < 3)
+                roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
+                                                    "or choose a category to score.";
+            else
+                roundLabel.Text = "Turn " + turn + " of 3. Choose which category you would like to score.";
+
             DisplayAllScores();
             turn++;
 
@@ -177,51 +180,64 @@ namespace Yahtzee
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1;
+                        }
                         break;
 
                     case 2:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock2gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock2;
+                        }
                         break;
 
                     case 3:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock3gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock3;
+                        }
                         break;
 
                     case 4:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock4gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock4;
+                        }
                         break;
 
                     case 5:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock5gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock5;
+                        }
                         break;
 
                     case 6:
                         if (allDice[i].IsHeld)
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock6gray;
                         else
+                        {
+                            RollBlock(dicePics[i]);
                             dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock6;
+                        }
                         break;
 
                     case 0:
                         dicePics[i].Image = global::Yahtzee.Properties.Resources.diceblock1;
-                        break;
-
-                    default:
-                        DialogResult dialog = MessageBox.Show("Error: Cannot set dice image.",
-                                     Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
@@ -540,6 +556,28 @@ namespace Yahtzee
                 bonusLabel.ForeColor = Color.Green;
                 bonusLabel.TextAlign = ContentAlignment.TopCenter;
             }
+        }
+
+        private void RollBlock(PictureBox currentDiceBlock)
+        {
+            roundLabel.Text = "Rolling...";
+            Image[] allPics = { global::Yahtzee.Properties.Resources.diceblock1,
+                            global::Yahtzee.Properties.Resources.diceblock2,
+                            global::Yahtzee.Properties.Resources.diceblock3,
+                            global::Yahtzee.Properties.Resources.diceblock4,
+                            global::Yahtzee.Properties.Resources.diceblock5,
+                            global::Yahtzee.Properties.Resources.diceblock6 };
+
+
+            Random random = new Random();
+
+            for (int i = 0; i < 5; i++)
+            {
+
+                currentDiceBlock.Image = allPics[random.Next(allPics.Length)];
+                Task.Delay(150).Wait();
+            }
+
         }
 
         /*
