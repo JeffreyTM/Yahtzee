@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * 
+ * Yahtzee featuring a stats page
+ * Coded by Jeffrey Michaels, 2022
+ * https://github.com/JeffreyTM/Yahtzee
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
