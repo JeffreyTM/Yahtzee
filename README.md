@@ -1,7 +1,7 @@
 # Yahtzee (WIP)
 Coded by Jeffrey Michaels using Windows Form Apps in the .NET framework.
 
-Features: Full playable (and replayable) Yahtzee game with stats collection
+Features: Fully playable (and replayable) Yahtzee game with stats collection
 
 # Getting Started
 From the main menu, click "Play Game" to start a new Yahtzee game or "View Stats" to view your local stats
