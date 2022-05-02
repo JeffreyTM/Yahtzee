@@ -101,10 +101,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\images\dicerollanimation.gif" />
+    <None Include="bin\images\diceblock1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\images\diceroll.gif" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
