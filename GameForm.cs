@@ -303,6 +303,7 @@ namespace Yahtzee
         
         private void EndGame()
         {
+            CheckForFiles();
             SetGameData();
             SetScoreData();
             SetRollData();
@@ -326,6 +327,44 @@ namespace Yahtzee
                     //Output all data to file before closing the form
                     Close();
                 }
+            }
+        }
+
+        private void CheckForFiles()
+        {
+            //  If any file was deleted, reset all stats data
+            if (!File.Exists("GameData.txt") || !File.Exists("ScoreData.txt") || !File.Exists("RollData.txt"))
+            {
+                //  Reset all files and close the streams
+                FileStream fsGameData = File.Create("GameData.txt");
+                FileStream fsScoreData = File.Create("ScoreData.txt");
+                FileStream fsRollData = File.Create("RollData.txt");
+
+                fsGameData.Close();
+                fsScoreData.Close();
+                fsRollData.Close();
+
+                //  GameData does not have a template
+
+                //  Reset RollData template
+                StreamWriter swRollData = new StreamWriter("RollData.txt", false);
+
+                for (int i = 0; i < 6; i++)
+                    swRollData.WriteLine(scoreTypes[i] + ",0,0,0,0");
+
+                swRollData.Close();
+
+                //  Reset ScoreData template
+                StreamWriter swScoreData = new StreamWriter("ScoreData.txt", false);
+
+                for (int i = 0; i < scoreTypes.Length; i++)
+                    swScoreData.WriteLine(scoreTypes[i] + ",0,0");
+
+                swScoreData.Close();
+
+                //  Notify the user that data has been lost
+                DialogResult dialog = MessageBox.Show("Error: All previous data was lost, please do not delete any files. "
+                            + "The current game data has been saved.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -372,6 +411,7 @@ namespace Yahtzee
 
         private void SetScoreData()
         {
+
             StreamReader readScoreData = new StreamReader("ScoreData.txt");
             //  ScoreData format: scoreType,totalScore,timesScored
 

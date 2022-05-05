@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace Yahtzee
 
 {
@@ -27,12 +28,6 @@ namespace Yahtzee
         {
             InitializeComponent();
         }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void launchGameButton_Click(object sender, EventArgs e)
         {

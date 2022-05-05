@@ -19,10 +19,6 @@ using System.IO;
 
 namespace Yahtzee
 {
-
-    // Learn how to get rid of border on tab control
-    // ***ERROR HANDLING FOR IF A FILE IS DELETED
-
     public partial class StatsForm : Form
     {
         public StatsForm()
@@ -44,13 +40,52 @@ namespace Yahtzee
 
         private void StatsForm_Load(object sender, EventArgs e)
         {
+            CheckForFiles();
+
             LoadGameData();
 
-            //  Add logic telling the user they have no games played
-            if (gamesPlayed != 0)
+            if (gamesPlayed == 0)
+            {
+                DialogResult dialog = MessageBox.Show("You currently have no games played and no stats. " +
+                    "Would you like to play a game instead?", Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    GameForm gameForm = new GameForm();
+                    gameForm.Show();
+                    this.Close();
+                }
+            }
+            else
             {
                 LoadScoreData();
                 LoadRollData();
+            }
+        }
+
+        private void CheckForFiles()
+        {
+            if (!File.Exists("GameData.txt") || !File.Exists("ScoreData.txt") || !File.Exists("RollData.txt"))
+            {
+                //  Reset all files and close the streams
+                FileStream fsGameData = File.Create("GameData.txt");
+                FileStream fsScoreData = File.Create("ScoreData.txt");
+                FileStream fsRollData = File.Create("RollData.txt");
+
+                fsGameData.Close();
+                fsScoreData.Close();
+                fsRollData.Close();
+
+                //  GameData does not have a template
+
+                //  Reset RollData template
+                ResetRollData();
+
+                //  Reset ScoreData template
+                ResetScoreData();
+
+                //  Notify the user that data has been lost
+                DialogResult dialog = MessageBox.Show("Error: All previous data was lost, please do not delete any files. "
+                            + "Click 'OK' to continue to Stats.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -101,6 +136,10 @@ namespace Yahtzee
                     string[] dataGridViewValues = { fields[0], fields[1], fields[2], average.ToString() };
                     scoringDataGridView.Rows.Add(dataGridViewValues);
                 }
+                else
+                {
+                    return;
+                }
 
             }
             srScoreData.Close();
@@ -108,7 +147,6 @@ namespace Yahtzee
 
         private void LoadRollData()
         {
-            //this.rollsDataGridView.Columns["Roll Type:"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             StreamReader srRollData = new StreamReader("RollData.txt");
 
             string[] titles = { "Times Rolled:", "Turns Held:", "Average Rolls Per Game:",
