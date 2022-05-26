@@ -78,6 +78,9 @@ namespace Yahtzee
 
         private void rollButton_Click(object sender, EventArgs e)
         {
+            // Event handler that executes after the user clicks rollButton
+            // Rolls all dice, sets the respective images, and displays all potential scores to the user
+
             isActive = true;
             if (turn > 3)
             {
@@ -89,6 +92,7 @@ namespace Yahtzee
 
             Random rand = new Random();
 
+            // Roll all 5 dice and increment the timesRolled or turnsHeld dictionaries
             for (int i = 0; i < allDice.Length; i++)
             {
                 if (allDice[i].DiceValue == 0)
@@ -111,7 +115,7 @@ namespace Yahtzee
 
             SetAllDiceImages();
 
-
+            // Check turn status
             if (turn < 3)
                 roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
                                                     "or choose a category to score.";
@@ -120,25 +124,13 @@ namespace Yahtzee
 
             DisplayAllScores();
             turn++;
-
-            /*  Debugging:
-             * //Displays all the dice rolls and how many times each block has been rolled
-            foreach (int diceBlock in timesRolled.Keys)
-            {
-                string value = scoreTypes[diceBlock - 1];
-                listBox1.Items.Add(value + ": " + timesRolled[diceBlock] + " times rolled.");
-            }
-
-            //Displays all of the dice rolls and how many times they've been held in a turn. Stream to file
-            foreach (int diceBlock in turnsHeld.Keys)
-            {
-                string value = scoreTypes[diceBlock - 1];
-                listBox1.Items.Add(value + ": " + turnsHeld[diceBlock] + " times held in a turn.");
-            }*/
         }
 
         private void statsButton_Click(object sender, EventArgs e)
         {
+            // Event handler that executes after the user clicks statsButton
+
+            // Warn the user that progress will not be saved if they're in the middle of a game
             if (isActive)
             {
                 DialogResult dialog = MessageBox.Show("WARNING: Game in progress. The current game progress will be lost on exit."
@@ -153,6 +145,7 @@ namespace Yahtzee
             }
             else
             {
+                // Open the Stats Form and close the Game Form after user confirmation
                 StatsForm statsForm = new StatsForm();
                 statsForm.Show();
                 this.Close();
@@ -161,6 +154,7 @@ namespace Yahtzee
 
         private void exitGameButton_Click(object sender, EventArgs e)
         {
+            // Warn the user that progress will not be saved if they're in the middle of a game
             if (isActive)
             {
                 DialogResult dialog = MessageBox.Show("WARNING: Game in progress. The current game progress will be lost on exit."
@@ -171,15 +165,22 @@ namespace Yahtzee
             }
             else
             {
+                // Close the Game Form after user confirmation
                 Close();
             }
         }
 
         private void SetAllDiceImages()
         {
+            // This method sets all Picture Boxes to the picture appointed to each dice block's value
+
+            // PictureBox array that stores all of the dice pictures
             PictureBox[] dicePics = { dicePictureBox1, dicePictureBox2, dicePictureBox3, dicePictureBox4, dicePictureBox5 };
 
-
+            /* Iterates through all dice blocks
+             * Sets the image to the gray version of the current value if the dice block is held
+             * Else - calls the RolLBlock method and sets the image to the normal version of the current dice block
+             */
             for (int i = 0; i < allDice.Length; i++)
             {
                 switch (allDice[i].DiceValue)
@@ -254,6 +255,9 @@ namespace Yahtzee
 
         private void ResetTurn()
         {
+            // This method resets all current turn data after the current round is over
+
+            // Reset all current turn data
             foreach (DiceBlock singleDice in allDice)
             {
                 singleDice.DiceValue = 0;
@@ -270,7 +274,9 @@ namespace Yahtzee
 
         private void RestartGame()
         {
-            //  reset all information
+            // This method resets all of the game data if the user chooses to play another game
+
+            // Reset all current game data
             foreach (DiceBlock singleDice in allDice)
             {
                 singleDice.DiceValue = 0;
@@ -303,6 +309,9 @@ namespace Yahtzee
         
         private void EndGame()
         {
+            // This method safely ends the current game after the scorecard is complete
+
+            // Call all data collection methods
             CheckForFiles();
             SetGameData();
             SetScoreData();
@@ -324,7 +333,6 @@ namespace Yahtzee
 
                 if (dialog2 == DialogResult.Yes)
                 {
-                    //Output all data to file before closing the form
                     Close();
                 }
             }
@@ -332,10 +340,12 @@ namespace Yahtzee
 
         private void CheckForFiles()
         {
-            //  If any file was deleted, reset all stats data
+            // This method checks for all the necessary files and resets the stats data if one or more are missing
+
+            // If any file was deleted, reset all stats data
             if (!File.Exists("GameData.txt") || !File.Exists("ScoreData.txt") || !File.Exists("RollData.txt"))
             {
-                //  Reset all files and close the streams
+                // Reset all files and close the streams
                 FileStream fsGameData = File.Create("GameData.txt");
                 FileStream fsScoreData = File.Create("ScoreData.txt");
                 FileStream fsRollData = File.Create("RollData.txt");
@@ -344,9 +354,9 @@ namespace Yahtzee
                 fsScoreData.Close();
                 fsRollData.Close();
 
-                //  GameData does not have a template
+                // GameData does not have a template
 
-                //  Reset RollData template
+                // Reset RollData template
                 StreamWriter swRollData = new StreamWriter("RollData.txt", false);
 
                 for (int i = 0; i < 6; i++)
@@ -354,7 +364,7 @@ namespace Yahtzee
 
                 swRollData.Close();
 
-                //  Reset ScoreData template
+                // Reset ScoreData template
                 StreamWriter swScoreData = new StreamWriter("ScoreData.txt", false);
 
                 for (int i = 0; i < scoreTypes.Length; i++)
@@ -362,7 +372,7 @@ namespace Yahtzee
 
                 swScoreData.Close();
 
-                //  Notify the user that data has been lost
+                // Notify the user that data has been lost
                 DialogResult dialog = MessageBox.Show("Error: All previous data was lost, please do not delete any files. "
                             + "The current game data has been saved.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -370,6 +380,8 @@ namespace Yahtzee
 
         private void SetGameData()
         {
+            // This method sets formatted data of the finished game's info into "GameData.txt"
+
             // Format: ID,Date,Time,scores
             StreamReader readGameData = new StreamReader("GameData.txt");
             int ID = 0;
@@ -411,6 +423,7 @@ namespace Yahtzee
 
         private void SetScoreData()
         {
+            // This method sets formatted data of the finished game's scorecard into "ScoreData.txt"
 
             StreamReader readScoreData = new StreamReader("ScoreData.txt");
             //  ScoreData format: scoreType,totalScore,timesScored
@@ -458,6 +471,8 @@ namespace Yahtzee
 
         private void SetRollData()
         {
+            // This method sets formatted data of the finished game's rolls into "RollData.txt"
+
             StreamReader readRollData = new StreamReader("RollData.txt");
             //  RollData format: scoreType,TimesRolled,turnsHeld,maxTimesRolled1Game,minTimesRolled1Game
 
@@ -514,6 +529,9 @@ namespace Yahtzee
 
         private void DisplayAllScores()
         {
+            // This method displays all potential scores that the user can choose after each roll
+
+            // Create arrays for all labels and all potential score values
             Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
                                            threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
                                            largeStraightLabel, yahtzeeLabel, chanceLabel};
@@ -522,6 +540,7 @@ namespace Yahtzee
                                      ScoreThreeOfAKind(), ScoreFourOfAKind(), ScoreFullHouse(), ScoreSmallStraight(),
                                      ScoreLargeStraight(), ScoreYahtzee(), ScoreChance()};
 
+            // Display all of the potential score values into each respective label
             for (int i = 0; i < labels.Length; i++)
             {
                 if (scorecard[i].IsScored == false)
@@ -535,10 +554,14 @@ namespace Yahtzee
  
         private void ResetScoreLabels()
         {
+            // This method resets the labels that showed the user potential scores in DisplayAllScores()
+
+            // Create array that stores all labels
             Label[] labels = new Label[] { acesLabel, twosLabel, threesLabel, foursLabel, fivesLabel, sixesLabel,
                                            threeOfAKindLabel, fourOfAKindLabel, fullHouseLabel, smallStraightLabel,
                                            largeStraightLabel, yahtzeeLabel, chanceLabel};
 
+            // Reset all labels to blank if they're not already scored
             for (int i = 0; i < labels.Length; i++)
             {
                 if (scorecard[i].IsScored == false)
@@ -608,6 +631,8 @@ namespace Yahtzee
 
         private void RollBlock(PictureBox currentDiceBlock)
         {
+            // This method simulates a rolling 'animation' (WIP)
+
             roundLabel.Text = "Rolling...";
             Image[] allPics = { global::Yahtzee.Properties.Resources.diceblock1,
                             global::Yahtzee.Properties.Resources.diceblock2,
@@ -619,9 +644,11 @@ namespace Yahtzee
 
             Random random = new Random();
 
+            // Display 5 random dice images with a 150ms delay between each iteration
             for (int i = 0; i < 5; i++)
             {
-
+                // Sometimes the delay 'locks up' and doesn't visually show the picture changes
+                // This does not affect the actual dice block image that should be shown
                 currentDiceBlock.Image = allPics[random.Next(allPics.Length)];
                 Task.Delay(150).Wait();
             }
@@ -1087,8 +1114,9 @@ namespace Yahtzee
 
         private bool IsLastScore()
         {
-            //Use to determine if the scorecard is completely full
+            // This method is used to determine if the scorecard is completely full
 
+            // Returns false if just one score hasn't been scored yet
             foreach (Scoring score in scorecard)
             {
                 if (score.IsScored == false)
@@ -1100,6 +1128,8 @@ namespace Yahtzee
 
         private int ScoreAces()
         {
+            // This method returns the value of scoring Twos with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1113,6 +1143,8 @@ namespace Yahtzee
 
         private int ScoreTwos()
         {
+            // This method returns the value of scoring Twos with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1126,6 +1158,8 @@ namespace Yahtzee
 
         private int ScoreThrees()
         {
+            // This method returns the value of scoring Threes with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1139,6 +1173,8 @@ namespace Yahtzee
 
         private int ScoreFours()
         {
+            // This method returns the value of scoring Fours with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1152,6 +1188,8 @@ namespace Yahtzee
 
         private int ScoreFives()
         {
+            // This method returns the value of scoring Fives with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1165,6 +1203,8 @@ namespace Yahtzee
 
         private int ScoreSixes()
         {
+            // This method returns the value of scoring Sixes with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1178,6 +1218,8 @@ namespace Yahtzee
 
         private int ScoreThreeOfAKind()
         {
+            // This method returns the value of scoring Three of a Kind with the current dice block values
+
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
 
@@ -1211,6 +1253,8 @@ namespace Yahtzee
 
         private int ScoreFourOfAKind()
         {
+            // This method returns the value of scoring Four of a Kind with the current dice block values
+
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
 
@@ -1244,6 +1288,8 @@ namespace Yahtzee
 
         private int ScoreFullHouse()
         {
+            // This method returns the value of scoring Full House with the current dice block values
+
             int score = 0;
             Dictionary<int, int> counts = new Dictionary<int, int>();
 
@@ -1287,6 +1333,8 @@ namespace Yahtzee
 
         private int ScoreSmallStraight()
         {
+            // This method returns the value of scoring Small Straight with the current dice block values
+
             int score = 0;
             int[] tempValues = new int[allDice.Length];
 
@@ -1313,6 +1361,8 @@ namespace Yahtzee
 
         private int ScoreLargeStraight()
         {
+            // This method returns the value of scoring Large Straight with the current dice block values
+
             int score = 0;
             int[] tempValues = new int[allDice.Length];
 
@@ -1338,6 +1388,8 @@ namespace Yahtzee
 
         private int ScoreYahtzee()
         {
+            // This method returns the value of scoring Yahtzee with the current dice block values
+
             int score = 50;
 
             for (int i = 0; i < allDice.Length; i++)
@@ -1354,6 +1406,8 @@ namespace Yahtzee
 
         private int ScoreChance()
         {
+            // This method returns the value of scoring Chance with the current dice block values
+
             int score = 0;
 
             foreach (DiceBlock dice in allDice)
@@ -1460,9 +1514,6 @@ namespace Yahtzee
          * ALL LABEL MOUSE ENTER / MOUSE LEAVE EVENT HANDLERS
          * 
          */
-
-        
-
         private void acesBGLabel_MouseEnter(object sender, EventArgs e)
         {
             //Code that allows both labels to act the same was placed in the GameWindow.Designer file
@@ -1939,6 +1990,10 @@ namespace Yahtzee
 
         private void SetCurrentDiceImage(PictureBox pictureBox, int index)
         {
+            // Method that sets the image of the dice picture box that the user's cursor is on
+
+            // If the indexed dice block is held, set the image to the gray gold version
+            // Else, set the image to the normal gold version
             switch (allDice[index].DiceValue)
             {
                 case 1:
@@ -1986,6 +2041,10 @@ namespace Yahtzee
 
         private void LeaveImage(PictureBox pictureBox, int index)
         {
+            // This method resets the image after the user's cursor leaves the picture box
+
+            // If the indexed dice block is held, set the image to the gray version
+            // Else, set the image to the normal version
             switch (allDice[index].DiceValue)
             {
                 case 1:
@@ -2033,6 +2092,8 @@ namespace Yahtzee
 
         private void dicePictureBox1_MouseEnter(object sender, EventArgs e)
         {
+            // Conditional logic prevents the user from changing the image if they're not currently in a round
+            // Same for every event handler
             if (turn > 1)
             {
                 Cursor = Cursors.Hand;
