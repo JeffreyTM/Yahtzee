@@ -44,6 +44,7 @@ namespace Yahtzee
 
             LoadGameData();
 
+            // If the user has no games played, notify them and ask if they'd like to play a game
             if (gamesPlayed == 0)
             {
                 DialogResult dialog = MessageBox.Show("You currently have no games played and no stats. " +
@@ -64,9 +65,12 @@ namespace Yahtzee
 
         private void CheckForFiles()
         {
+            // This method checks for all the necessary files and resets the stats data if one or more are missing
+
+            // If any file was deleted, reset all stats data
             if (!File.Exists("GameData.txt") || !File.Exists("ScoreData.txt") || !File.Exists("RollData.txt"))
             {
-                //  Reset all files and close the streams
+                // Reset all files and close the streams
                 FileStream fsGameData = File.Create("GameData.txt");
                 FileStream fsScoreData = File.Create("ScoreData.txt");
                 FileStream fsRollData = File.Create("RollData.txt");
@@ -75,15 +79,15 @@ namespace Yahtzee
                 fsScoreData.Close();
                 fsRollData.Close();
 
-                //  GameData does not have a template
+                // GameData does not have a template
 
-                //  Reset RollData template
+                // Reset RollData template
                 ResetRollData();
 
-                //  Reset ScoreData template
+                // Reset ScoreData template
                 ResetScoreData();
 
-                //  Notify the user that data has been lost
+                // Notify the user that data has been lost
                 DialogResult dialog = MessageBox.Show("Error: All previous data was lost, please do not delete any files. "
                             + "Click 'OK' to continue to Stats.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -91,6 +95,8 @@ namespace Yahtzee
 
         private void LoadGameData()
         {
+            // This method reads all info on "GameData.txt" and writes it to the gameDataGridView
+
             StreamReader srGameData = new StreamReader("GameData.txt");
             while (!srGameData.EndOfStream)
             {
@@ -123,6 +129,8 @@ namespace Yahtzee
 
         private void LoadScoreData()
         {
+            // This method reads all info on "ScoreData.txt" and writes it to the scoringDataGridView
+
             StreamReader srScoreData = new StreamReader("ScoreData.txt");
             while (!srScoreData.EndOfStream)
             {
@@ -147,6 +155,8 @@ namespace Yahtzee
 
         private void LoadRollData()
         {
+            // This method reads all info on "RollData.txt" and writes it to the rollDataGridView
+
             StreamReader srRollData = new StreamReader("RollData.txt");
 
             string[] titles = { "Times Rolled:", "Turns Held:", "Average Rolls Per Game:",
@@ -226,6 +236,8 @@ namespace Yahtzee
 
         private void resetStatsButton_Click(object sender, EventArgs e)
         {
+            // This method resets the stats files after user confirmation
+
             //Require extra confirmation (maybe ask user to type "Agree" or something
             DialogResult dialog = MessageBox.Show("WARNING: All stats will be lost. Are you sure you want to delete all stats?",
                                      Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -244,10 +256,7 @@ namespace Yahtzee
                 rollsDataGridView.Rows.Clear();
 
                 isResetting = false;
-
-
             }
-           
         }
 
         private void ResetGameData()
@@ -281,6 +290,7 @@ namespace Yahtzee
 
         private void gameDataGridView_SelectionChanged(object sender, EventArgs e)
         {
+            // This method displayed the currently selected game's scores into the scorecardListBox on the Game History tab
 
             if (gameDataGridView.Rows.Count > 0 && isResetting == false)
             {
@@ -294,13 +304,6 @@ namespace Yahtzee
                     scorecardListBox.Items.Add(scoreTypes[i] + ": " + gameScoringData[currentGameIndex][i]);
                 }
             }
-
-
-            /*listBox1.Items.Add("Played on " + dateColumn. + " at "
-                + dateColumn.ToString());*//*
-
-            // Add the logic for displaying scores here
-        }*/
         }
 
         private void playButton_Click(object sender, EventArgs e)
