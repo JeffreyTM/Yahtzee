@@ -2,10 +2,11 @@
 {
     internal class Scoring //Constructor: Scoring(string scoreName, bool isScore, int scoreValue)
     {
-        public Scoring(int scoreValue, bool isScored)
+
+        public Scoring()
         {
-            this.ScoreValue = scoreValue;
-            this.IsScored = isScored;
+            ScoreValue = 0;
+            IsScored = false;
         }
 
         public int ScoreValue { get; set; }

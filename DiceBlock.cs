@@ -1,15 +1,21 @@
-﻿namespace Yahtzee
+﻿using System;
+
+namespace Yahtzee
 {
-    internal class DiceBlock //Constructor: DiceBlock(int diceValue, bool isHeld)
+    internal class DiceBlock : GameForm
     {
-        public DiceBlock(int diceValue, bool isHeld)
+        public DiceBlock()
         {
-            this.DiceValue = diceValue;
-            this.IsHeld = isHeld;
+            DiceValue = 0;
+            IsHeld = false;
         }
 
         public int DiceValue { get; set; }
         public bool IsHeld { get; set; }
-    }
 
+        public void Roll(Random rand)
+        {
+            DiceValue = rand.Next(1, 7);
+        }
+    }
 }

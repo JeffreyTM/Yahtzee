@@ -60,10 +60,10 @@ namespace Yahtzee
         private void GameWindow_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < allDice.Length; i++)
-                allDice[i] = new DiceBlock(0, false);
+                allDice[i] = new DiceBlock();
 
             for (int i = 0; i < scorecard.Length; i++)
-                scorecard[i] = new Scoring(0, false);
+                scorecard[i] = new Scoring();
 
             // Set the isScored value of the last two values in scorecard (the bonus and total) to true because they're always scored
             scorecard[scorecard.Length - 2].IsScored = true;
@@ -80,7 +80,7 @@ namespace Yahtzee
         {
             // Event handler that executes after the user clicks rollButton
             // Rolls all dice, sets the respective images, and displays all potential scores to the user
-
+            //temp: rollButton.Enabled = false;
             isActive = true;
             if (turn > 3)
             {
@@ -91,19 +91,17 @@ namespace Yahtzee
 
 
             Random rand = new Random();
-
             // Roll all 5 dice and increment the timesRolled or turnsHeld dictionaries
             for (int i = 0; i < allDice.Length; i++)
             {
                 if (allDice[i].DiceValue == 0)
                 {
-                    allDice[i].DiceValue = rand.Next(1, 7);
+                    allDice[i].Roll(rand);
                     timesRolled[allDice[i].DiceValue]++;
                 }
-
                 else if (!allDice[i].IsHeld)
                 {
-                    allDice[i].DiceValue = rand.Next(1, 7);
+                    allDice[i].Roll(rand);
                     timesRolled[allDice[i].DiceValue]++;
                 }
                 else
@@ -114,7 +112,6 @@ namespace Yahtzee
             }
 
             SetAllDiceImages();
-
             // Check turn status
             if (turn < 3)
                 roundLabel.Text = "Turn " + turn + " of 3. Choose which blocks you would like to hold and roll again, " +
@@ -183,6 +180,9 @@ namespace Yahtzee
              */
             for (int i = 0; i < allDice.Length; i++)
             {
+                /*if (!allDice[i].IsHeld)
+                    RollBlock(dicePics[i]);
+                dicePics[i].Image = allDice[i].FaceImage;*/
                 switch (allDice[i].DiceValue)
                 {
                     case 1:
@@ -549,7 +549,6 @@ namespace Yahtzee
                     labels[i].BackColor = Color.White;
                 }    
             }
-
         }
  
         private void ResetScoreLabels()
@@ -632,7 +631,6 @@ namespace Yahtzee
         private void RollBlock(PictureBox currentDiceBlock)
         {
             // This method simulates a rolling 'animation' (WIP)
-
             roundLabel.Text = "Rolling...";
             Image[] allPics = { global::Yahtzee.Properties.Resources.diceblock1,
                             global::Yahtzee.Properties.Resources.diceblock2,
@@ -640,7 +638,6 @@ namespace Yahtzee
                             global::Yahtzee.Properties.Resources.diceblock4,
                             global::Yahtzee.Properties.Resources.diceblock5,
                             global::Yahtzee.Properties.Resources.diceblock6 };
-
 
             Random random = new Random();
 
@@ -652,7 +649,6 @@ namespace Yahtzee
                 currentDiceBlock.Image = allPics[random.Next(allPics.Length)];
                 Task.Delay(150).Wait();
             }
-
         }
 
         /*
